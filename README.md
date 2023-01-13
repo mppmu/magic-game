@@ -29,6 +29,7 @@ and communicates with other components of the showcase.
 
 * [Arduino 1.8.19](https://www.arduino.cc/en/software)
 * [SimulIDE-0.4.15-SR10](https://www.simulide.com/p/home.html)
+* [KiCad 6.10](https://www.kicad.org/)
 
 
 
@@ -41,4 +42,18 @@ This project "MAGIC Game - Catch the Gamma!" is under the copyright of the
 It is licensed under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 ![GPLv3 logo](https://www.gnu.org/graphics/gplv3-88x31.png)
+
+
+
+## 3rd Party Material
+
+### Arduino KiCad Library
+
+The [Arduino KiCad library](https://github.com/Alarm-Siren/arduino-kicad-library)
+is under the copyright of [Nicholas Parks Young](https://github.com/Alarm-Siren).
+It is licensed under the
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+No modifications have been made to any of the files.
+
+[![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
 

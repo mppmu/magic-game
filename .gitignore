@@ -2,7 +2,7 @@
 # Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 # Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 # Date: 09 Jan 2023
-# Rev.: 09 Jan 2023
+# Rev.: 13 Jan 2023
 #
 # List of files to be ignored by Git for the MAGIC game project.
 #
@@ -18,4 +18,11 @@
 # Other backup files.
 *.bac
 *.bak
+
+# Backup files of SimulIDE
+*_backup.simu
+
+# KiCad backup and cache files.
+/Board/KiCad/MagicGame/MagicGame-backups/
+/Board/KiCad/MagicGame/fp-info-cache
 
