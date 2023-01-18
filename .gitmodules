@@ -1,0 +1,3 @@
+[submodule "doc/Board/Datasheets"]
+	path = doc/Board/Datasheets
+	url = git@github.com:mppmu/magic-game-datasheets
