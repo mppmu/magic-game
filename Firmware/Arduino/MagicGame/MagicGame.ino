@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 13 Jan 2023
+// Rev.: 24 Jan 2023
 //
 
 
@@ -13,8 +13,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.1"
-#define FW_RELEASEDATE  "13 Jan 2023"
+#define FW_VERSION      "0.0.2"
+#define FW_RELEASEDATE  "24 Jan 2023"
 
 
 
@@ -29,8 +29,9 @@
 #define DEBUG_SERIAL
 
 // Define pins.
-#define PIN_JOYSTICK_X                  A0
-#define PIN_JOYSTICK_Y                  A1
+#define PIN_JOYSTICK_AZ                 A0
+#define PIN_JOYSTICK_EL                 A1
+#define PIN_JOYSTICK_BUTTON             A2
 #define PIN_LED_PROGRESS_1              2
 #define PIN_LED_PROGRESS_2              3
 #define PIN_LED_PROGRESS_3              4
@@ -134,8 +135,9 @@ void setup() {
   pinMode(PIN_SW_LIMIT_ELEVATION_BOTTOM, INPUT_PULLUP);
   pinMode(PIN_SW_LIMIT_ELEVATION_TOP, INPUT_PULLUP);
 
-  // Set up start button.
+  // Set up start buttons.
   pinMode(PIN_BUTTON_START, INPUT_PULLUP);
+  pinMode(PIN_JOYSTICK_BUTTON, INPUT_PULLUP); // Alternative start button on joystick.
 
   // Set up the LEDs.
   pinMode(LED_BUILTIN, OUTPUT);
@@ -170,7 +172,7 @@ void setup() {
 
   // Wait until the start button is pushed.
   Serial.print("\r\nPlease press the start button to continue.");
-  while (digitalRead(PIN_BUTTON_START));
+  waitStart();
   delay(1000);
 }
 
@@ -182,6 +184,14 @@ void loop() {
     initGame();
     playGame();
   }
+}
+
+
+
+// Wait until the start button is pushed.
+int waitStart() {
+  while (digitalRead(PIN_BUTTON_START) && digitalRead(PIN_JOYSTICK_BUTTON));
+  return 0;
 }
 
 
@@ -279,7 +289,7 @@ int initGame() {
   lcd.print("* Push button! *");
 
   // Wait until the start button is pushed.
-  while (digitalRead(PIN_BUTTON_START));
+  waitStart();
 
   // Generate a new gamma position.
   azimuthTarget = random(azimuthLimitMin, azimuthLimitMax);
@@ -335,8 +345,8 @@ int playGame() {
     }
 
     // Get the values from the analog joystick.
-    stepsAzimuth = analog2steps(analogRead(PIN_JOYSTICK_X));
-    stepsElevation = analog2steps(analogRead(PIN_JOYSTICK_Y));
+    stepsAzimuth = analog2steps(analogRead(PIN_JOYSTICK_AZ));
+    stepsElevation = analog2steps(analogRead(PIN_JOYSTICK_EL));
 
     // DEBUG: Show steps for azimuth and elevation.
     #ifdef DEBUG_MODE_0
@@ -495,7 +505,7 @@ int evalGameResult() {
   }
 
   // Wait until the start button is pushed.
-  while (digitalRead(PIN_BUTTON_START));
+  waitStart();
   delay(1000);
 
   return ret;
