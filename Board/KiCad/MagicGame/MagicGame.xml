@@ -2,14 +2,14 @@
 <export version="E">
   <design>
     <source>P:\Magic\Misc\Magic Game\magic-game\Board\KiCad\MagicGame\MagicGame.kicad_sch</source>
-    <date>25.01.2023 19:09:12</date>
+    <date>27.01.2023 16:21:38</date>
     <tool>Eeschema (6.0.10)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title>MAGIC Game - Catch the Gamma!</title>
         <company>Max Planck Institute for Physics</company>
         <rev>1.0</rev>
-        <date>25 Jan 2023</date>
+        <date>27 Jan 2023</date>
         <source>MagicGame.kicad_sch</source>
         <comment number="1" value="Author: M. Fras, Electronics Division"/>
         <comment number="2" value=""/>
@@ -803,11 +803,7 @@
     <comp ref="J8">
       <value>Switch</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -816,11 +812,7 @@
     <comp ref="J9">
       <value>Switch</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -829,11 +821,7 @@
     <comp ref="J10">
       <value>Switch</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -842,11 +830,7 @@
     <comp ref="J11">
       <value>Switch</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -855,11 +839,7 @@
     <comp ref="J12">
       <value>Switch</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -868,11 +848,7 @@
     <comp ref="J13">
       <value>Switch</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -899,11 +875,7 @@
     <comp ref="J16">
       <value>CON_+5V</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -912,11 +884,7 @@
     <comp ref="J17">
       <value>CON_+3.3V</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
-      <fields>
-        <field name="Type">PTS645SL43SMTR92 LFS</field>
-      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
-      <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1705,7 +1673,7 @@
       <tstamps>a7ca25d0-5b00-4457-880d-9aeacc96c5cf</tstamps>
     </comp>
     <comp ref="U2">
-      <value>ULN2003A</value>
+      <value>ULN2003AD</value>
       <footprint>Package_SO:SOIC-16W_5.3x10.2mm_P1.27mm</footprint>
       <datasheet>http://www.ti.com/lit/ds/symlink/uln2003a.pdf</datasheet>
       <libsource lib="Transistor_Array" part="ULN2003A" description="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
@@ -1715,7 +1683,7 @@
       <tstamps>2962a09b-7a4f-411c-878e-019587dd5152</tstamps>
     </comp>
     <comp ref="U3">
-      <value>ULN2003A</value>
+      <value>ULN2003AD</value>
       <footprint>Package_SO:SOIC-16W_5.3x10.2mm_P1.27mm</footprint>
       <datasheet>http://www.ti.com/lit/ds/symlink/uln2003a.pdf</datasheet>
       <libsource lib="Transistor_Array" part="ULN2003A" description="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
