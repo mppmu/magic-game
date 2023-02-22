@@ -2,7 +2,7 @@
 # Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 # Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 # Date: 09 Jan 2023
-# Rev.: 07 Feb 2023
+# Rev.: 20 Feb 2023
 #
 # List of files to be ignored by Git for the MAGIC game project.
 #
@@ -27,8 +27,10 @@
 /Board/KiCad/JoystickAdapter/fp-info-cache
 /Board/KiCad/JoystickAdapter/#auto_saved_files#
 /Board/KiCad/JoystickAdapter/_autosave-JoystickAdapter.kicad_sch
+/Board/KiCad/JoystickAdapter/_autosave-JoystickAdapter.kicad_pcb
 /Board/KiCad/MagicGame/MagicGame-backups/
 /Board/KiCad/MagicGame/fp-info-cache
 /Board/KiCad/MagicGame/#auto_saved_files#
 /Board/KiCad/MagicGame/_autosave-MagicGame.kicad_sch
+/Board/KiCad/MagicGame/_autosave-MagicGame.kicad_pcb
 

@@ -2,14 +2,14 @@
 <export version="E">
   <design>
     <source>P:\Magic\Misc\Magic Game\magic-game\Board\KiCad\MagicGame\MagicGame.kicad_sch</source>
-    <date>27.01.2023 16:21:38</date>
-    <tool>Eeschema (6.0.10)</tool>
+    <date>21.02.2023 15:06:30</date>
+    <tool>Eeschema (7.0.0)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title>MAGIC Game - Catch the Gamma!</title>
         <company>Max Planck Institute for Physics</company>
-        <rev>1.0</rev>
-        <date>27 Jan 2023</date>
+        <rev>1.1</rev>
+        <date>21 Feb 2023</date>
         <source>MagicGame.kicad_sch</source>
         <comment number="1" value="Author: M. Fras, Electronics Division"/>
         <comment number="2" value=""/>
@@ -30,6 +30,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7ecbc19e-c72c-45dc-a134-4e4326b1512e</tstamps>
     </comp>
@@ -39,6 +41,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5ed443bf-5313-4123-b35d-69c5568a1809</tstamps>
     </comp>
@@ -52,6 +56,8 @@
       <property name="Type" value="LMK212AB7106KG-T "/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>172e7063-fb61-4e8e-8c18-92502ea1a4d7</tstamps>
     </comp>
@@ -61,6 +67,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8495b13d-2eb7-40aa-aa49-b5752287a6ee</tstamps>
     </comp>
@@ -74,6 +82,8 @@
       <property name="Type" value="LMK212AB7106KG-T "/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>97300e4e-c036-4825-a2f7-7c7f69330e89</tstamps>
     </comp>
@@ -83,6 +93,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>24b4f9eb-48d7-45ab-94f9-06a5f68a8361</tstamps>
     </comp>
@@ -96,6 +108,8 @@
       <property name="Type" value="LMK212AB7106KG-T "/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1563ebc7-a0c3-498b-aeb4-0b26cc71b56e</tstamps>
     </comp>
@@ -105,6 +119,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1669cae3-303c-4965-ab70-367396ef291e</tstamps>
     </comp>
@@ -118,6 +134,8 @@
       <property name="Type" value="LMK212AB7106KG-T "/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>3a2ec083-da78-4715-b52a-e80fd42ada68</tstamps>
     </comp>
@@ -127,6 +145,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a4b405b4-7cdf-4e29-89d6-295905ae650c</tstamps>
     </comp>
@@ -136,6 +156,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>29cdf22e-e37b-428e-a702-af44abd2eb39</tstamps>
     </comp>
@@ -145,6 +167,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>259366c0-2777-40ed-8091-45fc9be2dadc</tstamps>
     </comp>
@@ -158,6 +182,8 @@
       <property name="Type" value="LMK212AB7106KG-T"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f5c3ccc8-1bf2-43dd-8239-d68c85d15de8</tstamps>
     </comp>
@@ -167,6 +193,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e162f7a5-5aad-45e3-9fb6-e661e2a78556</tstamps>
     </comp>
@@ -180,6 +208,8 @@
       <property name="Type" value="LMK212AB7106KG-T"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5ad1ba05-2ca4-4c62-82c1-764838bb8ddc</tstamps>
     </comp>
@@ -189,6 +219,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ce00d1a7-3983-46b0-8561-5ff0153c71a3</tstamps>
     </comp>
@@ -202,6 +234,8 @@
       <property name="Type" value="LMK212AB7106KG-T"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>defa0926-b7d9-454d-9fef-a007ed3f1a36</tstamps>
     </comp>
@@ -211,6 +245,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d864ddb7-752f-4fc9-bf04-10af3b3561f4</tstamps>
     </comp>
@@ -224,6 +260,8 @@
       <property name="Type" value="LMK212AB7106KG-T"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ede4cb5b-ceeb-402a-b3e9-bf4f5806b229</tstamps>
     </comp>
@@ -233,6 +271,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>beac3899-adbf-407d-bdfc-1695104d1db7</tstamps>
     </comp>
@@ -242,6 +282,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>86d1465b-b239-421a-b4a6-bf82555e8c97</tstamps>
     </comp>
@@ -251,6 +293,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>42f651e7-9594-4df1-beb7-d6ebf97d9d26</tstamps>
     </comp>
@@ -264,6 +308,8 @@
       <property name="Type" value="LMK212AB7106KG-T"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>cb397d6b-65e3-44e4-ada9-2281d2d963b2</tstamps>
     </comp>
@@ -277,6 +323,8 @@
       <property name="Type" value="LMK212AB7106KG-T"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0a877dbd-dee5-42e8-9d32-ae6b4474c105</tstamps>
     </comp>
@@ -290,6 +338,8 @@
       <property name="Type" value="LMK212AB7106KG-T "/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6fd3a65d-f22e-4f33-ab84-f5afc4a9d886</tstamps>
     </comp>
@@ -303,6 +353,8 @@
       <property name="Type" value="LMK212AB7106KG-T "/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d19f5557-21c3-45e2-897e-e151b48b87a5</tstamps>
     </comp>
@@ -312,6 +364,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>abc35d82-c60b-4720-96a8-599bd5102a5f</tstamps>
     </comp>
@@ -321,6 +375,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>67564046-6851-429f-b953-ac432e46342e</tstamps>
     </comp>
@@ -330,6 +386,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>37a814de-1c4f-40fe-a344-f73a07752af6</tstamps>
     </comp>
@@ -343,6 +401,8 @@
       <property name="Type" value="LY T67K-J2M1-26-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a5e4416c-0e6d-411c-93f8-5007677b98c0</tstamps>
     </comp>
@@ -356,6 +416,8 @@
       <property name="Type" value="LY T67K-J2M1-26-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8743bd50-f54a-45a3-929f-c656eb48975e</tstamps>
     </comp>
@@ -369,6 +431,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>adbabe63-aec8-4af4-902e-f1ee942e224a</tstamps>
     </comp>
@@ -382,6 +446,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>18cbed16-3299-4f3e-a9fc-0634b47de773</tstamps>
     </comp>
@@ -395,6 +461,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e1ec1167-4a8b-42a7-81cc-c500ce1b394d</tstamps>
     </comp>
@@ -408,6 +476,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>fdf265d5-5f93-496c-863b-caad06f424ea</tstamps>
     </comp>
@@ -421,6 +491,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>03bb8460-cf2b-44b4-813c-6dc90595ab02</tstamps>
     </comp>
@@ -434,6 +506,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5b28d879-2c94-4f0a-b87c-a15ca88dad5c</tstamps>
     </comp>
@@ -447,6 +521,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>658cf193-763e-4543-9e11-e6332231c6e1</tstamps>
     </comp>
@@ -460,6 +536,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>dc0b6949-3183-4c86-b07b-0f0c24c78a6e</tstamps>
     </comp>
@@ -473,6 +551,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5fe5f5cb-691d-468d-b48b-eb0170d27730</tstamps>
     </comp>
@@ -486,6 +566,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>15696f49-b54d-44bf-9bdb-7115736b681e</tstamps>
     </comp>
@@ -499,6 +581,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4ad4e71a-80cb-47e8-ba28-5e3b9f97eb5e</tstamps>
     </comp>
@@ -512,6 +596,8 @@
       <property name="Type" value="LS T67K-J1L2-1-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>312b84aa-90aa-4e56-aa05-657fbbf719eb</tstamps>
     </comp>
@@ -525,6 +611,8 @@
       <property name="Type" value="LS T67K-J1L2-1-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>776707a8-e7b9-4266-a25f-b19c1b2cb561</tstamps>
     </comp>
@@ -538,6 +626,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0aa931e7-bc34-4876-b148-c797dca07b19</tstamps>
     </comp>
@@ -551,6 +641,8 @@
       <property name="Type" value="LS T67K-J1L2-1-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0e9b3ebb-5994-486d-9b79-ca4b944c18ca</tstamps>
     </comp>
@@ -564,6 +656,8 @@
       <property name="Type" value="LS T67K-J1L2-1-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>564553a1-d2fa-4c2a-9c26-5b397750b972</tstamps>
     </comp>
@@ -577,6 +671,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>aed7b40a-268c-427c-af5a-54fed85e7476</tstamps>
     </comp>
@@ -590,6 +686,8 @@
       <property name="Type" value="LS T67K-J1L2-1-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4ea6d828-96c3-4479-9bc8-a159b8d92478</tstamps>
     </comp>
@@ -603,6 +701,8 @@
       <property name="Type" value="LY T67K-J2M1-26-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1d1cd311-2649-4fdb-a2aa-6bff64cc7fe1</tstamps>
     </comp>
@@ -616,6 +716,8 @@
       <property name="Type" value="LO T67K-K1L2-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e51a6959-568d-4e5f-9fae-bd117c12aef4</tstamps>
     </comp>
@@ -629,6 +731,8 @@
       <property name="Type" value="LA T676-L1M2-24-0-2-R18-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4876710e-a88b-4a2a-853a-2578a8e38536</tstamps>
     </comp>
@@ -642,6 +746,8 @@
       <property name="Type" value="LW T673-P1S1-FK0PM0"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>134ef4fa-d48c-42ed-be99-840cd6db0f81</tstamps>
     </comp>
@@ -655,15 +761,19 @@
       <property name="Type" value="LB T673-J2L1-34-0-2-R18-Z-HE"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2518f1df-1c55-44c9-aec3-9a781fd2a46c</tstamps>
     </comp>
     <comp ref="F1">
-      <value>MF-MSMF050-2</value>
+      <value>MF-MSMF125-2</value>
       <footprint>Fuse:Fuse_1812_4532Metric</footprint>
       <libsource lib="Device" part="Polyfuse" description="Resettable fuse, polymeric positive temperature coefficient"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resettable fuse, polymeric positive temperature coefficient"/>
+      <property name="ki_keywords" value="resettable fuse PTC PPTC polyfuse polyswitch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>57dda7e9-b83d-4e0c-9e06-ace9b5fd11e2</tstamps>
     </comp>
@@ -673,6 +783,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>3f9e493f-cd05-4a2e-8a68-532af412d9bd</tstamps>
     </comp>
@@ -682,6 +794,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>bbb20afe-278d-415d-a3a9-93e8f0b584a2</tstamps>
     </comp>
@@ -691,6 +805,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a018bd02-9b3c-445c-9f5a-73246736b627</tstamps>
     </comp>
@@ -700,6 +816,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>cd4dff06-51e5-4f9f-b9c8-7117c8ec5a9c</tstamps>
     </comp>
@@ -709,6 +827,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>65ad767a-65d0-426d-914e-7a614e291172</tstamps>
     </comp>
@@ -718,6 +838,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d44918d7-1d81-44f7-a27d-526ad056e216</tstamps>
     </comp>
@@ -731,6 +853,8 @@
       <property name="Type" value="USB2066-05-RBHM-15-STB-00-01-A"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="USB Mini Type B connector"/>
+      <property name="ki_keywords" value="connector USB mini"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>37775d93-c4be-4489-9678-c4695e9c8fec</tstamps>
     </comp>
@@ -740,6 +864,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x04" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ced878bc-cd0f-4a25-b682-77c8f2e7f20e</tstamps>
     </comp>
@@ -749,6 +875,8 @@
       <libsource lib="Connector_Generic" part="Conn_02x03_Odd_Even" description="Generic connector, double row, 02x03, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, double row, 02x03, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>32adf936-142f-4658-93b5-91271f40b789</tstamps>
     </comp>
@@ -762,6 +890,8 @@
       <property name="Type" value="B5B-XH-A"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b5e964c3-b65d-46cb-bc5f-6770e488098c</tstamps>
     </comp>
@@ -775,6 +905,8 @@
       <property name="Type" value="B5B-XH-A"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a94efcc4-5a9c-4e5c-ae52-40ae6ad953bd</tstamps>
     </comp>
@@ -788,6 +920,8 @@
       <property name="Type" value="Joy-IT KY-023 Joystick Module"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>90b4646d-c0c0-4618-81e3-a28d9b43a703</tstamps>
     </comp>
@@ -797,6 +931,8 @@
       <libsource lib="Connector_Generic" part="Conn_02x15_Odd_Even" description="Generic connector, double row, 02x15, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, double row, 02x15, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>09f16f08-9717-4db1-b5f1-248124ec9b0b</tstamps>
     </comp>
@@ -806,6 +942,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ddd7ef47-3cb2-4219-a687-6c7c2faed75b</tstamps>
     </comp>
@@ -815,6 +953,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>33929d4b-ceb2-4050-8c05-8bd01d07b49c</tstamps>
     </comp>
@@ -824,6 +964,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>bd7c3e36-ba92-4e40-b84e-d0765369c34b</tstamps>
     </comp>
@@ -833,6 +975,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>831d1a5c-97a3-4a32-b511-ea66e2e7447e</tstamps>
     </comp>
@@ -842,6 +986,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>af17d97b-2ebe-4823-aefd-0e71f81e6d23</tstamps>
     </comp>
@@ -851,6 +997,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>30ec3da2-2e04-4a78-97ba-fc3ba98c1543</tstamps>
     </comp>
@@ -860,6 +1008,8 @@
       <libsource lib="Connector_Generic" part="Conn_02x02_Odd_Even" description="Generic connector, double row, 02x02, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, double row, 02x02, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>909d8a7d-656a-453d-86f7-a7d54e591769</tstamps>
     </comp>
@@ -869,6 +1019,8 @@
       <libsource lib="Connector_Generic" part="Conn_02x02_Odd_Even" description="Generic connector, double row, 02x02, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, double row, 02x02, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>563dff8f-91ff-440c-aa5d-b1365776e9c3</tstamps>
     </comp>
@@ -878,6 +1030,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>94200729-4386-49aa-8ba4-956b0f487f7f</tstamps>
     </comp>
@@ -887,6 +1041,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>60b65935-e7c4-47ac-a669-a603cb7b6fa3</tstamps>
     </comp>
@@ -896,6 +1052,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>437c42ee-fb8e-4940-89c0-5d08bcfdaf63</tstamps>
     </comp>
@@ -905,6 +1063,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c68b30c0-f6a4-4800-8ebd-5d8d68fcedae</tstamps>
     </comp>
@@ -914,6 +1074,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>20ca62bd-ec90-43b6-bb59-3cbe88e5710c</tstamps>
     </comp>
@@ -923,6 +1085,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4f5fa94c-db2c-4dec-bc42-454ba37f941f</tstamps>
     </comp>
@@ -932,6 +1096,8 @@
       <libsource lib="Jumper" part="Jumper_3_Open" description="Jumper, 3-pole, both open"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Jumper, 3-pole, both open"/>
+      <property name="ki_keywords" value="Jumper SPDT"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>616143a2-62a7-466b-8f80-c9eaeec65bda</tstamps>
     </comp>
@@ -941,6 +1107,8 @@
       <libsource lib="Device" part="L" description="Inductor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Inductor"/>
+      <property name="ki_keywords" value="inductor choke coil reactor magnetic"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>be01696d-b75b-4519-91b7-08e35fdebb6f</tstamps>
     </comp>
@@ -950,6 +1118,8 @@
       <libsource lib="Device" part="L" description="Inductor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Inductor"/>
+      <property name="ki_keywords" value="inductor choke coil reactor magnetic"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1fdcee57-6f2f-47b8-b67b-60b62ef702e9</tstamps>
     </comp>
@@ -960,6 +1130,8 @@
       <libsource lib="Transistor_BJT" part="2N3904" description="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="ki_keywords" value="NPN Transistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f14d21be-aa1f-4921-87dd-a99f5a64f33e</tstamps>
     </comp>
@@ -969,6 +1141,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8d6e3296-ed8a-4550-9e6c-08259b12d3e5</tstamps>
     </comp>
@@ -978,6 +1152,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>cfb9a6a9-8ad9-4f75-86d7-a8ff6af29b97</tstamps>
     </comp>
@@ -987,6 +1163,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>fea891e5-0e05-437f-b2e0-4547b425f262</tstamps>
     </comp>
@@ -996,6 +1174,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7d6e452a-d5e6-47a7-86e1-37daeec53bdb</tstamps>
     </comp>
@@ -1005,6 +1185,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>fffb4e0a-d37a-43de-8afb-89f8bdf01d49</tstamps>
     </comp>
@@ -1014,6 +1196,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7fd812a5-61cf-4d87-821f-38f636e67151</tstamps>
     </comp>
@@ -1023,6 +1207,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d8ecde34-4b0e-4e2b-a00b-d6e0c3cfcc37</tstamps>
     </comp>
@@ -1032,6 +1218,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>40c576d9-04a9-4f5e-8d68-cef96c0984b3</tstamps>
     </comp>
@@ -1041,6 +1229,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>81d9782e-8ad3-4480-81a7-3d0c6930ca67</tstamps>
     </comp>
@@ -1050,6 +1240,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>084e9cbc-c2bf-41e9-9c27-d2b62760f252</tstamps>
     </comp>
@@ -1059,6 +1251,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>915f0dd7-475d-4911-97ba-ba70f8a0caa3</tstamps>
     </comp>
@@ -1068,6 +1262,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>64c21e83-ae19-456c-baa7-bef966f200b3</tstamps>
     </comp>
@@ -1077,6 +1273,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c9664f52-52d1-4933-8165-b89941065f1d</tstamps>
     </comp>
@@ -1086,6 +1284,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d45306ff-0717-4f77-8356-3b8ca23e04cf</tstamps>
     </comp>
@@ -1095,6 +1295,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c8f26d08-86a2-4eb1-b31a-53f4316e96b9</tstamps>
     </comp>
@@ -1104,6 +1306,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6bb7a165-a568-4fee-aa5d-abac291b154a</tstamps>
     </comp>
@@ -1113,6 +1317,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5d41d44a-bed0-439e-9db2-377a001546cc</tstamps>
     </comp>
@@ -1122,6 +1328,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f99aa5e1-39d3-438b-bed6-03771e8dc432</tstamps>
     </comp>
@@ -1131,6 +1339,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0e3eade7-dd34-48c4-8eb4-8238eacde7bf</tstamps>
     </comp>
@@ -1140,6 +1350,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f3f5451c-164b-4bb7-bbca-063ee0703c86</tstamps>
     </comp>
@@ -1149,6 +1361,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>67b80e6c-86b3-4469-80d3-05f6b590de3d</tstamps>
     </comp>
@@ -1158,6 +1372,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1de0cc26-62cc-43dc-8980-30974564fbc5</tstamps>
     </comp>
@@ -1167,6 +1383,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8318eedf-3725-4af0-a093-c7f218841c5c</tstamps>
     </comp>
@@ -1176,6 +1394,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7940f6a7-5ad2-42e4-90ea-625da71a72ef</tstamps>
     </comp>
@@ -1185,6 +1405,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>26a370f9-2b1e-444d-8e70-95ef3d628e97</tstamps>
     </comp>
@@ -1194,6 +1416,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>df0f9617-85d6-4491-9c06-c3dc0549c557</tstamps>
     </comp>
@@ -1203,6 +1427,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c294a107-353b-48d8-a7f7-a1f7d30677a3</tstamps>
     </comp>
@@ -1212,6 +1438,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>754a9b5a-2c8c-48d9-acc8-0ce30a697231</tstamps>
     </comp>
@@ -1221,6 +1449,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>578e4327-835f-4dd5-b6a2-5e5689e957c4</tstamps>
     </comp>
@@ -1230,6 +1460,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>84568d96-b90b-4201-a8bf-8130bc5091a8</tstamps>
     </comp>
@@ -1239,6 +1471,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d99f9c7b-51d3-4baf-9239-a121f360a12a</tstamps>
     </comp>
@@ -1248,6 +1482,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d3642871-723d-4d40-965b-6f4cfbf0cc95</tstamps>
     </comp>
@@ -1257,6 +1493,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a508ee54-be7b-4837-bd0e-6d5c7dbd8624</tstamps>
     </comp>
@@ -1266,6 +1504,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>65e08e9e-87c5-4245-890f-7a9fe1805af4</tstamps>
     </comp>
@@ -1275,6 +1515,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>bb105c42-de09-4982-8e19-e73b910ee33a</tstamps>
     </comp>
@@ -1284,6 +1526,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>70d4ee36-19ab-4fc9-a2b5-65a1d1f2aad5</tstamps>
     </comp>
@@ -1293,6 +1537,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>90399142-2603-4fbc-94d9-81febd82499f</tstamps>
     </comp>
@@ -1302,6 +1548,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6efe1db6-eb15-4074-ad07-753ebf70d458</tstamps>
     </comp>
@@ -1311,6 +1559,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d5a4e567-1868-499f-ae59-dc945ed88c65</tstamps>
     </comp>
@@ -1320,24 +1570,30 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>9335f3f8-9663-43c4-905f-da5d78939389</tstamps>
     </comp>
     <comp ref="R41">
-      <value>220</value>
+      <value>1k5</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6d1fe203-dc7f-4cab-8260-96ef34e66bc9</tstamps>
     </comp>
     <comp ref="R42">
-      <value>220</value>
+      <value>1k5</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>fa553e82-f00f-4103-a0a5-3604dc37d2f5</tstamps>
     </comp>
@@ -1347,6 +1603,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>016ede62-fc76-4d35-bc2f-ae13a6041867</tstamps>
     </comp>
@@ -1356,6 +1614,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e5b7b373-f4b4-4c45-abf3-d836dc8952de</tstamps>
     </comp>
@@ -1365,6 +1625,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>33e26245-fb61-4aa5-9065-6566951e3efa</tstamps>
     </comp>
@@ -1374,6 +1636,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>da56a106-886b-418f-ae4d-25a29633e632</tstamps>
     </comp>
@@ -1383,6 +1647,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4114accd-b1dc-4351-9e74-4a9e9f2643df</tstamps>
     </comp>
@@ -1392,6 +1658,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7333a9cf-ac0a-4492-8f20-418771fdb7d6</tstamps>
     </comp>
@@ -1401,6 +1669,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>437b8953-7314-49b2-b0f0-acb37bad9372</tstamps>
     </comp>
@@ -1410,6 +1680,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>52602cd6-af8a-48c3-a06b-c0e5bf0a8673</tstamps>
     </comp>
@@ -1419,6 +1691,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>dca917a5-b16a-4abe-9aac-816b7fce7c76</tstamps>
     </comp>
@@ -1428,6 +1702,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b87d4bed-10d6-42a7-b636-b2e6a584b885</tstamps>
     </comp>
@@ -1437,6 +1713,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f7ce7429-5af1-4652-97a1-0a6ea39f1936</tstamps>
     </comp>
@@ -1446,6 +1724,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6d079ee7-97ad-46d9-83ed-afe3a15f966e</tstamps>
     </comp>
@@ -1455,24 +1735,30 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>634ae000-639b-4a24-9a11-85bfaa7edb0e</tstamps>
     </comp>
     <comp ref="R56">
-      <value>220</value>
+      <value>1k5</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d061e372-fdbb-42d5-969b-c916d6e13875</tstamps>
     </comp>
     <comp ref="R57">
-      <value>220</value>
+      <value>1k5</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e2622125-318f-435b-9a2f-cedb54881e10</tstamps>
     </comp>
@@ -1482,6 +1768,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d9023655-acb5-472b-ad02-51a9f57d64a4</tstamps>
     </comp>
@@ -1491,6 +1779,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f9033a32-d6b6-45a1-9d3d-85c069f13815</tstamps>
     </comp>
@@ -1500,6 +1790,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>98b728c6-e4a3-472d-a324-a4f08f8bc90c</tstamps>
     </comp>
@@ -1509,6 +1801,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8e2a9813-6148-4873-92ff-c0ec9b646680</tstamps>
     </comp>
@@ -1518,6 +1812,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0d258710-06d2-4881-968f-4c97829e6432</tstamps>
     </comp>
@@ -1527,6 +1823,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e5a2279a-497f-44d6-bc75-7155254d88de</tstamps>
     </comp>
@@ -1536,33 +1834,74 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>35651513-78dc-41cf-9e02-95752eba344c</tstamps>
     </comp>
     <comp ref="R65">
+      <value>DNP</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>03dd1d54-1cfd-4e0f-8802-4869b4f0a1c1</tstamps>
+    </comp>
+    <comp ref="R66">
       <value>0</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>03dd1d54-1cfd-4e0f-8802-4869b4f0a1c1</tstamps>
+      <tstamps>add7b7b8-df56-49e9-a1f2-b4a217ba5fbd</tstamps>
     </comp>
-    <comp ref="R66">
+    <comp ref="R67">
+      <value>0</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f2bf983d-dcb3-4c55-8ca8-2f1f3b0ffb07</tstamps>
+    </comp>
+    <comp ref="R68">
+      <value>DNP</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e1b5cbba-18e8-4e0c-9cd3-e18ae88669e3</tstamps>
+    </comp>
+    <comp ref="R69">
       <value>4k7</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>85236d62-7d5f-449a-afbf-f94a3bd2872c</tstamps>
     </comp>
-    <comp ref="R67">
+    <comp ref="R70">
       <value>470</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>06f9ab65-4d22-4264-8984-2348fbb0828f</tstamps>
     </comp>
@@ -1572,6 +1911,8 @@
       <libsource lib="Device" part="Varistor" description="Voltage dependent resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Voltage dependent resistor"/>
+      <property name="ki_keywords" value="VDR resistance"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ae224037-65dd-428c-b3a6-b1af1a2655d8</tstamps>
     </comp>
@@ -1581,6 +1922,8 @@
       <libsource lib="Device" part="Varistor" description="Voltage dependent resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Voltage dependent resistor"/>
+      <property name="ki_keywords" value="VDR resistance"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6a3525f4-0dcf-4981-a8be-63fa4dbb7b58</tstamps>
     </comp>
@@ -1594,6 +1937,8 @@
       <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Push button switch, generic, two pins"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6028bd7d-9451-425a-a094-863d87617c69</tstamps>
     </comp>
@@ -1607,6 +1952,8 @@
       <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Push button switch, generic, two pins"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>50c5e523-4742-4231-92de-f3280cdbef31</tstamps>
     </comp>
@@ -1620,6 +1967,8 @@
       <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Push button switch, generic, two pins"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>330a2543-e87c-4dce-bf86-84d6a72ebe64</tstamps>
     </comp>
@@ -1633,6 +1982,8 @@
       <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Push button switch, generic, two pins"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d725bf54-190b-4f94-ae71-508f0e778365</tstamps>
     </comp>
@@ -1646,6 +1997,8 @@
       <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Push button switch, generic, two pins"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5c5582b0-2566-4770-89ce-b5ec6712be6e</tstamps>
     </comp>
@@ -1659,6 +2012,8 @@
       <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Push button switch, generic, two pins"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>8789de53-348d-436b-a5b2-513cc5e3dd8c</tstamps>
     </comp>
@@ -1669,6 +2024,8 @@
       <libsource lib="Interface_USB" part="FT232RL" description="USB to Serial Interface, SSOP-28"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="USB to Serial Interface, SSOP-28"/>
+      <property name="ki_keywords" value="FTDI USB Serial"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a7ca25d0-5b00-4457-880d-9aeacc96c5cf</tstamps>
     </comp>
@@ -1679,6 +2036,8 @@
       <libsource lib="Transistor_Array" part="ULN2003A" description="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
+      <property name="ki_keywords" value="darlington transistor array"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2962a09b-7a4f-411c-878e-019587dd5152</tstamps>
     </comp>
@@ -1689,6 +2048,8 @@
       <libsource lib="Transistor_Array" part="ULN2003A" description="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
+      <property name="ki_keywords" value="darlington transistor array"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d4d33e59-7565-4467-b787-9101f746bed2</tstamps>
     </comp>
@@ -1696,24 +2057,138 @@
       <value>LCD-016N002L</value>
       <footprint>Display:LCD-016N002L</footprint>
       <datasheet>http://www.vishay.com/docs/37299/37299.pdf</datasheet>
+      <fields>
+        <field name="Type">DEM16215-CYR22</field>
+      </fields>
       <libsource lib="Display_Character" part="LCD-016N002L" description="LCD 12x2, 8 bit parallel bus, 3V or 5V VDD"/>
+      <property name="Type" value="DEM16215-CYR22"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="LCD 12x2, 8 bit parallel bus, 3V or 5V VDD"/>
+      <property name="ki_keywords" value="display LCD dot-matrix"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>23e62cbc-cbc0-444e-b1f4-557aebbd3e15</tstamps>
     </comp>
     <comp ref="XA1">
       <value>Arduino_Mega2560_Shield</value>
-      <footprint>_Arduino:Arduino_Mega2560_Shield</footprint>
+      <footprint>Arduino_Library:Arduino_Mega2560_Shield</footprint>
       <datasheet>https://docs.arduino.cc/hardware/mega-2560</datasheet>
-      <libsource lib="_Arduino" part="Arduino_Mega2560_Shield" description="Shield for Arduino Mega 2560"/>
+      <libsource lib="Arduino_Library" part="Arduino_Mega2560_Shield" description="Shield for Arduino Mega 2560"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="MagicGame.kicad_sch"/>
+      <property name="ki_description" value="Shield for Arduino Mega 2560"/>
+      <property name="ki_keywords" value="Arduino MPU Shield"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>900b335b-74e3-46b1-920f-7a74f02c3dbb</tstamps>
     </comp>
   </components>
   <libparts>
+    <libpart lib="Arduino_Library" part="Arduino_Mega2560_Shield">
+      <description>Shield for Arduino Mega 2560</description>
+      <docs>https://docs.arduino.cc/hardware/mega-2560</docs>
+      <footprints>
+        <fp>Arduino_Mega2560_Shield</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">XA</field>
+        <field name="Value">Arduino_Mega2560_Shield</field>
+        <field name="Footprint">Arduino_Library:Arduino_Mega2560_Shield</field>
+        <field name="Datasheet">https://docs.arduino.cc/hardware/mega-2560</field>
+      </fields>
+      <pins>
+        <pin num="3V3" name="3.3V" type="power_out"/>
+        <pin num="5V1" name="5V" type="power_in"/>
+        <pin num="5V2" name="SPI_5V" type="power_in"/>
+        <pin num="5V3" name="5V" type="power_in"/>
+        <pin num="5V4" name="5V" type="power_in"/>
+        <pin num="A0" name="A0" type="bidirectional"/>
+        <pin num="A1" name="A1" type="bidirectional"/>
+        <pin num="A2" name="A2" type="bidirectional"/>
+        <pin num="A3" name="A3" type="bidirectional"/>
+        <pin num="A4" name="A4" type="bidirectional"/>
+        <pin num="A5" name="A5" type="bidirectional"/>
+        <pin num="A6" name="A6" type="bidirectional"/>
+        <pin num="A7" name="A7" type="bidirectional"/>
+        <pin num="A8" name="A8" type="bidirectional"/>
+        <pin num="A9" name="A9" type="bidirectional"/>
+        <pin num="A10" name="A10" type="bidirectional"/>
+        <pin num="A11" name="A11" type="bidirectional"/>
+        <pin num="A12" name="A12" type="bidirectional"/>
+        <pin num="A13" name="A13" type="bidirectional"/>
+        <pin num="A14" name="A14" type="bidirectional"/>
+        <pin num="A15" name="A15" type="bidirectional"/>
+        <pin num="AREF" name="AREF" type="input"/>
+        <pin num="D0" name="D0_RX0" type="bidirectional"/>
+        <pin num="D1" name="D1_TX0" type="bidirectional"/>
+        <pin num="D2" name="D2_INT0" type="bidirectional"/>
+        <pin num="D3" name="D3_INT1" type="bidirectional"/>
+        <pin num="D4" name="D4" type="bidirectional"/>
+        <pin num="D5" name="D5" type="bidirectional"/>
+        <pin num="D6" name="D6" type="bidirectional"/>
+        <pin num="D7" name="D7" type="bidirectional"/>
+        <pin num="D8" name="D8" type="bidirectional"/>
+        <pin num="D9" name="D9" type="bidirectional"/>
+        <pin num="D10" name="D10" type="bidirectional"/>
+        <pin num="D11" name="D11" type="bidirectional"/>
+        <pin num="D12" name="D12" type="bidirectional"/>
+        <pin num="D13" name="D13" type="bidirectional"/>
+        <pin num="D14" name="D14_TX3" type="bidirectional"/>
+        <pin num="D15" name="D15_RX3" type="bidirectional"/>
+        <pin num="D16" name="D16_TX2" type="bidirectional"/>
+        <pin num="D17" name="D17_RX2" type="bidirectional"/>
+        <pin num="D18" name="D18_TX1" type="bidirectional"/>
+        <pin num="D19" name="D19_RX1" type="bidirectional"/>
+        <pin num="D20" name="D20_SDA" type="bidirectional"/>
+        <pin num="D21" name="D21_SCL" type="bidirectional"/>
+        <pin num="D22" name="D22" type="bidirectional"/>
+        <pin num="D23" name="D23" type="bidirectional"/>
+        <pin num="D24" name="D24" type="bidirectional"/>
+        <pin num="D25" name="D25" type="bidirectional"/>
+        <pin num="D26" name="D26" type="bidirectional"/>
+        <pin num="D27" name="D27" type="bidirectional"/>
+        <pin num="D28" name="D28" type="bidirectional"/>
+        <pin num="D29" name="D29" type="bidirectional"/>
+        <pin num="D30" name="D30" type="bidirectional"/>
+        <pin num="D31" name="D31" type="bidirectional"/>
+        <pin num="D32" name="D32" type="bidirectional"/>
+        <pin num="D33" name="D33" type="bidirectional"/>
+        <pin num="D34" name="D34" type="bidirectional"/>
+        <pin num="D35" name="D35" type="bidirectional"/>
+        <pin num="D36" name="D36" type="bidirectional"/>
+        <pin num="D37" name="D37" type="bidirectional"/>
+        <pin num="D38" name="D38" type="bidirectional"/>
+        <pin num="D39" name="D39" type="bidirectional"/>
+        <pin num="D40" name="D40" type="bidirectional"/>
+        <pin num="D41" name="D41" type="bidirectional"/>
+        <pin num="D42" name="D42" type="bidirectional"/>
+        <pin num="D43" name="D43" type="bidirectional"/>
+        <pin num="D44" name="D44" type="bidirectional"/>
+        <pin num="D45" name="D45" type="bidirectional"/>
+        <pin num="D46" name="D46" type="bidirectional"/>
+        <pin num="D47" name="D47" type="bidirectional"/>
+        <pin num="D48" name="D48" type="bidirectional"/>
+        <pin num="D49" name="D49" type="bidirectional"/>
+        <pin num="D50" name="D50" type="bidirectional"/>
+        <pin num="D51" name="D51" type="bidirectional"/>
+        <pin num="D52" name="D52" type="bidirectional"/>
+        <pin num="D53" name="D53_SS" type="bidirectional"/>
+        <pin num="GND1" name="GND" type="power_in"/>
+        <pin num="GND2" name="GND" type="power_in"/>
+        <pin num="GND3" name="GND" type="power_in"/>
+        <pin num="GND4" name="SPI_GND" type="power_in"/>
+        <pin num="GND5" name="GND" type="power_in"/>
+        <pin num="GND6" name="GND" type="power_in"/>
+        <pin num="IORF" name="IOREF" type="output"/>
+        <pin num="MISO" name="SPI_MISO" type="input"/>
+        <pin num="MOSI" name="SPI_MOSI" type="output"/>
+        <pin num="RST1" name="RESET" type="open_collector"/>
+        <pin num="RST2" name="SPI_RESET" type="open_collector"/>
+        <pin num="SCK" name="SPI_SCK" type="output"/>
+        <pin num="SCL" name="SCL" type="bidirectional"/>
+        <pin num="SDA" name="SDA" type="bidirectional"/>
+        <pin num="VIN" name="VIN" type="power_in"/>
+      </pins>
+    </libpart>
     <libpart lib="Connector" part="USB_B_Mini">
       <description>USB Mini Type B connector</description>
       <docs>~</docs>
@@ -2144,146 +2619,40 @@
         <pin num="3" name="C" type="passive"/>
       </pins>
     </libpart>
-    <libpart lib="_Arduino" part="Arduino_Mega2560_Shield">
-      <description>Shield for Arduino Mega 2560</description>
-      <docs>https://docs.arduino.cc/hardware/mega-2560</docs>
-      <footprints>
-        <fp>Arduino_Mega2560_Shield</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">XA</field>
-        <field name="Value">Arduino_Mega2560_Shield</field>
-        <field name="Footprint">Arduino_Library:Arduino_Mega2560_Shield</field>
-        <field name="Datasheet">https://docs.arduino.cc/hardware/mega-2560</field>
-      </fields>
-      <pins>
-        <pin num="3V3" name="3.3V" type="power_out"/>
-        <pin num="5V1" name="5V" type="power_in"/>
-        <pin num="5V2" name="SPI_5V" type="power_in"/>
-        <pin num="5V3" name="5V" type="power_in"/>
-        <pin num="5V4" name="5V" type="power_in"/>
-        <pin num="A0" name="A0" type="bidirectional"/>
-        <pin num="A1" name="A1" type="bidirectional"/>
-        <pin num="A2" name="A2" type="bidirectional"/>
-        <pin num="A3" name="A3" type="bidirectional"/>
-        <pin num="A4" name="A4" type="bidirectional"/>
-        <pin num="A5" name="A5" type="bidirectional"/>
-        <pin num="A6" name="A6" type="bidirectional"/>
-        <pin num="A7" name="A7" type="bidirectional"/>
-        <pin num="A8" name="A8" type="bidirectional"/>
-        <pin num="A9" name="A9" type="bidirectional"/>
-        <pin num="A10" name="A10" type="bidirectional"/>
-        <pin num="A11" name="A11" type="bidirectional"/>
-        <pin num="A12" name="A12" type="bidirectional"/>
-        <pin num="A13" name="A13" type="bidirectional"/>
-        <pin num="A14" name="A14" type="bidirectional"/>
-        <pin num="A15" name="A15" type="bidirectional"/>
-        <pin num="AREF" name="AREF" type="input"/>
-        <pin num="D0" name="D0_RX0" type="bidirectional"/>
-        <pin num="D1" name="D1_TX0" type="bidirectional"/>
-        <pin num="D2" name="D2_INT0" type="bidirectional"/>
-        <pin num="D3" name="D3_INT1" type="bidirectional"/>
-        <pin num="D4" name="D4" type="bidirectional"/>
-        <pin num="D5" name="D5" type="bidirectional"/>
-        <pin num="D6" name="D6" type="bidirectional"/>
-        <pin num="D7" name="D7" type="bidirectional"/>
-        <pin num="D8" name="D8" type="bidirectional"/>
-        <pin num="D9" name="D9" type="bidirectional"/>
-        <pin num="D10" name="D10" type="bidirectional"/>
-        <pin num="D11" name="D11" type="bidirectional"/>
-        <pin num="D12" name="D12" type="bidirectional"/>
-        <pin num="D13" name="D13" type="bidirectional"/>
-        <pin num="D14" name="D14_TX3" type="bidirectional"/>
-        <pin num="D15" name="D15_RX3" type="bidirectional"/>
-        <pin num="D16" name="D16_TX2" type="bidirectional"/>
-        <pin num="D17" name="D17_RX2" type="bidirectional"/>
-        <pin num="D18" name="D18_TX1" type="bidirectional"/>
-        <pin num="D19" name="D19_RX1" type="bidirectional"/>
-        <pin num="D20" name="D20_SDA" type="bidirectional"/>
-        <pin num="D21" name="D21_SCL" type="bidirectional"/>
-        <pin num="D22" name="D22" type="bidirectional"/>
-        <pin num="D23" name="D23" type="bidirectional"/>
-        <pin num="D24" name="D24" type="bidirectional"/>
-        <pin num="D25" name="D25" type="bidirectional"/>
-        <pin num="D26" name="D26" type="bidirectional"/>
-        <pin num="D27" name="D27" type="bidirectional"/>
-        <pin num="D28" name="D28" type="bidirectional"/>
-        <pin num="D29" name="D29" type="bidirectional"/>
-        <pin num="D30" name="D30" type="bidirectional"/>
-        <pin num="D31" name="D31" type="bidirectional"/>
-        <pin num="D32" name="D32" type="bidirectional"/>
-        <pin num="D33" name="D33" type="bidirectional"/>
-        <pin num="D34" name="D34" type="bidirectional"/>
-        <pin num="D35" name="D35" type="bidirectional"/>
-        <pin num="D36" name="D36" type="bidirectional"/>
-        <pin num="D37" name="D37" type="bidirectional"/>
-        <pin num="D38" name="D38" type="bidirectional"/>
-        <pin num="D39" name="D39" type="bidirectional"/>
-        <pin num="D40" name="D40" type="bidirectional"/>
-        <pin num="D41" name="D41" type="bidirectional"/>
-        <pin num="D42" name="D42" type="bidirectional"/>
-        <pin num="D43" name="D43" type="bidirectional"/>
-        <pin num="D44" name="D44" type="bidirectional"/>
-        <pin num="D45" name="D45" type="bidirectional"/>
-        <pin num="D46" name="D46" type="bidirectional"/>
-        <pin num="D47" name="D47" type="bidirectional"/>
-        <pin num="D48" name="D48" type="bidirectional"/>
-        <pin num="D49" name="D49" type="bidirectional"/>
-        <pin num="D50" name="D50" type="bidirectional"/>
-        <pin num="D51" name="D51" type="bidirectional"/>
-        <pin num="D52" name="D52" type="bidirectional"/>
-        <pin num="D53" name="D53_SS" type="bidirectional"/>
-        <pin num="GND1" name="GND" type="power_in"/>
-        <pin num="GND2" name="GND" type="power_in"/>
-        <pin num="GND3" name="GND" type="power_in"/>
-        <pin num="GND4" name="SPI_GND" type="power_in"/>
-        <pin num="GND5" name="GND" type="power_in"/>
-        <pin num="GND6" name="GND" type="power_in"/>
-        <pin num="IORF" name="IOREF" type="output"/>
-        <pin num="MISO" name="SPI_MISO" type="input"/>
-        <pin num="MOSI" name="SPI_MOSI" type="output"/>
-        <pin num="RST1" name="RESET" type="open_collector"/>
-        <pin num="RST2" name="SPI_RESET" type="open_collector"/>
-        <pin num="SCK" name="SPI_SCK" type="output"/>
-        <pin num="SCL" name="SCL" type="bidirectional"/>
-        <pin num="SDA" name="SDA" type="bidirectional"/>
-        <pin num="VIN" name="VIN" type="power_in"/>
-      </pins>
-    </libpart>
   </libparts>
   <libraries>
+    <library logical="Arduino_Library">
+      <uri>P:\Magic\Misc\Magic Game\magic-game\Board\KiCad\MagicGame/Lib/Arduino/arduino.kicad_sym</uri>
+    </library>
     <library logical="Connector">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Connector.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Connector.kicad_sym</uri>
     </library>
     <library logical="Connector_Generic">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Connector_Generic.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Connector_Generic.kicad_sym</uri>
     </library>
     <library logical="Device">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Device.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Device.kicad_sym</uri>
     </library>
     <library logical="Display_Character">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Display_Character.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Display_Character.kicad_sym</uri>
     </library>
     <library logical="Interface_USB">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Interface_USB.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Interface_USB.kicad_sym</uri>
     </library>
     <library logical="Jumper">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Jumper.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Jumper.kicad_sym</uri>
     </library>
     <library logical="Mechanical">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Mechanical.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Mechanical.kicad_sym</uri>
     </library>
     <library logical="Switch">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Switch.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Switch.kicad_sym</uri>
     </library>
     <library logical="Transistor_Array">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Transistor_Array.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Transistor_Array.kicad_sym</uri>
     </library>
     <library logical="Transistor_BJT">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Transistor_BJT.kicad_sym</uri>
-    </library>
-    <library logical="_Arduino">
-      <uri>P:\Magic\Misc\Magic Game\magic-game\Board\KiCad\MagicGame/Lib/Arduino/arduino.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Transistor_BJT.kicad_sym</uri>
     </library>
   </libraries>
   <nets>
@@ -2341,6 +2710,7 @@
       <node ref="R62" pin="2" pintype="passive"/>
       <node ref="R63" pin="2" pintype="passive"/>
       <node ref="R65" pin="2" pintype="passive"/>
+      <node ref="R67" pin="2" pintype="passive"/>
       <node ref="R7" pin="2" pintype="passive"/>
       <node ref="U1" pin="4" pinfunction="VCCIO" pintype="power_in"/>
       <node ref="U2" pin="9" pinfunction="COM" pintype="passive"/>
@@ -2566,12 +2936,12 @@
       <node ref="R15" pin="1" pintype="passive"/>
     </net>
     <net code="29" name="LCD_BL">
-      <node ref="R67" pin="2" pintype="passive"/>
-      <node ref="XA1" pin="A15" pinfunction="A15" pintype="bidirectional"/>
+      <node ref="R70" pin="2" pintype="passive"/>
+      <node ref="XA1" pin="D9" pinfunction="D9" pintype="bidirectional"/>
     </net>
     <net code="30" name="LCD_CO">
-      <node ref="R66" pin="2" pintype="passive"/>
-      <node ref="XA1" pin="A14" pinfunction="A14" pintype="bidirectional"/>
+      <node ref="R69" pin="2" pintype="passive"/>
+      <node ref="XA1" pin="D8" pinfunction="D8" pintype="bidirectional"/>
     </net>
     <net code="31" name="LCD_D4">
       <node ref="U4" pin="11" pinfunction="DB4" pintype="bidirectional"/>
@@ -2694,505 +3064,512 @@
       <node ref="U3" pin="4" pinfunction="I4" pintype="input"/>
       <node ref="XA1" pin="D37" pinfunction="D37" pintype="bidirectional"/>
     </net>
-    <net code="58" name="Net-(C21-Pad2)">
-      <node ref="C21" pin="2" pintype="passive"/>
-      <node ref="C23" pin="2" pintype="passive"/>
-      <node ref="R66" pin="1" pintype="passive"/>
-      <node ref="U4" pin="3" pinfunction="VO" pintype="input"/>
-    </net>
-    <net code="59" name="Net-(C22-Pad2)">
-      <node ref="C22" pin="2" pintype="passive"/>
-      <node ref="C24" pin="2" pintype="passive"/>
-      <node ref="Q1" pin="2" pinfunction="B" pintype="passive"/>
-      <node ref="R67" pin="1" pintype="passive"/>
-    </net>
-    <net code="60" name="Net-(D1-Pad1)">
+    <net code="58" name="Net-(D1-K)">
       <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R10" pin="2" pintype="passive"/>
     </net>
-    <net code="61" name="Net-(D2-Pad1)">
+    <net code="59" name="Net-(D2-K)">
       <node ref="D2" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R11" pin="2" pintype="passive"/>
     </net>
-    <net code="62" name="Net-(D3-Pad1)">
+    <net code="60" name="Net-(D3-K)">
       <node ref="D3" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R18" pin="2" pintype="passive"/>
     </net>
-    <net code="63" name="Net-(D4-Pad1)">
+    <net code="61" name="Net-(D4-K)">
       <node ref="D4" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R19" pin="2" pintype="passive"/>
     </net>
-    <net code="64" name="Net-(D5-Pad1)">
+    <net code="62" name="Net-(D5-K)">
       <node ref="D5" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R20" pin="2" pintype="passive"/>
     </net>
-    <net code="65" name="Net-(D6-Pad1)">
+    <net code="63" name="Net-(D6-K)">
       <node ref="D6" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R21" pin="2" pintype="passive"/>
     </net>
-    <net code="66" name="Net-(D7-Pad1)">
+    <net code="64" name="Net-(D7-K)">
       <node ref="D7" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R22" pin="2" pintype="passive"/>
     </net>
-    <net code="67" name="Net-(D8-Pad1)">
+    <net code="65" name="Net-(D8-K)">
       <node ref="D8" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R23" pin="2" pintype="passive"/>
     </net>
-    <net code="68" name="Net-(D9-Pad1)">
+    <net code="66" name="Net-(D9-K)">
       <node ref="D9" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R24" pin="2" pintype="passive"/>
     </net>
-    <net code="69" name="Net-(D10-Pad1)">
+    <net code="67" name="Net-(D10-K)">
       <node ref="D10" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R25" pin="2" pintype="passive"/>
     </net>
-    <net code="70" name="Net-(D11-Pad1)">
+    <net code="68" name="Net-(D11-K)">
       <node ref="D11" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R28" pin="2" pintype="passive"/>
     </net>
-    <net code="71" name="Net-(D12-Pad1)">
+    <net code="69" name="Net-(D12-K)">
       <node ref="D12" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R29" pin="2" pintype="passive"/>
     </net>
-    <net code="72" name="Net-(D13-Pad1)">
+    <net code="70" name="Net-(D13-K)">
       <node ref="D13" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R30" pin="2" pintype="passive"/>
     </net>
-    <net code="73" name="Net-(D14-Pad1)">
+    <net code="71" name="Net-(D14-K)">
       <node ref="D14" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R31" pin="2" pintype="passive"/>
     </net>
-    <net code="74" name="Net-(D15-Pad1)">
+    <net code="72" name="Net-(D15-K)">
       <node ref="D15" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R32" pin="2" pintype="passive"/>
     </net>
-    <net code="75" name="Net-(D16-Pad1)">
+    <net code="73" name="Net-(D16-K)">
       <node ref="D16" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R33" pin="2" pintype="passive"/>
     </net>
-    <net code="76" name="Net-(D17-Pad1)">
+    <net code="74" name="Net-(D17-K)">
       <node ref="D17" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R34" pin="2" pintype="passive"/>
     </net>
-    <net code="77" name="Net-(D18-Pad1)">
+    <net code="75" name="Net-(D18-K)">
       <node ref="D18" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R35" pin="2" pintype="passive"/>
     </net>
-    <net code="78" name="Net-(D19-Pad1)">
+    <net code="76" name="Net-(D19-K)">
       <node ref="D19" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R36" pin="2" pintype="passive"/>
     </net>
-    <net code="79" name="Net-(D20-Pad1)">
+    <net code="77" name="Net-(D20-K)">
       <node ref="D20" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R37" pin="2" pintype="passive"/>
     </net>
-    <net code="80" name="Net-(D21-Pad1)">
+    <net code="78" name="Net-(D21-K)">
       <node ref="D21" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R38" pin="2" pintype="passive"/>
     </net>
-    <net code="81" name="Net-(D22-Pad1)">
+    <net code="79" name="Net-(D22-K)">
       <node ref="D22" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R39" pin="2" pintype="passive"/>
     </net>
-    <net code="82" name="Net-(D23-Pad1)">
+    <net code="80" name="Net-(D23-K)">
       <node ref="D23" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R40" pin="2" pintype="passive"/>
     </net>
-    <net code="83" name="Net-(D24-Pad1)">
+    <net code="81" name="Net-(D24-K)">
       <node ref="D24" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R41" pin="2" pintype="passive"/>
     </net>
-    <net code="84" name="Net-(D25-Pad1)">
+    <net code="82" name="Net-(D25-K)">
       <node ref="D25" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R42" pin="2" pintype="passive"/>
     </net>
-    <net code="85" name="Net-(J2-Pad4)">
+    <net code="83" name="Net-(J2-Pin_4)">
       <node ref="J2" pin="4" pinfunction="Pin_4" pintype="passive"/>
       <node ref="R12" pin="1" pintype="passive"/>
     </net>
-    <net code="86" name="Net-(J4-Pad2)">
+    <net code="84" name="Net-(J4-Pin_2)">
       <node ref="J4" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R21" pin="1" pintype="passive"/>
       <node ref="U2" pin="13" pinfunction="O4" pintype="open_collector"/>
     </net>
-    <net code="87" name="Net-(J4-Pad3)">
+    <net code="85" name="Net-(J4-Pin_3)">
       <node ref="J4" pin="3" pinfunction="Pin_3" pintype="passive"/>
       <node ref="R20" pin="1" pintype="passive"/>
       <node ref="U2" pin="14" pinfunction="O3" pintype="open_collector"/>
     </net>
-    <net code="88" name="Net-(J4-Pad4)">
+    <net code="86" name="Net-(J4-Pin_4)">
       <node ref="J4" pin="4" pinfunction="Pin_4" pintype="passive"/>
       <node ref="R19" pin="1" pintype="passive"/>
       <node ref="U2" pin="15" pinfunction="O2" pintype="open_collector"/>
     </net>
-    <net code="89" name="Net-(J4-Pad5)">
+    <net code="87" name="Net-(J4-Pin_5)">
       <node ref="J4" pin="5" pinfunction="Pin_5" pintype="passive"/>
       <node ref="R18" pin="1" pintype="passive"/>
       <node ref="U2" pin="16" pinfunction="O1" pintype="open_collector"/>
     </net>
-    <net code="90" name="Net-(J5-Pad2)">
+    <net code="88" name="Net-(J5-Pin_2)">
       <node ref="J5" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R25" pin="1" pintype="passive"/>
       <node ref="U3" pin="13" pinfunction="O4" pintype="open_collector"/>
     </net>
-    <net code="91" name="Net-(J5-Pad3)">
+    <net code="89" name="Net-(J5-Pin_3)">
       <node ref="J5" pin="3" pinfunction="Pin_3" pintype="passive"/>
       <node ref="R24" pin="1" pintype="passive"/>
       <node ref="U3" pin="14" pinfunction="O3" pintype="open_collector"/>
     </net>
-    <net code="92" name="Net-(J5-Pad4)">
+    <net code="90" name="Net-(J5-Pin_4)">
       <node ref="J5" pin="4" pinfunction="Pin_4" pintype="passive"/>
       <node ref="R23" pin="1" pintype="passive"/>
       <node ref="U3" pin="15" pinfunction="O2" pintype="open_collector"/>
     </net>
-    <net code="93" name="Net-(J5-Pad5)">
+    <net code="91" name="Net-(J5-Pin_5)">
       <node ref="J5" pin="5" pinfunction="Pin_5" pintype="passive"/>
       <node ref="R22" pin="1" pintype="passive"/>
       <node ref="U3" pin="16" pinfunction="O1" pintype="open_collector"/>
     </net>
-    <net code="94" name="Net-(J6-Pad1)">
+    <net code="92" name="Net-(J6-Pin_1)">
       <node ref="J6" pin="1" pinfunction="Pin_1" pintype="passive"/>
       <node ref="R27" pin="1" pintype="passive"/>
     </net>
-    <net code="95" name="Net-(J6-Pad2)">
+    <net code="93" name="Net-(J6-Pin_2)">
       <node ref="J6" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R26" pin="1" pintype="passive"/>
     </net>
-    <net code="96" name="Net-(J7-Pad2)">
+    <net code="94" name="Net-(J7-Pin_2)">
       <node ref="J7" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R43" pin="1" pintype="passive"/>
     </net>
-    <net code="97" name="Net-(J7-Pad4)">
+    <net code="95" name="Net-(J7-Pin_4)">
       <node ref="J7" pin="4" pinfunction="Pin_4" pintype="passive"/>
       <node ref="R44" pin="1" pintype="passive"/>
     </net>
-    <net code="98" name="Net-(J7-Pad6)">
+    <net code="96" name="Net-(J7-Pin_6)">
       <node ref="J7" pin="6" pinfunction="Pin_6" pintype="passive"/>
       <node ref="R45" pin="1" pintype="passive"/>
     </net>
-    <net code="99" name="Net-(J7-Pad8)">
+    <net code="97" name="Net-(J7-Pin_8)">
       <node ref="J7" pin="8" pinfunction="Pin_8" pintype="passive"/>
       <node ref="R46" pin="1" pintype="passive"/>
     </net>
-    <net code="100" name="Net-(J7-Pad10)">
+    <net code="98" name="Net-(J7-Pin_10)">
       <node ref="J7" pin="10" pinfunction="Pin_10" pintype="passive"/>
       <node ref="R47" pin="1" pintype="passive"/>
     </net>
-    <net code="101" name="Net-(J7-Pad12)">
+    <net code="99" name="Net-(J7-Pin_12)">
       <node ref="J7" pin="12" pinfunction="Pin_12" pintype="passive"/>
       <node ref="R48" pin="1" pintype="passive"/>
     </net>
-    <net code="102" name="Net-(J7-Pad14)">
+    <net code="100" name="Net-(J7-Pin_14)">
       <node ref="J7" pin="14" pinfunction="Pin_14" pintype="passive"/>
       <node ref="R49" pin="1" pintype="passive"/>
     </net>
-    <net code="103" name="Net-(J7-Pad16)">
+    <net code="101" name="Net-(J7-Pin_16)">
       <node ref="J7" pin="16" pinfunction="Pin_16" pintype="passive"/>
       <node ref="R50" pin="1" pintype="passive"/>
     </net>
-    <net code="104" name="Net-(J7-Pad18)">
+    <net code="102" name="Net-(J7-Pin_18)">
       <node ref="J7" pin="18" pinfunction="Pin_18" pintype="passive"/>
       <node ref="R51" pin="1" pintype="passive"/>
     </net>
-    <net code="105" name="Net-(J7-Pad20)">
+    <net code="103" name="Net-(J7-Pin_20)">
       <node ref="J7" pin="20" pinfunction="Pin_20" pintype="passive"/>
       <node ref="R52" pin="1" pintype="passive"/>
     </net>
-    <net code="106" name="Net-(J7-Pad22)">
+    <net code="104" name="Net-(J7-Pin_22)">
       <node ref="J7" pin="22" pinfunction="Pin_22" pintype="passive"/>
       <node ref="R53" pin="1" pintype="passive"/>
     </net>
-    <net code="107" name="Net-(J7-Pad24)">
+    <net code="105" name="Net-(J7-Pin_24)">
       <node ref="J7" pin="24" pinfunction="Pin_24" pintype="passive"/>
       <node ref="R54" pin="1" pintype="passive"/>
     </net>
-    <net code="108" name="Net-(J7-Pad26)">
+    <net code="106" name="Net-(J7-Pin_26)">
       <node ref="J7" pin="26" pinfunction="Pin_26" pintype="passive"/>
       <node ref="R55" pin="1" pintype="passive"/>
     </net>
-    <net code="109" name="Net-(J7-Pad28)">
+    <net code="107" name="Net-(J7-Pin_28)">
       <node ref="J7" pin="28" pinfunction="Pin_28" pintype="passive"/>
       <node ref="R56" pin="1" pintype="passive"/>
     </net>
-    <net code="110" name="Net-(J7-Pad30)">
+    <net code="108" name="Net-(J7-Pin_30)">
       <node ref="J7" pin="30" pinfunction="Pin_30" pintype="passive"/>
       <node ref="R57" pin="1" pintype="passive"/>
     </net>
-    <net code="111" name="Net-(Q1-Pad3)">
+    <net code="109" name="Net-(Q1-B)">
+      <node ref="C22" pin="2" pintype="passive"/>
+      <node ref="C24" pin="2" pintype="passive"/>
+      <node ref="Q1" pin="2" pinfunction="B" pintype="passive"/>
+      <node ref="R70" pin="1" pintype="passive"/>
+    </net>
+    <net code="110" name="Net-(Q1-C)">
       <node ref="Q1" pin="3" pinfunction="C" pintype="passive"/>
-      <node ref="U4" pin="16" pinfunction="K" pintype="power_in"/>
+      <node ref="R66" pin="2" pintype="passive"/>
+      <node ref="R68" pin="2" pintype="passive"/>
     </net>
-    <net code="112" name="Net-(R4-Pad1)">
-      <node ref="R4" pin="1" pintype="passive"/>
-      <node ref="R5" pin="2" pintype="passive"/>
-      <node ref="U1" pin="19" pinfunction="~{RESET}" pintype="input"/>
-    </net>
-    <net code="113" name="Net-(R6-Pad1)">
-      <node ref="R6" pin="1" pintype="passive"/>
-      <node ref="R8" pin="1" pintype="passive"/>
-      <node ref="U1" pin="1" pinfunction="TXD" pintype="output"/>
-    </net>
-    <net code="114" name="Net-(R7-Pad1)">
+    <net code="111" name="Net-(U1-RXD)">
       <node ref="R7" pin="1" pintype="passive"/>
       <node ref="R9" pin="1" pintype="passive"/>
       <node ref="U1" pin="5" pinfunction="RXD" pintype="input"/>
     </net>
-    <net code="115" name="Net-(R64-Pad2)">
+    <net code="112" name="Net-(U1-TXD)">
+      <node ref="R6" pin="1" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="TXD" pintype="output"/>
+    </net>
+    <net code="113" name="Net-(U1-~{RESET})">
+      <node ref="R4" pin="1" pintype="passive"/>
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="U1" pin="19" pinfunction="~{RESET}" pintype="input"/>
+    </net>
+    <net code="114" name="Net-(U4-A{slash}VEE)">
+      <node ref="R65" pin="1" pintype="passive"/>
+      <node ref="R66" pin="1" pintype="passive"/>
+      <node ref="U4" pin="15" pinfunction="A/VEE" pintype="power_in"/>
+    </net>
+    <net code="115" name="Net-(U4-K)">
+      <node ref="R67" pin="1" pintype="passive"/>
+      <node ref="R68" pin="1" pintype="passive"/>
+      <node ref="U4" pin="16" pinfunction="K" pintype="power_in"/>
+    </net>
+    <net code="116" name="Net-(U4-R{slash}~{W})">
       <node ref="R64" pin="2" pintype="passive"/>
       <node ref="U4" pin="5" pinfunction="R/~{W}" pintype="input"/>
     </net>
-    <net code="116" name="Net-(R65-Pad1)">
-      <node ref="R65" pin="1" pintype="passive"/>
-      <node ref="U4" pin="15" pinfunction="A/VEE" pintype="power_in"/>
+    <net code="117" name="Net-(U4-VO)">
+      <node ref="C21" pin="2" pintype="passive"/>
+      <node ref="C23" pin="2" pintype="passive"/>
+      <node ref="R69" pin="1" pintype="passive"/>
+      <node ref="U4" pin="3" pinfunction="VO" pintype="input"/>
     </net>
-    <net code="117" name="RESET">
+    <net code="118" name="RESET">
       <node ref="J8" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R58" pin="1" pintype="passive"/>
       <node ref="SW1" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="XA1" pin="RST1" pinfunction="RESET" pintype="open_collector"/>
     </net>
-    <net code="118" name="SW_LIMIT_AZ_L">
+    <net code="119" name="SW_LIMIT_AZ_L">
       <node ref="J10" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R60" pin="1" pintype="passive"/>
       <node ref="SW3" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="XA1" pin="D22" pinfunction="D22" pintype="bidirectional"/>
     </net>
-    <net code="119" name="SW_LIMIT_AZ_R">
+    <net code="120" name="SW_LIMIT_AZ_R">
       <node ref="J11" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R61" pin="1" pintype="passive"/>
       <node ref="SW4" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="XA1" pin="D23" pinfunction="D23" pintype="bidirectional"/>
     </net>
-    <net code="120" name="SW_LIMIT_EL_B">
+    <net code="121" name="SW_LIMIT_EL_B">
       <node ref="J12" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R62" pin="1" pintype="passive"/>
       <node ref="SW5" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="XA1" pin="D24" pinfunction="D24" pintype="bidirectional"/>
     </net>
-    <net code="121" name="SW_LIMIT_EL_T">
+    <net code="122" name="SW_LIMIT_EL_T">
       <node ref="J13" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R63" pin="1" pintype="passive"/>
       <node ref="SW6" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="XA1" pin="D25" pinfunction="D25" pintype="bidirectional"/>
     </net>
-    <net code="122" name="SW_START">
+    <net code="123" name="SW_START">
       <node ref="J9" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R59" pin="1" pintype="passive"/>
       <node ref="SW2" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="XA1" pin="D26" pinfunction="D26" pintype="bidirectional"/>
     </net>
-    <net code="123" name="USB_UART_RX">
+    <net code="124" name="USB_UART_RX">
       <node ref="R11" pin="1" pintype="passive"/>
       <node ref="R9" pin="2" pintype="passive"/>
-      <node ref="XA1" pin="D1" pinfunction="D1_TX0" pintype="bidirectional"/>
+      <node ref="XA1" pin="D18" pinfunction="D18_TX1" pintype="bidirectional"/>
     </net>
-    <net code="124" name="USB_UART_TX">
+    <net code="125" name="USB_UART_TX">
       <node ref="R10" pin="1" pintype="passive"/>
       <node ref="R8" pin="2" pintype="passive"/>
-      <node ref="XA1" pin="D0" pinfunction="D0_RX0" pintype="bidirectional"/>
+      <node ref="XA1" pin="D19" pinfunction="D19_RX1" pintype="bidirectional"/>
     </net>
-    <net code="125" name="unconnected-(J1-Pad4)">
+    <net code="126" name="unconnected-(J1-ID-Pad4)">
       <node ref="J1" pin="4" pinfunction="ID" pintype="passive+no_connect"/>
     </net>
-    <net code="126" name="unconnected-(U1-Pad2)">
-      <node ref="U1" pin="2" pinfunction="DTR" pintype="output+no_connect"/>
-    </net>
-    <net code="127" name="unconnected-(U1-Pad3)">
-      <node ref="U1" pin="3" pinfunction="RTS" pintype="output+no_connect"/>
-    </net>
-    <net code="128" name="unconnected-(U1-Pad6)">
-      <node ref="U1" pin="6" pinfunction="RI" pintype="input+no_connect"/>
-    </net>
-    <net code="129" name="unconnected-(U1-Pad9)">
-      <node ref="U1" pin="9" pinfunction="DCR" pintype="input+no_connect"/>
-    </net>
-    <net code="130" name="unconnected-(U1-Pad10)">
-      <node ref="U1" pin="10" pinfunction="DCD" pintype="input+no_connect"/>
-    </net>
-    <net code="131" name="unconnected-(U1-Pad11)">
-      <node ref="U1" pin="11" pinfunction="CTS" pintype="input+no_connect"/>
-    </net>
-    <net code="132" name="unconnected-(U1-Pad12)">
-      <node ref="U1" pin="12" pinfunction="CBUS4" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="133" name="unconnected-(U1-Pad13)">
-      <node ref="U1" pin="13" pinfunction="CBUS2" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="134" name="unconnected-(U1-Pad14)">
-      <node ref="U1" pin="14" pinfunction="CBUS3" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="135" name="unconnected-(U1-Pad22)">
-      <node ref="U1" pin="22" pinfunction="CBUS1" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="136" name="unconnected-(U1-Pad23)">
+    <net code="127" name="unconnected-(U1-CBUS0-Pad23)">
       <node ref="U1" pin="23" pinfunction="CBUS0" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="137" name="unconnected-(U1-Pad27)">
+    <net code="128" name="unconnected-(U1-CBUS1-Pad22)">
+      <node ref="U1" pin="22" pinfunction="CBUS1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="129" name="unconnected-(U1-CBUS2-Pad13)">
+      <node ref="U1" pin="13" pinfunction="CBUS2" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="130" name="unconnected-(U1-CBUS3-Pad14)">
+      <node ref="U1" pin="14" pinfunction="CBUS3" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="131" name="unconnected-(U1-CBUS4-Pad12)">
+      <node ref="U1" pin="12" pinfunction="CBUS4" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="132" name="unconnected-(U1-CTS-Pad11)">
+      <node ref="U1" pin="11" pinfunction="CTS" pintype="input+no_connect"/>
+    </net>
+    <net code="133" name="unconnected-(U1-DCD-Pad10)">
+      <node ref="U1" pin="10" pinfunction="DCD" pintype="input+no_connect"/>
+    </net>
+    <net code="134" name="unconnected-(U1-DCR-Pad9)">
+      <node ref="U1" pin="9" pinfunction="DCR" pintype="input+no_connect"/>
+    </net>
+    <net code="135" name="unconnected-(U1-DTR-Pad2)">
+      <node ref="U1" pin="2" pinfunction="DTR" pintype="output+no_connect"/>
+    </net>
+    <net code="136" name="unconnected-(U1-OSCI-Pad27)">
       <node ref="U1" pin="27" pinfunction="OSCI" pintype="input+no_connect"/>
     </net>
-    <net code="138" name="unconnected-(U1-Pad28)">
+    <net code="137" name="unconnected-(U1-OSCO-Pad28)">
       <node ref="U1" pin="28" pinfunction="OSCO" pintype="output+no_connect"/>
     </net>
-    <net code="139" name="unconnected-(U2-Pad5)">
+    <net code="138" name="unconnected-(U1-RI-Pad6)">
+      <node ref="U1" pin="6" pinfunction="RI" pintype="input+no_connect"/>
+    </net>
+    <net code="139" name="unconnected-(U1-RTS-Pad3)">
+      <node ref="U1" pin="3" pinfunction="RTS" pintype="output+no_connect"/>
+    </net>
+    <net code="140" name="unconnected-(U2-I5-Pad5)">
       <node ref="U2" pin="5" pinfunction="I5" pintype="input+no_connect"/>
     </net>
-    <net code="140" name="unconnected-(U2-Pad6)">
+    <net code="141" name="unconnected-(U2-I6-Pad6)">
       <node ref="U2" pin="6" pinfunction="I6" pintype="input+no_connect"/>
     </net>
-    <net code="141" name="unconnected-(U2-Pad7)">
+    <net code="142" name="unconnected-(U2-I7-Pad7)">
       <node ref="U2" pin="7" pinfunction="I7" pintype="input+no_connect"/>
     </net>
-    <net code="142" name="unconnected-(U2-Pad10)">
-      <node ref="U2" pin="10" pinfunction="O7" pintype="open_collector+no_connect"/>
-    </net>
-    <net code="143" name="unconnected-(U2-Pad11)">
-      <node ref="U2" pin="11" pinfunction="O6" pintype="open_collector+no_connect"/>
-    </net>
-    <net code="144" name="unconnected-(U2-Pad12)">
+    <net code="143" name="unconnected-(U2-O5-Pad12)">
       <node ref="U2" pin="12" pinfunction="O5" pintype="open_collector+no_connect"/>
     </net>
-    <net code="145" name="unconnected-(U3-Pad5)">
+    <net code="144" name="unconnected-(U2-O6-Pad11)">
+      <node ref="U2" pin="11" pinfunction="O6" pintype="open_collector+no_connect"/>
+    </net>
+    <net code="145" name="unconnected-(U2-O7-Pad10)">
+      <node ref="U2" pin="10" pinfunction="O7" pintype="open_collector+no_connect"/>
+    </net>
+    <net code="146" name="unconnected-(U3-I5-Pad5)">
       <node ref="U3" pin="5" pinfunction="I5" pintype="input+no_connect"/>
     </net>
-    <net code="146" name="unconnected-(U3-Pad6)">
+    <net code="147" name="unconnected-(U3-I6-Pad6)">
       <node ref="U3" pin="6" pinfunction="I6" pintype="input+no_connect"/>
     </net>
-    <net code="147" name="unconnected-(U3-Pad7)">
+    <net code="148" name="unconnected-(U3-I7-Pad7)">
       <node ref="U3" pin="7" pinfunction="I7" pintype="input+no_connect"/>
     </net>
-    <net code="148" name="unconnected-(U3-Pad10)">
-      <node ref="U3" pin="10" pinfunction="O7" pintype="open_collector+no_connect"/>
-    </net>
-    <net code="149" name="unconnected-(U3-Pad11)">
-      <node ref="U3" pin="11" pinfunction="O6" pintype="open_collector+no_connect"/>
-    </net>
-    <net code="150" name="unconnected-(U3-Pad12)">
+    <net code="149" name="unconnected-(U3-O5-Pad12)">
       <node ref="U3" pin="12" pinfunction="O5" pintype="open_collector+no_connect"/>
     </net>
-    <net code="151" name="unconnected-(U4-Pad7)">
+    <net code="150" name="unconnected-(U3-O6-Pad11)">
+      <node ref="U3" pin="11" pinfunction="O6" pintype="open_collector+no_connect"/>
+    </net>
+    <net code="151" name="unconnected-(U3-O7-Pad10)">
+      <node ref="U3" pin="10" pinfunction="O7" pintype="open_collector+no_connect"/>
+    </net>
+    <net code="152" name="unconnected-(U4-DB0-Pad7)">
       <node ref="U4" pin="7" pinfunction="DB0" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="152" name="unconnected-(U4-Pad8)">
+    <net code="153" name="unconnected-(U4-DB1-Pad8)">
       <node ref="U4" pin="8" pinfunction="DB1" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="153" name="unconnected-(U4-Pad9)">
+    <net code="154" name="unconnected-(U4-DB2-Pad9)">
       <node ref="U4" pin="9" pinfunction="DB2" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="154" name="unconnected-(U4-Pad10)">
+    <net code="155" name="unconnected-(U4-DB3-Pad10)">
       <node ref="U4" pin="10" pinfunction="DB3" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="155" name="unconnected-(U4-PadA1)">
+    <net code="156" name="unconnected-(U4-PadA1)">
       <node ref="U4" pin="A1" pinfunction="A1" pintype="power_in+no_connect"/>
     </net>
-    <net code="156" name="unconnected-(U4-PadA2)">
+    <net code="157" name="unconnected-(U4-PadA2)">
       <node ref="U4" pin="A2" pinfunction="A2" pintype="power_in+no_connect"/>
     </net>
-    <net code="157" name="unconnected-(U4-PadK1)">
+    <net code="158" name="unconnected-(U4-PadK1)">
       <node ref="U4" pin="K1" pinfunction="K1" pintype="power_in+no_connect"/>
     </net>
-    <net code="158" name="unconnected-(U4-PadK2)">
+    <net code="159" name="unconnected-(U4-PadK2)">
       <node ref="U4" pin="K2" pinfunction="K2" pintype="power_in+no_connect"/>
     </net>
-    <net code="159" name="unconnected-(XA1-PadA3)">
-      <node ref="XA1" pin="A3" pinfunction="A3" pintype="bidirectional+no_connect"/>
+    <net code="160" name="unconnected-(XA1-D0_RX0-PadD0)">
+      <node ref="XA1" pin="D0" pinfunction="D0_RX0" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="160" name="unconnected-(XA1-PadA4)">
-      <node ref="XA1" pin="A4" pinfunction="A4" pintype="bidirectional+no_connect"/>
+    <net code="161" name="unconnected-(XA1-D1_TX0-PadD1)">
+      <node ref="XA1" pin="D1" pinfunction="D1_TX0" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="161" name="unconnected-(XA1-PadA5)">
-      <node ref="XA1" pin="A5" pinfunction="A5" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="162" name="unconnected-(XA1-PadA6)">
-      <node ref="XA1" pin="A6" pinfunction="A6" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="163" name="unconnected-(XA1-PadA7)">
-      <node ref="XA1" pin="A7" pinfunction="A7" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="164" name="unconnected-(XA1-PadA8)">
-      <node ref="XA1" pin="A8" pinfunction="A8" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="165" name="unconnected-(XA1-PadA9)">
-      <node ref="XA1" pin="A9" pinfunction="A9" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="166" name="unconnected-(XA1-PadA10)">
-      <node ref="XA1" pin="A10" pinfunction="A10" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="167" name="unconnected-(XA1-PadA11)">
-      <node ref="XA1" pin="A11" pinfunction="A11" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="168" name="unconnected-(XA1-PadA12)">
-      <node ref="XA1" pin="A12" pinfunction="A12" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="169" name="unconnected-(XA1-PadA13)">
-      <node ref="XA1" pin="A13" pinfunction="A13" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="170" name="unconnected-(XA1-PadAREF)">
-      <node ref="XA1" pin="AREF" pinfunction="AREF" pintype="input+no_connect"/>
-    </net>
-    <net code="171" name="unconnected-(XA1-PadD7)">
-      <node ref="XA1" pin="D7" pinfunction="D7" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="172" name="unconnected-(XA1-PadD8)">
-      <node ref="XA1" pin="D8" pinfunction="D8" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="173" name="unconnected-(XA1-PadD9)">
-      <node ref="XA1" pin="D9" pinfunction="D9" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="174" name="unconnected-(XA1-PadD10)">
-      <node ref="XA1" pin="D10" pinfunction="D10" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="175" name="unconnected-(XA1-PadD11)">
-      <node ref="XA1" pin="D11" pinfunction="D11" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="176" name="unconnected-(XA1-PadD12)">
-      <node ref="XA1" pin="D12" pinfunction="D12" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="177" name="unconnected-(XA1-PadD13)">
-      <node ref="XA1" pin="D13" pinfunction="D13" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="178" name="unconnected-(XA1-PadD14)">
+    <net code="162" name="unconnected-(XA1-D14_TX3-PadD14)">
       <node ref="XA1" pin="D14" pinfunction="D14_TX3" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="179" name="unconnected-(XA1-PadD15)">
+    <net code="163" name="unconnected-(XA1-D15_RX3-PadD15)">
       <node ref="XA1" pin="D15" pinfunction="D15_RX3" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="180" name="unconnected-(XA1-PadD16)">
+    <net code="164" name="unconnected-(XA1-D16_TX2-PadD16)">
       <node ref="XA1" pin="D16" pinfunction="D16_TX2" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="181" name="unconnected-(XA1-PadD17)">
+    <net code="165" name="unconnected-(XA1-D17_RX2-PadD17)">
       <node ref="XA1" pin="D17" pinfunction="D17_RX2" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="182" name="unconnected-(XA1-PadD18)">
-      <node ref="XA1" pin="D18" pinfunction="D18_TX1" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="183" name="unconnected-(XA1-PadD19)">
-      <node ref="XA1" pin="D19" pinfunction="D19_RX1" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="184" name="unconnected-(XA1-PadD27)">
-      <node ref="XA1" pin="D27" pinfunction="D27" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="185" name="unconnected-(XA1-PadD28)">
-      <node ref="XA1" pin="D28" pinfunction="D28" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="186" name="unconnected-(XA1-PadD29)">
-      <node ref="XA1" pin="D29" pinfunction="D29" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="187" name="unconnected-(XA1-PadD41)">
-      <node ref="XA1" pin="D41" pinfunction="D41" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="188" name="unconnected-(XA1-PadD45)">
-      <node ref="XA1" pin="D45" pinfunction="D45" pintype="bidirectional+no_connect"/>
-    </net>
-    <net code="189" name="unconnected-(XA1-PadIORF)">
+    <net code="166" name="unconnected-(XA1-IOREF-PadIORF)">
       <node ref="XA1" pin="IORF" pinfunction="IOREF" pintype="output+no_connect"/>
     </net>
-    <net code="190" name="unconnected-(XA1-PadSCL)">
+    <net code="167" name="unconnected-(XA1-PadA3)">
+      <node ref="XA1" pin="A3" pinfunction="A3" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="168" name="unconnected-(XA1-PadA4)">
+      <node ref="XA1" pin="A4" pinfunction="A4" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="169" name="unconnected-(XA1-PadA5)">
+      <node ref="XA1" pin="A5" pinfunction="A5" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="170" name="unconnected-(XA1-PadA6)">
+      <node ref="XA1" pin="A6" pinfunction="A6" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="171" name="unconnected-(XA1-PadA7)">
+      <node ref="XA1" pin="A7" pinfunction="A7" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="172" name="unconnected-(XA1-PadA8)">
+      <node ref="XA1" pin="A8" pinfunction="A8" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="173" name="unconnected-(XA1-PadA9)">
+      <node ref="XA1" pin="A9" pinfunction="A9" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="174" name="unconnected-(XA1-PadA10)">
+      <node ref="XA1" pin="A10" pinfunction="A10" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="175" name="unconnected-(XA1-PadA11)">
+      <node ref="XA1" pin="A11" pinfunction="A11" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="176" name="unconnected-(XA1-PadA12)">
+      <node ref="XA1" pin="A12" pinfunction="A12" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="177" name="unconnected-(XA1-PadA13)">
+      <node ref="XA1" pin="A13" pinfunction="A13" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="178" name="unconnected-(XA1-PadA14)">
+      <node ref="XA1" pin="A14" pinfunction="A14" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="179" name="unconnected-(XA1-PadA15)">
+      <node ref="XA1" pin="A15" pinfunction="A15" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="180" name="unconnected-(XA1-PadAREF)">
+      <node ref="XA1" pin="AREF" pinfunction="AREF" pintype="input+no_connect"/>
+    </net>
+    <net code="181" name="unconnected-(XA1-PadD7)">
+      <node ref="XA1" pin="D7" pinfunction="D7" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="182" name="unconnected-(XA1-PadD10)">
+      <node ref="XA1" pin="D10" pinfunction="D10" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="183" name="unconnected-(XA1-PadD11)">
+      <node ref="XA1" pin="D11" pinfunction="D11" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="184" name="unconnected-(XA1-PadD12)">
+      <node ref="XA1" pin="D12" pinfunction="D12" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="185" name="unconnected-(XA1-PadD13)">
+      <node ref="XA1" pin="D13" pinfunction="D13" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="186" name="unconnected-(XA1-PadD27)">
+      <node ref="XA1" pin="D27" pinfunction="D27" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="187" name="unconnected-(XA1-PadD28)">
+      <node ref="XA1" pin="D28" pinfunction="D28" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="188" name="unconnected-(XA1-PadD29)">
+      <node ref="XA1" pin="D29" pinfunction="D29" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="189" name="unconnected-(XA1-PadD41)">
+      <node ref="XA1" pin="D41" pinfunction="D41" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="190" name="unconnected-(XA1-PadD45)">
+      <node ref="XA1" pin="D45" pinfunction="D45" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="191" name="unconnected-(XA1-PadSCL)">
       <node ref="XA1" pin="SCL" pinfunction="SCL" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="191" name="unconnected-(XA1-PadSDA)">
+    <net code="192" name="unconnected-(XA1-PadSDA)">
       <node ref="XA1" pin="SDA" pinfunction="SDA" pintype="bidirectional+no_connect"/>
     </net>
-    <net code="192" name="unconnected-(XA1-PadVIN)">
+    <net code="193" name="unconnected-(XA1-PadVIN)">
       <node ref="XA1" pin="VIN" pinfunction="VIN" pintype="power_in+no_connect"/>
     </net>
   </nets>
