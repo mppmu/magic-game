@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 24 Jan 2023
+// Rev.: 22 Feb 2023
 //
 
 
@@ -13,20 +13,24 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.2"
-#define FW_RELEASEDATE  "24 Jan 2023"
+#define FW_VERSION      "0.0.3"
+#define FW_RELEASEDATE  "22 Feb 2023"
 
 
 
 // For simulation in SimulIDE.
-#define SIMULATION_MODE
+//#define SIMULATION_MODE
 
 // For debugging.
-//#define DEBUG_MODE_0
-#define DEBUG_MODE_1
+//#define DEBUG_MODE_SHOW_STEPS
+//#define DEBUG_MODE_SHOW_POSITIONS
 
 // Debugging over the serial interface.
 #define DEBUG_SERIAL
+
+// Define serial interfaces.
+#define SERIAL_CONSOLE                  Serial
+#define SERIAL_CONTROL                  Serial1
 
 // Define pins.
 #define PIN_JOYSTICK_AZ                 A0
@@ -56,6 +60,8 @@
 #define PIN_LCD_D5                      51
 #define PIN_LCD_D6                      52
 #define PIN_LCD_D7                      53
+#define PIN_LCD_CONTRAST                8
+#define PIN_LCD_BACKLIGHT               9
 
 
 
@@ -102,27 +108,35 @@ float elevationTolerance  = 10.0;
 
 
 void setup() {
-  // Initialize the serial interface.
-  Serial.begin(9600);
-  // Print a message on the serial interface.
-  Serial.print("\r\n*** Welcome to the MAGIC Game: Catch the Gamma! ***");
-  Serial.print("\r\n");
-  Serial.print("\r\nFirmware info:");
-  Serial.print("\r\n- Name: ");
-  Serial.print(FW_NAME);
-  Serial.print("\r\n- Ver.: ");
-  Serial.print(FW_VERSION);
-  Serial.print("\r\n- Date: ");
-  Serial.print(FW_RELEASEDATE);
-  Serial.print("\r\n");
+  // Initialize the serial interfaces.
+  SERIAL_CONSOLE.begin(9600);       // Console interface for debugging.
+  SERIAL_CONTROL.begin(9600);       // Control interface for communication with exhibition booth.
+  // Print a message on the serial console.
+  SERIAL_CONSOLE.print("\r\n*** Welcome to the MAGIC Game: Catch the Gamma! ***");
+  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print("\r\nFirmware info:");
+  SERIAL_CONSOLE.print("\r\n- Name: ");
+  SERIAL_CONSOLE.print(FW_NAME);
+  SERIAL_CONSOLE.print("\r\n- Ver.: ");
+  SERIAL_CONSOLE.print(FW_VERSION);
+  SERIAL_CONSOLE.print("\r\n- Date: ");
+  SERIAL_CONSOLE.print(FW_RELEASEDATE);
+  SERIAL_CONSOLE.print("\r\n");
 
   // Set the speed of the stepper motors.
   stepperAzimuth.setSpeed(SPEED_AZIMUTH);
   stepperElevation.setSpeed(SPEED_ELEVATION);
 
+  // Set the LCD contrast.
+  pinMode(PIN_LCD_CONTRAST, OUTPUT);
+  analogWrite(PIN_LCD_CONTRAST, 0x00);
+  // Set the LCD backlight brightness.
+  pinMode(PIN_LCD_BACKLIGHT, OUTPUT);
+  analogWrite(PIN_LCD_BACKLIGHT, 0xff);
   // Set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message on the LCD.
+  lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("MAGIC Game:");
   lcd.setCursor(0, 1);
@@ -171,7 +185,7 @@ void setup() {
   digitalWrite(PIN_LED_ERROR, LOW);
 
   // Wait until the start button is pushed.
-  Serial.print("\r\nPlease press the start button to continue.");
+  SERIAL_CONSOLE.print("\r\nPlease press the start button to continue.");
   waitStart();
   delay(1000);
 }
@@ -205,7 +219,6 @@ int initHardware() {
   ret = 0;
   #else
   // Find the zero positions of the stepper motors.
-  Serial.print("\r\nFinding the zero positions of the stepper motors.");
   ret = stepperFindZeroPosition();
   #endif
   // Error while finding the zero positions.
@@ -213,9 +226,9 @@ int initHardware() {
   if (ret) {
     digitalWrite(PIN_LED_OK, LOW);
     digitalWrite(PIN_LED_ERROR, HIGH);
-    Serial.print("\r\nERROR: Zero position of stepper motors not found! Program stopped!");
-    Serial.print("\r\nPress the reset button to reboot.");
-    Serial.print("\r\n");
+    SERIAL_CONSOLE.print("\r\nERROR: Zero position of stepper motors not found! Program stopped!");
+    SERIAL_CONSOLE.print("\r\nPress the reset button to reboot.");
+    SERIAL_CONSOLE.print("\r\n");
     lcd.clear();
     while (true) {
       lcd.setCursor(0, 0);
@@ -239,22 +252,48 @@ int initHardware() {
 // Drive the stepper motors to their limit switch in order to get the zero positions.
 int stepperFindZeroPosition() {
   int steps;
+  // Display message.
+  SERIAL_CONSOLE.print("\r\nFinding the zero positions of the stepper motors.");
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Find zero pos.: ");
   // Azimuth: Move to left until limit switch gets activated.
+  SERIAL_CONSOLE.print("\r\n- Azimuth... ");
+  lcd.setCursor(0, 1);
+  lcd.print("Azimuth...      ");
   steps = 0;
   while (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT)) {
     stepperAzimuth.step(1);
     steps++;
     // Error: One complete rotation without limit switch getting activated!
-    if (steps > STEPS_AZIMUTH) return 1;
+    if (steps > STEPS_AZIMUTH) {
+      SERIAL_CONSOLE.print("FAILED!");
+      lcd.setCursor(0, 1);
+      lcd.print("Azimuth FALIED! ");
+      return 1;
+    }
   }
+  SERIAL_CONSOLE.print("OK.");
   // Elevation: Move down until limit switch gets activated.
+  SERIAL_CONSOLE.print("\r\n- Elevation... ");
+  lcd.setCursor(0, 1);
+  lcd.print("Elevation...    ");
   steps = 0;
   while (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM)) {
     stepperElevation.step(1);
     steps++;
     // Error: Half a rotation without limit switch getting activated!
-    if (steps > STEPS_ELEVATION / 2) return 2;
+    if (steps > STEPS_ELEVATION / 2) {
+      SERIAL_CONSOLE.print("FAILED!");
+      lcd.setCursor(0, 1);
+      lcd.print("Elevation FAILED");
+      return 2;
+    }
   }
+  SERIAL_CONSOLE.print("OK.");
+
+  lcd.setCursor(0, 1);
+  lcd.print("OK!             ");
 
   positionAzimuth = 0;
   positionElevation = 0;
@@ -281,7 +320,7 @@ int initGame() {
   digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
 
   // Display message.
-  Serial.print("\r\n\r\nMAGIC Game: Push the start button to start a new game.\r\n");
+  SERIAL_CONSOLE.print("\r\n\r\nMAGIC Game: Push the start button to start a new game.\r\n");
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("-= MAGIC Game =-");
@@ -296,7 +335,7 @@ int initGame() {
   elevationTarget = random(elevationLimitMin, elevationLimitMax);
 
   // Display the gamma position.
-  Serial.print("\r\nNew gamma position: Azimuth: " + String(int(azimuthTarget)) + ", elevation: " + String(int(elevationTarget)));
+  SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(int(azimuthTarget)) + ", elevation: " + String(int(elevationTarget)));
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Gamma position:");
@@ -315,8 +354,9 @@ int playGame() {
   int stepsMax;
   long timeStart;
   long timeElapsed;
+  float timeElapsedScale;
 
-  #ifdef DEBUG_MODE_0
+  #ifdef DEBUG_MODE_SHOW_STEPS
   lcd.clear();
   #endif
 
@@ -326,20 +366,17 @@ int playGame() {
     // Show the progress of the physics event (gamma ray -> Cherenkov light).
     timeElapsed = millis() - timeStart;
     #ifdef SIMULATION_MODE
-    if (timeElapsed > 250) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
-    if (timeElapsed > 3000) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
-    if (timeElapsed > 6000) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
-    if (timeElapsed > 9000) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
-    if (timeElapsed > 12000) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
-    if (timeElapsed > 15000) {
+    timeElapsedScale = 4.0;
     #else
-    if (timeElapsed > 250) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
-    if (timeElapsed > 1000) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
-    if (timeElapsed > 2000) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
-    if (timeElapsed > 3000) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
-    if (timeElapsed > 4000) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
-    if (timeElapsed > 5000) {
+//    timeElapsedScale = 2.0;
+    timeElapsedScale = 4.0;
     #endif
+    if (timeElapsed > 250  * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
+    if (timeElapsed > 1000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
+    if (timeElapsed > 2000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
+    if (timeElapsed > 3000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
+    if (timeElapsed > 4000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
+    if (timeElapsed > 5000 * timeElapsedScale) {
       ret = evalGameResult();
       return ret;
     }
@@ -349,9 +386,9 @@ int playGame() {
     stepsElevation = analog2steps(analogRead(PIN_JOYSTICK_EL));
 
     // DEBUG: Show steps for azimuth and elevation.
-    #ifdef DEBUG_MODE_0
+    #ifdef DEBUG_MODE_SHOW_STEPS
     #ifdef DEBUG_SERIAL
-    Serial.print("\r\nDEBUG: Steps azimuth: " + String(stepsAzimuth) + ", steps elevation: " + String(stepsElevation));
+    SERIAL_CONSOLE.print("\r\nDEBUG: Steps azimuth: " + String(stepsAzimuth) + ", steps elevation: " + String(stepsElevation));
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG stp. az: " + String(stepsAzimuth) + "  ");
@@ -435,9 +472,9 @@ int playGame() {
     }
 
     // DEBUG: Show actual azimuth and elevation.
-    #ifdef DEBUG_MODE_1
+    #ifdef DEBUG_MODE_SHOW_POSITIONS
     #ifdef DEBUG_SERIAL
-    Serial.print("\r\nDEBUG: Actual azimuth: " + String(int(azimuthActual)) + ", actual elevation: " + String(int(elevationActual)));
+    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(int(azimuthActual)) + ", actual elevation: " + String(int(elevationActual)));
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
@@ -489,14 +526,14 @@ int evalGameResult() {
   if ((azimuthActual > azimuthTarget - azimuthTolerance) && (azimuthActual < azimuthTarget + azimuthTolerance) &&
       (elevationActual > elevationTarget - elevationTolerance) && (elevationActual < elevationTarget + elevationTolerance)
   ) {
-    Serial.print("\r\nCongratulations! You caught the gamma!");
+    SERIAL_CONSOLE.print("\r\nCongratulations! You caught the gamma!");
     lcd.setCursor(0, 0);
     lcd.print("Congratulations!");
     lcd.setCursor(0, 1);
     lcd.print("Gamma caught!");
     ret = 0;
   } else {
-    Serial.print("\r\nSorry, You missed the gamma!");
+    SERIAL_CONSOLE.print("\r\nSorry, You missed the gamma!");
     lcd.setCursor(0, 0);
     lcd.print("Sorry. :(");
     lcd.setCursor(0, 1);
