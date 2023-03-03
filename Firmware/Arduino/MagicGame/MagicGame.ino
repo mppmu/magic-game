@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 02 Mar 2023
+// Rev.: 03 Mar 2023
 //
 
 
@@ -13,8 +13,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.4"
-#define FW_RELEASEDATE  "02 Mar 2023"
+#define FW_VERSION      "0.0.5"
+#define FW_RELEASEDATE  "03 Mar 2023"
 
 
 
@@ -31,6 +31,18 @@
 // Define serial interfaces.
 #define SERIAL_CONSOLE                  Serial
 #define SERIAL_CONTROL                  Serial1
+
+// Define control messages for commuincation with the exhibition booth.
+#define ENABLE_CONTROL_MSG
+#define CONTROL_MSG_ERROR               "ERROR"
+#define CONTROL_MSG_BOOT                "BOOT"
+#define CONTROL_MSG_INIT                "INIT"
+#define CONTROL_MSG_IDLE                "IDLE"
+#define CONTROL_MSG_START               "START"
+#define CONTROL_MSG_TARGET              "TARGET"
+#define CONTROL_MSG_PROGRESS            "PROGRESS"
+#define CONTROL_MSG_SUCCESS             "SUCCESS"
+#define CONTROL_MSG_FAILURE             "FAILURE"
 
 // Ignore soft limits when moving the telescope.
 //#define IGNORE_SOFT_LIMITS_AZIMUTH
@@ -150,6 +162,11 @@ void setup() {
   // Initialize the serial interfaces.
   SERIAL_CONSOLE.begin(9600);       // Console interface for debugging.
   SERIAL_CONTROL.begin(9600);       // Control interface for communication with exhibition booth.
+  // Send control message.
+  #ifdef ENABLE_CONTROL_MSG
+  SERIAL_CONTROL.print("\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_BOOT) + "\r\n");
+  #endif
   // Print a message on the serial console.
   SERIAL_CONSOLE.print("\r\n*** Welcome to the MAGIC Game: Catch the Gamma! ***");
   SERIAL_CONSOLE.print("\r\n");
@@ -258,6 +275,10 @@ int waitStart() {
 int initHardware() {
   int ret = 0;
 
+  #ifdef ENABLE_CONTROL_MSG
+  SERIAL_CONTROL.print(String(CONTROL_MSG_INIT) + "\r\n");
+  #endif
+
   #ifdef SIMULATION_MODE
   // Do not try to find the zero positions of the stepper motors in simulation mode.
   ret = 0;
@@ -275,6 +296,9 @@ int initHardware() {
     SERIAL_CONSOLE.print("\r\n");
     lcd.clear();
     while (true) {
+      #ifdef ENABLE_CONTROL_MSG
+      SERIAL_CONTROL.print(String(CONTROL_MSG_ERROR) + "\r\n");
+      #endif
       lcd.setCursor(0, 0);
       lcd.print("ERROR: Zero pos.");
       lcd.setCursor(0, 1);
@@ -371,6 +395,10 @@ int stepperPowerDownElevation() {
 
 // Initialize the game.
 int initGame() {
+  #ifdef ENABLE_CONTROL_MSG
+  SERIAL_CONTROL.print(String(CONTROL_MSG_IDLE) + "\r\n");
+  #endif
+
   // Set up LEDs.
   digitalWrite(PIN_LED_PROGRESS_1, LOW);
   digitalWrite(PIN_LED_PROGRESS_2, LOW);
@@ -396,9 +424,17 @@ int initGame() {
   // Wait until the start button is pushed.
   waitStart();
 
+  #ifdef ENABLE_CONTROL_MSG
+  SERIAL_CONTROL.print(String(CONTROL_MSG_START) + "\r\n");
+  #endif
+
   // Generate a new gamma position.
   azimuthTarget = random(azimuthLimitMin, azimuthLimitMax);
   elevationTarget = random(elevationLimitMin, elevationLimitMax);
+
+  #ifdef ENABLE_CONTROL_MSG
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(int(azimuthTarget)) + " " + String(int(elevationTarget)) + "\r\n");
+  #endif
 
   // Display the gamma position.
   SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(int(azimuthTarget)) + ", elevation: " + String(int(elevationTarget)));
@@ -436,6 +472,14 @@ int playGame() {
     #else
 //    timeElapsedScale = 2.0;
     timeElapsedScale = 4.0;
+    #endif
+    #ifdef ENABLE_CONTROL_MSG
+    if (timeElapsed > 250  * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + "\r\n");
+    if (timeElapsed > 1000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + "\r\n");
+    if (timeElapsed > 2000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + "\r\n");
+    if (timeElapsed > 3000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + "\r\n");
+    if (timeElapsed > 4000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + "\r\n");
+    if (timeElapsed > 5000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + "\r\n");
     #endif
     if (timeElapsed > 250  * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
     if (timeElapsed > 1000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
@@ -619,6 +663,9 @@ int evalGameResult() {
   if ((azimuthActual > azimuthTarget - azimuthTolerance) && (azimuthActual < azimuthTarget + azimuthTolerance) &&
       (elevationActual > elevationTarget - elevationTolerance) && (elevationActual < elevationTarget + elevationTolerance)
   ) {
+    #ifdef ENABLE_CONTROL_MSG
+    SERIAL_CONTROL.print(String(CONTROL_MSG_SUCCESS) + "\r\n");
+    #endif
     SERIAL_CONSOLE.print("\r\nCongratulations! You caught the gamma!");
     lcd.setCursor(0, 0);
     lcd.print("Congratulations!");
@@ -626,6 +673,9 @@ int evalGameResult() {
     lcd.print("Gamma caught!");
     ret = 0;
   } else {
+    #ifdef ENABLE_CONTROL_MSG
+    SERIAL_CONTROL.print(String(CONTROL_MSG_FAILURE) + "\r\n");
+    #endif
     SERIAL_CONSOLE.print("\r\nSorry, You missed the gamma!");
     lcd.setCursor(0, 0);
     lcd.print("Sorry. :(");
