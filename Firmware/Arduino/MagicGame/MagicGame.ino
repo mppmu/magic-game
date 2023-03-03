@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 22 Feb 2023
+// Rev.: 02 Mar 2023
 //
 
 
@@ -13,8 +13,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.3"
-#define FW_RELEASEDATE  "22 Feb 2023"
+#define FW_VERSION      "0.0.4"
+#define FW_RELEASEDATE  "02 Mar 2023"
 
 
 
@@ -32,10 +32,22 @@
 #define SERIAL_CONSOLE                  Serial
 #define SERIAL_CONTROL                  Serial1
 
+// Ignore soft limits when moving the telescope.
+//#define IGNORE_SOFT_LIMITS_AZIMUTH
+//#define IGNORE_SOFT_LIMITS_ELEVATION
+
 // Define pins.
 #define PIN_JOYSTICK_AZ                 A0
 #define PIN_JOYSTICK_EL                 A1
 #define PIN_JOYSTICK_BUTTON             A2
+#define PIN_MOTOR_AZIMUTH_A_P           30
+#define PIN_MOTOR_AZIMUTH_A_N           32
+#define PIN_MOTOR_AZIMUTH_B_P           31
+#define PIN_MOTOR_AZIMUTH_B_N           33
+#define PIN_MOTOR_ELEVATION_A_P         34
+#define PIN_MOTOR_ELEVATION_A_N         36
+#define PIN_MOTOR_ELEVATION_B_P         35
+#define PIN_MOTOR_ELEVATION_B_N         37
 #define PIN_LED_PROGRESS_1              2
 #define PIN_LED_PROGRESS_2              3
 #define PIN_LED_PROGRESS_3              4
@@ -68,34 +80,61 @@
 // Stepper motors: Define steps per revolution and speed in RPM.
 #ifdef SIMULATION_MODE
 #define STEPS_AZIMUTH   64
+#define SPEED_AZIMUTH   10    // RPM
+//#define AZIMUTH_REVERSE_DIRECTION
 #define STEPS_ELEVATION 64
-#define SPEED_AZIMUTH   10    // RPM
 #define SPEED_ELEVATION 10    // RPM
+//#define ELEVATION_REVERSE_DIRECTION
 #else
-#define STEPS_AZIMUTH   2048
-#define STEPS_ELEVATION 2048
-#define SPEED_AZIMUTH   10    // RPM
+// Stepper motor for azimuth:
+// - Stride angle: 5.625°/64
+// - Steps per revolution: 4096
+#define STEPS_AZIMUTH   4096
+#define SPEED_AZIMUTH   1.2   // RPM
+//#define AZIMUTH_REVERSE_DIRECTION
+// Stepper motor for elevation:
+// - Stride angle: 5.625°/25
+// - Steps per revolution: 1600
+#define STEPS_ELEVATION 1600
 #define SPEED_ELEVATION 10    // RPM
+//#define ELEVATION_REVERSE_DIRECTION
 #endif // SIMULATION_MODE
 
 // Create an instance of the stepper class, specifying
 // the number of steps of the motor and the pins it's
 // attached to.
-Stepper stepperAzimuth(STEPS_AZIMUTH, 30, 32, 31, 33);
-Stepper stepperElevation(STEPS_ELEVATION, 34, 36, 35, 37);
+#ifdef AZIMUTH_REVERSE_DIRECTION
+Stepper stepperAzimuth(STEPS_AZIMUTH, PIN_MOTOR_AZIMUTH_B_N, PIN_MOTOR_AZIMUTH_B_P, PIN_MOTOR_AZIMUTH_A_N, PIN_MOTOR_AZIMUTH_A_P);
+#else
+Stepper stepperAzimuth(STEPS_AZIMUTH, PIN_MOTOR_AZIMUTH_A_P, PIN_MOTOR_AZIMUTH_A_N, PIN_MOTOR_AZIMUTH_B_P, PIN_MOTOR_AZIMUTH_B_N);
+#endif
+#ifdef ELEVATION_REVERSE_DIRECTION
+Stepper stepperElevation(STEPS_ELEVATION, PIN_MOTOR_ELEVATION_B_N, PIN_MOTOR_ELEVATION_B_P, PIN_MOTOR_ELEVATION_A_N, PIN_MOTOR_ELEVATION_A_P);
+#else
+Stepper stepperElevation(STEPS_ELEVATION, PIN_MOTOR_ELEVATION_A_P, PIN_MOTOR_ELEVATION_A_N, PIN_MOTOR_ELEVATION_B_P, PIN_MOTOR_ELEVATION_B_N);
+#endif
 int millisPerStepAzimuth = (float) 60 / (STEPS_AZIMUTH * SPEED_AZIMUTH) * 1000;
 int millisPerStepElevation = (float) 60 / (STEPS_ELEVATION * SPEED_ELEVATION) * 1000;
-int positionAzimuth;
-int positionElevation;
+int positionAzimuth = 0;
+int positionElevation = 0;
 
 // Create an instance of the LCD.
 LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PIN_LCD_D7);
 
 // Azimuth and elevation software limits.
+#ifdef SIMULATION_MODE
 float azimuthLimitMin     = 10.0;
 float azimuthLimitMax     = 350.0;
 float elevationLimitMin   = 10.0;
 float elevationLimitMax   = 80.0;
+#else
+float azimuthLimitMin     = 10.0;
+//float azimuthLimitMax     = 270.0;
+float azimuthLimitMax     = 90.0;
+float elevationLimitMin   = 10.0;
+//float elevationLimitMax   = 110.0;
+float elevationLimitMax   = 45.0;
+#endif
 
 // Azimuth and elevation actual value, target value and tolerance.
 float azimuthActual       = 0.0;
@@ -195,7 +234,12 @@ void setup() {
 void loop() {
   initHardware();
   while (true) {
+    // Power down the stepper motors to save power and keep them cool.
+    stepperPowerDownAzimuth();
+    stepperPowerDownElevation();
+    // Initialize the game.
     initGame();
+    // Play the game.
     playGame();
   }
 }
@@ -219,7 +263,7 @@ int initHardware() {
   ret = 0;
   #else
   // Find the zero positions of the stepper motors.
-  ret = stepperFindZeroPosition();
+//  ret = stepperFindZeroPosition();
   #endif
   // Error while finding the zero positions.
   // => Halt the execution and display an error message.
@@ -303,6 +347,28 @@ int stepperFindZeroPosition() {
 
 
 
+// Power down the stepper motor for the azimuth drive.
+int stepperPowerDownAzimuth() {
+  digitalWrite(PIN_MOTOR_AZIMUTH_A_P, LOW);
+  digitalWrite(PIN_MOTOR_AZIMUTH_A_N, LOW);
+  digitalWrite(PIN_MOTOR_AZIMUTH_B_P, LOW);
+  digitalWrite(PIN_MOTOR_AZIMUTH_B_N, LOW);
+  return 0;
+}
+
+
+
+// Power down the stepper motor for the elevation drive.
+int stepperPowerDownElevation() {
+  digitalWrite(PIN_MOTOR_ELEVATION_A_P, LOW);
+  digitalWrite(PIN_MOTOR_ELEVATION_A_N, LOW);
+  digitalWrite(PIN_MOTOR_ELEVATION_B_P, LOW);
+  digitalWrite(PIN_MOTOR_ELEVATION_B_N, LOW);
+  return 0;
+}
+
+
+
 // Initialize the game.
 int initGame() {
   // Set up LEDs.
@@ -376,10 +442,13 @@ int playGame() {
     if (timeElapsed > 2000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
     if (timeElapsed > 3000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
     if (timeElapsed > 4000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
-    if (timeElapsed > 5000 * timeElapsedScale) {
-      ret = evalGameResult();
-      return ret;
-    }
+//    if (timeElapsed > 5000 * timeElapsedScale) {
+//      Power down the stepper motors to save power and keep them cool.
+//      stepperPowerDownAzimuth();
+//      stepperPowerDownElevation();
+//      ret = evalGameResult();
+//      return ret;
+//    }
 
     // Get the values from the analog joystick.
     stepsAzimuth = analog2steps(analogRead(PIN_JOYSTICK_AZ));
@@ -407,12 +476,20 @@ int playGame() {
       elevationActual = position2elevation(positionElevation);
 
       // Azimuth: Rotate right.
+      #ifdef IGNORE_SOFT_LIMITS_AZIMUTH
+      if ((stepsAzimuth < 0) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT))) {
+      #else
       if ((stepsAzimuth < 0) && (azimuthActual < azimuthLimitMax) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT))) {
+      #endif
         stepperAzimuth.step(-1);
         stepsAzimuth++;
         positionAzimuth++;
       // Azimuth: Rotate left.
+      #ifdef IGNORE_SOFT_LIMITS_AZIMUTH
+      } else if ((stepsAzimuth > 0) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT))) {
+      #else
       } else if ((stepsAzimuth > 0) && (azimuthActual > azimuthLimitMin) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT))) {
+      #endif
         stepperAzimuth.step(1);
         stepsAzimuth--;
         positionAzimuth--;
@@ -422,12 +499,20 @@ int playGame() {
       }
 
       // Elevation: Move up.
+      #ifdef IGNORE_SOFT_LIMITS_ELEVATION
+      if ((stepsElevation < 0) && (digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+      #else
       if ((stepsElevation < 0) && (elevationActual < elevationLimitMax) && (digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+      #endif
         stepperElevation.step(-1);
         stepsElevation++;
         positionElevation++;
       // Elevation: Move down.
+      #ifdef IGNORE_SOFT_LIMITS_ELEVATION
+      } else if ((stepsElevation > 0) && (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM))) {
+      #else
       } else if ((stepsElevation > 0) && (elevationActual > elevationLimitMin) && (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM))) {
+      #endif
         stepperElevation.step(1);
         stepsElevation--;
         positionElevation--;
@@ -505,14 +590,22 @@ int analog2steps(int analog) {
 
 // Convert stepper motor position to azimuth.
 float position2azimuth(int steps) {
+  #ifdef SIMULATION_MODE
   return ((float) steps / STEPS_AZIMUTH) * 360;
+  #else
+  return ((float) steps / STEPS_AZIMUTH) * 360;
+  #endif
 }
 
 
 
 // Convert stepper motor position to elevation.
 float position2elevation(int steps) {
-  return ((float) steps / STEPS_ELEVATION) * 360;
+  #ifdef SIMULATION_MODE
+  return ((float) steps / STEPS_ELEVATION) * 360;       // 360 degress of azimuth per stepper motor revolution.
+  #else
+  return ((float) steps / STEPS_ELEVATION) * 12.4;      // 12.4 degress of elevation per stepper motor revolution.
+  #endif
 }
 
 
