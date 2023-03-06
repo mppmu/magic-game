@@ -2,7 +2,19 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 03 Mar 2023
+// Rev.: 06 Mar 2023
+//
+// Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
+// the MAGIC Game via the MAGIC Game board.
+//
+// Stepper motors:
+// - Azimuth: 28BYJ-48 with 1/64 gearing
+// - Elevation: 28BYJ-48 with 1/25 gearing (transmission from TS-24BYJ48A-25)
+// - Directions:
+//   - Azimuth left:    -1 step
+//   - Azimuth right:   +1 step
+//   - Elevation down:  -1 step
+//   - Elevation up:    +1 step
 //
 
 
@@ -13,103 +25,114 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.5"
-#define FW_RELEASEDATE  "03 Mar 2023"
+#define FW_VERSION      "0.0.6"
+#define FW_RELEASEDATE  "06 Mar 2023"
 
 
 
 // For simulation in SimulIDE.
-//#define SIMULATION_MODE
+#define SIMULATION_MODE
 
 // For debugging.
 //#define DEBUG_MODE_SHOW_STEPS
-//#define DEBUG_MODE_SHOW_POSITIONS
+#define DEBUG_MODE_SHOW_POSITIONS
 
 // Debugging over the serial interface.
 #define DEBUG_SERIAL
 
 // Define serial interfaces.
-#define SERIAL_CONSOLE                  Serial
-#define SERIAL_CONTROL                  Serial1
+#define SERIAL_CONSOLE                      Serial
+#define SERIAL_CONTROL                      Serial1
 
 // Define control messages for commuincation with the exhibition booth.
 #define ENABLE_CONTROL_MSG
-#define CONTROL_MSG_ERROR               "ERROR"
-#define CONTROL_MSG_BOOT                "BOOT"
-#define CONTROL_MSG_INIT                "INIT"
-#define CONTROL_MSG_IDLE                "IDLE"
-#define CONTROL_MSG_START               "START"
-#define CONTROL_MSG_TARGET              "TARGET"
-#define CONTROL_MSG_PROGRESS            "PROGRESS"
-#define CONTROL_MSG_SUCCESS             "SUCCESS"
-#define CONTROL_MSG_FAILURE             "FAILURE"
+#define CONTROL_MSG_ERROR                   "ERROR"
+#define CONTROL_MSG_BOOT                    "BOOT"
+#define CONTROL_MSG_INIT                    "INIT"
+#define CONTROL_MSG_IDLE                    "IDLE"
+#define CONTROL_MSG_START                   "START"
+#define CONTROL_MSG_TARGET                  "TARGET"
+#define CONTROL_MSG_PROGRESS                "PROGRESS"
+#define CONTROL_MSG_SUCCESS                 "SUCCESS"
+#define CONTROL_MSG_FAILURE                 "FAILURE"
+
+// Define number of decimals in serial messages.
+#define SERIAL_MSG_DECIMALS_AZIMUTH         1
+#define SERIAL_MSG_DECIMALS_ELEVATION       1
 
 // Ignore soft limits when moving the telescope.
 //#define IGNORE_SOFT_LIMITS_AZIMUTH
 //#define IGNORE_SOFT_LIMITS_ELEVATION
 
+// Move the telescope to its parking position before starting the game.
+#define MOVE_TELESCOPE_TO_PARKING_POSITION
+
 // Define pins.
-#define PIN_JOYSTICK_AZ                 A0
-#define PIN_JOYSTICK_EL                 A1
-#define PIN_JOYSTICK_BUTTON             A2
-#define PIN_MOTOR_AZIMUTH_A_P           30
-#define PIN_MOTOR_AZIMUTH_A_N           32
-#define PIN_MOTOR_AZIMUTH_B_P           31
-#define PIN_MOTOR_AZIMUTH_B_N           33
-#define PIN_MOTOR_ELEVATION_A_P         34
-#define PIN_MOTOR_ELEVATION_A_N         36
-#define PIN_MOTOR_ELEVATION_B_P         35
-#define PIN_MOTOR_ELEVATION_B_N         37
-#define PIN_LED_PROGRESS_1              2
-#define PIN_LED_PROGRESS_2              3
-#define PIN_LED_PROGRESS_3              4
-#define PIN_LED_PROGRESS_4              5
-#define PIN_LED_PROGRESS_5              6
-#define PIN_SW_LIMIT_AZIMUTH_LEFT       22
-#define PIN_SW_LIMIT_AZIMUTH_RIGHT      23
-#define PIN_SW_LIMIT_ELEVATION_BOTTOM   24
-#define PIN_SW_LIMIT_ELEVATION_TOP      25
-#define PIN_BUTTON_START                26
-#define PIN_LED_AZIMUTH_LEFT            38
-#define PIN_LED_AZIMUTH_CENTER          39
-#define PIN_LED_AZIMUTH_RIGHT           40
-#define PIN_LED_ELEVATION_BOTTOM        42
-#define PIN_LED_ELEVATION_CENTER        43
-#define PIN_LED_ELEVATION_TOP           44
-#define PIN_LED_OK                      46
-#define PIN_LED_ERROR                   47
-#define PIN_LCD_RS                      48
-#define PIN_LCD_EN                      49
-#define PIN_LCD_D4                      50
-#define PIN_LCD_D5                      51
-#define PIN_LCD_D6                      52
-#define PIN_LCD_D7                      53
-#define PIN_LCD_CONTRAST                8
-#define PIN_LCD_BACKLIGHT               9
+#define PIN_JOYSTICK_AZ                     A0
+#define PIN_JOYSTICK_EL                     A1
+#define PIN_JOYSTICK_BUTTON                 A2
+#define PIN_MOTOR_AZIMUTH_A_P               30
+#define PIN_MOTOR_AZIMUTH_A_N               32
+#define PIN_MOTOR_AZIMUTH_B_P               31
+#define PIN_MOTOR_AZIMUTH_B_N               33
+#define PIN_MOTOR_ELEVATION_A_P             34
+#define PIN_MOTOR_ELEVATION_A_N             36
+#define PIN_MOTOR_ELEVATION_B_P             35
+#define PIN_MOTOR_ELEVATION_B_N             37
+#define PIN_LED_PROGRESS_1                  2
+#define PIN_LED_PROGRESS_2                  3
+#define PIN_LED_PROGRESS_3                  4
+#define PIN_LED_PROGRESS_4                  5
+#define PIN_LED_PROGRESS_5                  6
+#define PIN_SW_LIMIT_AZIMUTH_LEFT           22
+#define PIN_SW_LIMIT_AZIMUTH_RIGHT          23
+#define PIN_SW_LIMIT_ELEVATION_BOTTOM       24
+#define PIN_SW_LIMIT_ELEVATION_TOP          25
+#define PIN_BUTTON_START                    26
+#define PIN_LED_AZIMUTH_LEFT                38
+#define PIN_LED_AZIMUTH_CENTER              39
+#define PIN_LED_AZIMUTH_RIGHT               40
+#define PIN_LED_ELEVATION_BOTTOM            42
+#define PIN_LED_ELEVATION_CENTER            43
+#define PIN_LED_ELEVATION_TOP               44
+#define PIN_LED_OK                          46
+#define PIN_LED_ERROR                       47
+#define PIN_LCD_RS                          48
+#define PIN_LCD_EN                          49
+#define PIN_LCD_D4                          50
+#define PIN_LCD_D5                          51
+#define PIN_LCD_D6                          52
+#define PIN_LCD_D7                          53
+#define PIN_LCD_CONTRAST                    8
+#define PIN_LCD_BACKLIGHT                   9
 
 
 
 // Stepper motors: Define steps per revolution and speed in RPM.
 #ifdef SIMULATION_MODE
-#define STEPS_AZIMUTH   64
-#define SPEED_AZIMUTH   10    // RPM
-//#define AZIMUTH_REVERSE_DIRECTION
-#define STEPS_ELEVATION 64
-#define SPEED_ELEVATION 10    // RPM
-//#define ELEVATION_REVERSE_DIRECTION
+#define STEPS_AZIMUTH                       64      // Steps per revolution.
+#define SPEED_AZIMUTH                       10      // RPM.
+#define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degress of azimuth per stepper motor revolution.
+#define AZIMUTH_REVERSE_DIRECTION
+#define STEPS_ELEVATION                     64      // Steps per revolution.
+#define SPEED_ELEVATION                     10      // RPM.
+#define ELEVATION_DEGREES_PER_REVOLUTION    90      // Degress of elevation per stepper motor revolution.
+#define ELEVATION_REVERSE_DIRECTION
 #else
 // Stepper motor for azimuth:
 // - Stride angle: 5.625°/64
 // - Steps per revolution: 4096
-#define STEPS_AZIMUTH   4096
-#define SPEED_AZIMUTH   1.2   // RPM
-//#define AZIMUTH_REVERSE_DIRECTION
+#define STEPS_AZIMUTH                       4096    // Steps per revolution.
+#define SPEED_AZIMUTH                       1.2     // RPM.
+#define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degress of azimuth per stepper motor revolution.
+#define AZIMUTH_REVERSE_DIRECTION
 // Stepper motor for elevation:
 // - Stride angle: 5.625°/25
 // - Steps per revolution: 1600
-#define STEPS_ELEVATION 1600
-#define SPEED_ELEVATION 10    // RPM
-//#define ELEVATION_REVERSE_DIRECTION
+#define STEPS_ELEVATION                     1600    // Steps per revolution.
+#define SPEED_ELEVATION                     10      // RPM.
+#define ELEVATION_DEGREES_PER_REVOLUTION    12.4    // Degress of elevation per stepper motor revolution.
+#define ELEVATION_REVERSE_DIRECTION
 #endif // SIMULATION_MODE
 
 // Create an instance of the stepper class, specifying
@@ -125,36 +148,45 @@ Stepper stepperElevation(STEPS_ELEVATION, PIN_MOTOR_ELEVATION_B_N, PIN_MOTOR_ELE
 #else
 Stepper stepperElevation(STEPS_ELEVATION, PIN_MOTOR_ELEVATION_A_P, PIN_MOTOR_ELEVATION_A_N, PIN_MOTOR_ELEVATION_B_P, PIN_MOTOR_ELEVATION_B_N);
 #endif
-int millisPerStepAzimuth = (float) 60 / (STEPS_AZIMUTH * SPEED_AZIMUTH) * 1000;
-int millisPerStepElevation = (float) 60 / (STEPS_ELEVATION * SPEED_ELEVATION) * 1000;
-int positionAzimuth = 0;
-int positionElevation = 0;
+const int millisPerStepAzimuth = (float) 60 / (STEPS_AZIMUTH * SPEED_AZIMUTH) * 1000;
+const int millisPerStepElevation = (float) 60 / (STEPS_ELEVATION * SPEED_ELEVATION) * 1000;
+int positionStepsAzimuth = 0;
+int positionStepsElevation = 0;
 
 // Create an instance of the LCD.
 LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PIN_LCD_D7);
 
 // Azimuth and elevation software limits.
 #ifdef SIMULATION_MODE
-float azimuthLimitMin     = 10.0;
-float azimuthLimitMax     = 350.0;
-float elevationLimitMin   = 10.0;
-float elevationLimitMax   = 80.0;
+const float azimuthLimitMin     = 10.0;
+const float azimuthLimitMax     = 350.0;
+const float elevationLimitMin   = 10.0;
+const float elevationLimitMax   = 80.0;
 #else
-float azimuthLimitMin     = 10.0;
-//float azimuthLimitMax     = 270.0;
-float azimuthLimitMax     = 90.0;
-float elevationLimitMin   = 10.0;
-//float elevationLimitMax   = 110.0;
-float elevationLimitMax   = 45.0;
+const float azimuthLimitMin     = 10.0;
+//const float azimuthLimitMax     = 270.0;
+const float azimuthLimitMax     = 90.0;
+const float elevationLimitMin   = 10.0;
+//const float elevationLimitMax   = 110.0;
+const float elevationLimitMax   = 45.0;
+#endif
+
+// Azimuth and elevation positions.
+#ifdef SIMULATION_MODE
+const float azimuthPosParking   = 20.0;
+const float elevationPosParking = 20.0;
+#else
+const float azimuthPosParking   = azimuthLimitMin;
+const float elevationPosParking = elevationLimitMin;
 #endif
 
 // Azimuth and elevation actual value, target value and tolerance.
-float azimuthActual       = 0.0;
-float azimuthTarget       = 0.0;
-float azimuthTolerance    = 20.0;
-float elevationActual     = 0.0;
-float elevationTarget     = 0.0;
-float elevationTolerance  = 10.0;
+float azimuthActual             = 0.0;
+float azimuthTarget             = 0.0;
+const float azimuthTolerance    = 20.0;
+float elevationActual           = 0.0;
+float elevationTarget           = 0.0;
+const float elevationTolerance  = 10.0;
 
 
 
@@ -331,10 +363,10 @@ int stepperFindZeroPosition() {
   lcd.print("Azimuth...      ");
   steps = 0;
   while (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT)) {
-    stepperAzimuth.step(1);
+    stepperAzimuth.step(-1);    // Move one step left.
     steps++;
     // Error: One complete rotation without limit switch getting activated!
-    if (steps > STEPS_AZIMUTH) {
+    if (steps > (360 / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_AZIMUTH) {
       SERIAL_CONSOLE.print("FAILED!");
       lcd.setCursor(0, 1);
       lcd.print("Azimuth FALIED! ");
@@ -348,10 +380,10 @@ int stepperFindZeroPosition() {
   lcd.print("Elevation...    ");
   steps = 0;
   while (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM)) {
-    stepperElevation.step(1);
+    stepperElevation.step(-1);  // Move one step down.
     steps++;
     // Error: Half a rotation without limit switch getting activated!
-    if (steps > STEPS_ELEVATION / 2) {
+    if (steps > (180 / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_ELEVATION) {
       SERIAL_CONSOLE.print("FAILED!");
       lcd.setCursor(0, 1);
       lcd.print("Elevation FAILED");
@@ -363,8 +395,8 @@ int stepperFindZeroPosition() {
   lcd.setCursor(0, 1);
   lcd.print("OK!             ");
 
-  positionAzimuth = 0;
-  positionElevation = 0;
+  positionStepsAzimuth = 0;
+  positionStepsElevation = 0;
 
   return 0;
 }
@@ -395,9 +427,7 @@ int stepperPowerDownElevation() {
 
 // Initialize the game.
 int initGame() {
-  #ifdef ENABLE_CONTROL_MSG
-  SERIAL_CONTROL.print(String(CONTROL_MSG_IDLE) + "\r\n");
-  #endif
+  int ret;
 
   // Set up LEDs.
   digitalWrite(PIN_LED_PROGRESS_1, LOW);
@@ -413,6 +443,32 @@ int initGame() {
   digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
   digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
 
+  // Move the telescope to its parking position.
+  #ifdef MOVE_TELESCOPE_TO_PARKING_POSITION
+  ret = moveTelscope(azimuthPosParking, elevationPosParking);
+  if (ret) {
+    digitalWrite(PIN_LED_OK, LOW);
+    digitalWrite(PIN_LED_ERROR, HIGH);
+    SERIAL_CONSOLE.print("\r\nERROR: Moving telescope to position " + String(azimuthPosParking, SERIAL_MSG_DECIMALS_AZIMUTH) + ", " + String(elevationPosParking, SERIAL_MSG_DECIMALS_ELEVATION) + " failed! Program stopped!");
+    SERIAL_CONSOLE.print("\r\nPress the reset button to reboot.");
+    SERIAL_CONSOLE.print("\r\n");
+    lcd.clear();
+    while (true) {
+      #ifdef ENABLE_CONTROL_MSG
+      SERIAL_CONTROL.print(String(CONTROL_MSG_ERROR) + "\r\n");
+      #endif
+      lcd.setCursor(0, 0);
+      lcd.print("ERROR: Move tel.");
+      lcd.setCursor(0, 1);
+      lcd.print("PROGRAM STOPPED!");
+      delay(1000);
+      lcd.setCursor(0, 1);
+      lcd.print("PRESS RESET!    ");
+      delay(1000);
+    }
+  }
+  #endif
+
   // Display message.
   SERIAL_CONSOLE.print("\r\n\r\nMAGIC Game: Push the start button to start a new game.\r\n");
   lcd.clear();
@@ -420,6 +476,10 @@ int initGame() {
   lcd.print("-= MAGIC Game =-");
   lcd.setCursor(0, 1);
   lcd.print("* Push button! *");
+
+  #ifdef ENABLE_CONTROL_MSG
+  SERIAL_CONTROL.print(String(CONTROL_MSG_IDLE) + "\r\n");
+  #endif
 
   // Wait until the start button is pushed.
   waitStart();
@@ -433,16 +493,105 @@ int initGame() {
   elevationTarget = random(elevationLimitMin, elevationLimitMax);
 
   #ifdef ENABLE_CONTROL_MSG
-  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(int(azimuthTarget)) + " " + String(int(elevationTarget)) + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + " " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + "\r\n");
   #endif
 
   // Display the gamma position.
-  SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(int(azimuthTarget)) + ", elevation: " + String(int(elevationTarget)));
+  SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + ", elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION));
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Gamma position:");
   lcd.setCursor(0, 1);
   lcd.print("Az: " + String(int(azimuthTarget)) + " , el: " + String(int(elevationTarget)));
+  return 0;
+}
+
+
+
+// Move the telescope to a given position.
+int moveTelscope(float azimuthAngle, float elevationAngle) {
+  int stepsAzimuth;
+  int stepsElevation;
+
+  // Display message.
+  SERIAL_CONSOLE.print("\r\nMoving telescope to position: Azimuth: " + String(azimuthAngle, SERIAL_MSG_DECIMALS_AZIMUTH) + ", elevation: " + String(elevationAngle, SERIAL_MSG_DECIMALS_ELEVATION));
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Move telescope: ");
+  lcd.setCursor(0, 1);
+  lcd.print("Az: " + String(int(azimuthAngle)) + " , el: " + String(int(elevationAngle)));
+
+  // Convert stepper motor positions to azimuth and elevation.
+  azimuthActual = positionSteps2azimuthAngle(positionStepsAzimuth);
+  elevationActual = positionSteps2elevationAngle(positionStepsElevation);
+
+  // Calculate the stepper motor steps to reach the target position.
+  stepsAzimuth = azimuthAngle2positionSteps(azimuthAngle - azimuthActual);
+  stepsElevation = elevationAngle2positionSteps(elevationAngle - elevationActual);
+
+  // Move the telescope until the target position is reached.
+  while ((stepsAzimuth != 0) || (stepsElevation != 0)) {
+    // Azimuth: Rotate left.
+    if (stepsAzimuth < 0) {
+      // Check left limit switch before moving.
+      if (! digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT)) {
+        return 1;
+      }
+      stepperAzimuth.step(-1);      // Move one step left.
+      stepsAzimuth++;               // One step less to go.
+      positionStepsAzimuth--;       // Update azimuth position.
+    // Azimuth: Rotate right.
+    } else if (stepsAzimuth > 0) {
+      // Check right limit switch before moving.
+      if (! digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT)) {
+        return 2;
+      }
+      stepperAzimuth.step(1);       // Move one step right.
+      stepsAzimuth--;               // One step less to go.
+      positionStepsAzimuth++;       // Update azimuth position.
+    // Azimuth: No rotation, but insert delay to compensate the missing time.
+    } else {
+      delay(millisPerStepAzimuth);
+    }
+
+    // Elevation: Move down.
+    if (stepsElevation < 0) {
+      // Check bottom limit switch before moving.
+      if (! digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM)) {
+        return 3;
+      }
+      stepperElevation.step(-1);  // Move one step down.
+      stepsElevation++;           // One step less to go.
+      positionStepsElevation--;   // Update elevation position.
+    // Elevation: Move up.
+    } else if (stepsElevation > 0) {
+      // Check top limit switch before moving.
+      if (! digitalRead(PIN_SW_LIMIT_ELEVATION_TOP)) {
+        return 4;
+      }
+      stepperElevation.step(1);   // Move one step up.
+      stepsElevation--;           // One step less to go.
+      positionStepsElevation++;   // Update elevation position.
+    // Elevation: No movement, but insert delay to compensate the missing time.
+    } else {
+      delay(millisPerStepElevation);
+    }
+
+    // DEBUG: Show actual azimuth and elevation.
+    #ifdef DEBUG_MODE_SHOW_POSITIONS
+    // Convert stepper motor positions to azimuth and elevation.
+    azimuthActual = positionSteps2azimuthAngle(positionStepsAzimuth);
+    elevationActual = positionSteps2elevationAngle(positionStepsElevation);
+    #ifdef DEBUG_SERIAL
+    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION));
+    #endif
+    lcd.setCursor(0, 0);
+    lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
+    lcd.setCursor(0, 1);
+    lcd.print("DBG act. el: " + String(int(elevationActual)) + "  ");
+    #endif
+  }
+
   return 0;
 }
 
@@ -457,6 +606,10 @@ int playGame() {
   long timeStart;
   long timeElapsed;
   float timeElapsedScale;
+  #ifdef ENABLE_CONTROL_MSG
+  bool controlMsgProgress[6];
+  for (int i = 0; i < sizeof(controlMsgProgress) / sizeof(bool); i++) controlMsgProgress[i] = false;
+  #endif
 
   #ifdef DEBUG_MODE_SHOW_STEPS
   lcd.clear();
@@ -474,12 +627,12 @@ int playGame() {
     timeElapsedScale = 4.0;
     #endif
     #ifdef ENABLE_CONTROL_MSG
-    if (timeElapsed > 250  * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + "\r\n");
-    if (timeElapsed > 1000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + "\r\n");
-    if (timeElapsed > 2000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + "\r\n");
-    if (timeElapsed > 3000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + "\r\n");
-    if (timeElapsed > 4000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + "\r\n");
-    if (timeElapsed > 5000 * timeElapsedScale) SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + "\r\n");
+    if ((timeElapsed > 250  * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + "\r\n"); controlMsgProgress[0] = true; }
+    if ((timeElapsed > 1000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + "\r\n"); controlMsgProgress[1] = true; }
+    if ((timeElapsed > 2000 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + "\r\n"); controlMsgProgress[2] = true; }
+    if ((timeElapsed > 3000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + "\r\n"); controlMsgProgress[3] = true; }
+    if ((timeElapsed > 4000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + "\r\n"); controlMsgProgress[4] = true; }
+    if ((timeElapsed > 5000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + "\r\n"); controlMsgProgress[5] = true; }
     #endif
     if (timeElapsed > 250  * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
     if (timeElapsed > 1000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
@@ -510,56 +663,54 @@ int playGame() {
     #endif
 
     // Move the stepper motors.
-//    stepperAzimuth.step(stepsAzimuth);
-//    stepperElevation.step(stepsElevation);
     // Move both motors in parallel step by step.
     stepsMax = max(abs(analog2steps(0)), abs(analog2steps(1024)));  // Get the maximum number of possible steps.
     for (int i = 0; i < stepsMax; i++) {
       // Convert stepper motor positions to azimuth and elevation.
-      azimuthActual = position2azimuth(positionAzimuth);
-      elevationActual = position2elevation(positionElevation);
+      azimuthActual = positionSteps2azimuthAngle(positionStepsAzimuth);
+      elevationActual = positionSteps2elevationAngle(positionStepsElevation);
 
-      // Azimuth: Rotate right.
-      #ifdef IGNORE_SOFT_LIMITS_AZIMUTH
-      if ((stepsAzimuth < 0) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT))) {
-      #else
-      if ((stepsAzimuth < 0) && (azimuthActual < azimuthLimitMax) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT))) {
-      #endif
-        stepperAzimuth.step(-1);
-        stepsAzimuth++;
-        positionAzimuth++;
       // Azimuth: Rotate left.
       #ifdef IGNORE_SOFT_LIMITS_AZIMUTH
-      } else if ((stepsAzimuth > 0) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT))) {
+      if ((stepsAzimuth < 0) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT))) {
       #else
-      } else if ((stepsAzimuth > 0) && (azimuthActual > azimuthLimitMin) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT))) {
+      if ((stepsAzimuth < 0) && (azimuthActual > azimuthLimitMin) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT))) {
       #endif
-        stepperAzimuth.step(1);
-        stepsAzimuth--;
-        positionAzimuth--;
+        stepperAzimuth.step(-1);    // Move one step left.
+        stepsAzimuth++;             // One step less to go.
+        positionStepsAzimuth--;     // Update azimuth position.
+      // Azimuth: Rotate right.
+      #ifdef IGNORE_SOFT_LIMITS_AZIMUTH
+      } else if ((stepsAzimuth > 0) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT))) {
+      #else
+      } else if ((stepsAzimuth > 0) && (azimuthActual < azimuthLimitMax) && (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT))) {
+      #endif
+        stepperAzimuth.step(1);     // Move one step right.
+        stepsAzimuth--;             // One step less to go.
+        positionStepsAzimuth++;     // Update azimuth position.
       // Azimuth: No rotation, but insert delay to compensate the missing time.
       } else {
         delay(millisPerStepAzimuth);
       }
 
-      // Elevation: Move up.
-      #ifdef IGNORE_SOFT_LIMITS_ELEVATION
-      if ((stepsElevation < 0) && (digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
-      #else
-      if ((stepsElevation < 0) && (elevationActual < elevationLimitMax) && (digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
-      #endif
-        stepperElevation.step(-1);
-        stepsElevation++;
-        positionElevation++;
       // Elevation: Move down.
       #ifdef IGNORE_SOFT_LIMITS_ELEVATION
-      } else if ((stepsElevation > 0) && (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM))) {
+      if ((stepsElevation < 0) && (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM))) {
       #else
-      } else if ((stepsElevation > 0) && (elevationActual > elevationLimitMin) && (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM))) {
+      if ((stepsElevation < 0) && (elevationActual > elevationLimitMin) && (digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM))) {
       #endif
-        stepperElevation.step(1);
-        stepsElevation--;
-        positionElevation--;
+        stepperElevation.step(-1);  // Move one step down.
+        stepsElevation++;           // One step less to go.
+        positionStepsElevation--;   // Update elevation position.
+      // Elevation: Move up.
+      #ifdef IGNORE_SOFT_LIMITS_ELEVATION
+      } else if ((stepsElevation > 0) && (digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+      #else
+      } else if ((stepsElevation > 0) && (elevationActual < elevationLimitMax) && (digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+      #endif
+        stepperElevation.step(1);   // Move one step up.
+        stepsElevation--;           // One step less to go.
+        positionStepsElevation++;   // Update elevation position.
       // Elevation: No movement, but insert delay to compensate the missing time.
       } else {
         delay(millisPerStepElevation);
@@ -603,14 +754,13 @@ int playGame() {
     // DEBUG: Show actual azimuth and elevation.
     #ifdef DEBUG_MODE_SHOW_POSITIONS
     #ifdef DEBUG_SERIAL
-    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(int(azimuthActual)) + ", actual elevation: " + String(int(elevationActual)));
+    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION));
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
     lcd.setCursor(0, 1);
     lcd.print("DBG act. el: " + String(int(elevationActual)) + "  ");
     #endif
-
   }
   return 0;
 }
@@ -620,36 +770,42 @@ int playGame() {
 // Convert an analog value from the joystick (potentiometers) into stepper motor steps.
 int analog2steps(int analog) {
   int steps = 0;
-  if (analog < 200)       steps = +4;
-  else if (analog < 300)  steps = +2;
-  else if (analog < 400)  steps = +1;
-  else if (analog < 624)  steps = +0;
-  else if (analog < 724)  steps = -1;
-  else if (analog < 824)  steps = -2;
-  else                    steps = -4;
+  if (analog < 200)       steps = -4;
+  else if (analog < 300)  steps = -2;
+  else if (analog < 400)  steps = -1;
+  else if (analog < 624)  steps =  0;
+  else if (analog < 724)  steps = +1;
+  else if (analog < 824)  steps = +2;
+  else                    steps = +4;
   return steps;
 }
 
 
 
-// Convert stepper motor position to azimuth.
-float position2azimuth(int steps) {
-  #ifdef SIMULATION_MODE
-  return ((float) steps / STEPS_AZIMUTH) * 360;
-  #else
-  return ((float) steps / STEPS_AZIMUTH) * 360;
-  #endif
+// Convert the stepper motor position in steps to the azimuth angle in degrees.
+float positionSteps2azimuthAngle(int steps) {
+  return ((float) steps / STEPS_AZIMUTH) * AZIMUTH_DEGREES_PER_REVOLUTION;
 }
 
 
 
-// Convert stepper motor position to elevation.
-float position2elevation(int steps) {
-  #ifdef SIMULATION_MODE
-  return ((float) steps / STEPS_ELEVATION) * 360;       // 360 degress of azimuth per stepper motor revolution.
-  #else
-  return ((float) steps / STEPS_ELEVATION) * 12.4;      // 12.4 degress of elevation per stepper motor revolution.
-  #endif
+// Convert the stepper motor position in steps to the elevation angle in degrees.
+float positionSteps2elevationAngle(int steps) {
+  return ((float) steps / STEPS_ELEVATION) * ELEVATION_DEGREES_PER_REVOLUTION;
+}
+
+
+
+// Convert the azimuth angle in degrees to the stepper motor position in steps.
+int azimuthAngle2positionSteps(float azimuthAngle) {
+  return (int) ((azimuthAngle / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_AZIMUTH);
+}
+
+
+
+// Convert the elevation angle in degrees to the stepper motor position in steps.
+int elevationAngle2positionSteps(float elevationAngle) {
+  return (int) ((elevationAngle / ELEVATION_DEGREES_PER_REVOLUTION) * STEPS_ELEVATION);
 }
 
 
