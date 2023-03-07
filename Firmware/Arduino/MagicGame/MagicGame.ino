@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 06 Mar 2023
+// Rev.: 07 Mar 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -26,7 +26,7 @@
 
 #define FW_NAME         "MagicGame"
 #define FW_VERSION      "0.0.6"
-#define FW_RELEASEDATE  "06 Mar 2023"
+#define FW_RELEASEDATE  "07 Mar 2023"
 
 
 
@@ -150,8 +150,8 @@ Stepper stepperElevation(STEPS_ELEVATION, PIN_MOTOR_ELEVATION_A_P, PIN_MOTOR_ELE
 #endif
 const int millisPerStepAzimuth = (float) 60 / (STEPS_AZIMUTH * SPEED_AZIMUTH) * 1000;
 const int millisPerStepElevation = (float) 60 / (STEPS_ELEVATION * SPEED_ELEVATION) * 1000;
-int positionStepsAzimuth = 0;
-int positionStepsElevation = 0;
+long positionStepsAzimuth = 0;
+long positionStepsElevation = 0;
 
 // Create an instance of the LCD.
 LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PIN_LCD_D7);
@@ -351,7 +351,7 @@ int initHardware() {
 
 // Drive the stepper motors to their limit switch in order to get the zero positions.
 int stepperFindZeroPosition() {
-  int steps;
+  long steps;
   // Display message.
   SERIAL_CONSOLE.print("\r\nFinding the zero positions of the stepper motors.");
   lcd.clear();
@@ -510,8 +510,8 @@ int initGame() {
 
 // Move the telescope to a given position.
 int moveTelscope(float azimuthAngle, float elevationAngle) {
-  int stepsAzimuth;
-  int stepsElevation;
+  long stepsAzimuth;
+  long stepsElevation;
 
   // Display message.
   SERIAL_CONSOLE.print("\r\nMoving telescope to position: Azimuth: " + String(azimuthAngle, SERIAL_MSG_DECIMALS_AZIMUTH) + ", elevation: " + String(elevationAngle, SERIAL_MSG_DECIMALS_ELEVATION));
@@ -600,9 +600,9 @@ int moveTelscope(float azimuthAngle, float elevationAngle) {
 // Play the game.
 int playGame() {
   int ret;
-  int stepsAzimuth;
-  int stepsElevation;
-  int stepsMax;
+  long stepsAzimuth;
+  long stepsElevation;
+  long stepsMax;
   long timeStart;
   long timeElapsed;
   float timeElapsedScale;
@@ -768,8 +768,8 @@ int playGame() {
 
 
 // Convert an analog value from the joystick (potentiometers) into stepper motor steps.
-int analog2steps(int analog) {
-  int steps = 0;
+long analog2steps(int analog) {
+  long steps = 0;
   if (analog < 200)       steps = -4;
   else if (analog < 300)  steps = -2;
   else if (analog < 400)  steps = -1;
@@ -783,29 +783,29 @@ int analog2steps(int analog) {
 
 
 // Convert the stepper motor position in steps to the azimuth angle in degrees.
-float positionSteps2azimuthAngle(int steps) {
+float positionSteps2azimuthAngle(long steps) {
   return ((float) steps / STEPS_AZIMUTH) * AZIMUTH_DEGREES_PER_REVOLUTION;
 }
 
 
 
 // Convert the stepper motor position in steps to the elevation angle in degrees.
-float positionSteps2elevationAngle(int steps) {
+float positionSteps2elevationAngle(long steps) {
   return ((float) steps / STEPS_ELEVATION) * ELEVATION_DEGREES_PER_REVOLUTION;
 }
 
 
 
 // Convert the azimuth angle in degrees to the stepper motor position in steps.
-int azimuthAngle2positionSteps(float azimuthAngle) {
-  return (int) ((azimuthAngle / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_AZIMUTH);
+long azimuthAngle2positionSteps(float azimuthAngle) {
+  return (long) ((azimuthAngle / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_AZIMUTH);
 }
 
 
 
 // Convert the elevation angle in degrees to the stepper motor position in steps.
-int elevationAngle2positionSteps(float elevationAngle) {
-  return (int) ((elevationAngle / ELEVATION_DEGREES_PER_REVOLUTION) * STEPS_ELEVATION);
+long elevationAngle2positionSteps(float elevationAngle) {
+  return (long) ((elevationAngle / ELEVATION_DEGREES_PER_REVOLUTION) * STEPS_ELEVATION);
 }
 
 
