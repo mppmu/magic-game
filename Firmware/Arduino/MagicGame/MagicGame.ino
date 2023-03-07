@@ -8,8 +8,8 @@
 // the MAGIC Game via the MAGIC Game board.
 //
 // Stepper motors:
-// - Azimuth: 28BYJ-48 with 1/64 gearing
-// - Elevation: 28BYJ-48 with 1/25 gearing (transmission from TS-24BYJ48A-25)
+// - Azimuth: 28BYJ-48 with 32 steps and 1/64 gearing
+// - Elevation: Adafruit 858 with 32 steps and 1/16 gearing
 // - Directions:
 //   - Azimuth left:    -1 step
 //   - Azimuth right:   +1 step
@@ -25,17 +25,17 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.6"
+#define FW_VERSION      "0.0.7"
 #define FW_RELEASEDATE  "07 Mar 2023"
 
 
 
 // For simulation in SimulIDE.
-#define SIMULATION_MODE
+//#define SIMULATION_MODE
 
 // For debugging.
 //#define DEBUG_MODE_SHOW_STEPS
-#define DEBUG_MODE_SHOW_POSITIONS
+//#define DEBUG_MODE_SHOW_POSITIONS
 
 // Debugging over the serial interface.
 #define DEBUG_SERIAL
@@ -60,12 +60,22 @@
 #define SERIAL_MSG_DECIMALS_AZIMUTH         1
 #define SERIAL_MSG_DECIMALS_ELEVATION       1
 
-// Ignore soft limits when moving the telescope.
-//#define IGNORE_SOFT_LIMITS_AZIMUTH
-//#define IGNORE_SOFT_LIMITS_ELEVATION
+// Find zero positions for azimuth and elevation using the limit switches.
+// This is required to calibrate the absolute position of the telescope.
+// THIS MUST BE ENABLED FOR NORMAL USE!
+#define FIND_ZERO_POSITIONS
 
 // Move the telescope to its parking position before starting the game.
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
+
+// Do not end the game, but stay in an infinite loop.
+// FOR TESTING ONLY!
+//#define INFINITE_GAME_LOOP
+
+// Ignore soft limits when moving the telescope.
+// FOR TESTING ONLY!
+//#define IGNORE_SOFT_LIMITS_AZIMUTH
+//#define IGNORE_SOFT_LIMITS_ELEVATION
 
 // Define pins.
 #define PIN_JOYSTICK_AZ                     A0
@@ -120,18 +130,18 @@
 #define ELEVATION_REVERSE_DIRECTION
 #else
 // Stepper motor for azimuth:
-// - Stride angle: 5.625°/64
-// - Steps per revolution: 4096
-#define STEPS_AZIMUTH                       4096    // Steps per revolution.
-#define SPEED_AZIMUTH                       1.2     // RPM.
+// - Stride angle: 11.25°/64
+// - Steps per revolution: 2048 (empirically tested)
+#define STEPS_AZIMUTH                       2048    // Steps per revolution.
+#define SPEED_AZIMUTH                       5       // RPM.
 #define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degress of azimuth per stepper motor revolution.
-#define AZIMUTH_REVERSE_DIRECTION
+//#define AZIMUTH_REVERSE_DIRECTION
 // Stepper motor for elevation:
-// - Stride angle: 5.625°/25
-// - Steps per revolution: 1600
-#define STEPS_ELEVATION                     1600    // Steps per revolution.
-#define SPEED_ELEVATION                     10      // RPM.
-#define ELEVATION_DEGREES_PER_REVOLUTION    12.4    // Degress of elevation per stepper motor revolution.
+// - Stride angle: 11.25°/16.128
+// - Steps per revolution: 516
+#define STEPS_ELEVATION                     516     // Steps per revolution.
+#define SPEED_ELEVATION                     20      // RPM.
+#define ELEVATION_DEGREES_PER_REVOLUTION    29.0    // Degress of elevation per stepper motor revolution.
 #define ELEVATION_REVERSE_DIRECTION
 #endif // SIMULATION_MODE
 
@@ -164,11 +174,9 @@ const float elevationLimitMin   = 10.0;
 const float elevationLimitMax   = 80.0;
 #else
 const float azimuthLimitMin     = 10.0;
-//const float azimuthLimitMax     = 270.0;
-const float azimuthLimitMax     = 90.0;
+const float azimuthLimitMax     = 280.0;
 const float elevationLimitMin   = 10.0;
-//const float elevationLimitMax   = 110.0;
-const float elevationLimitMax   = 45.0;
+const float elevationLimitMax   = 105.0;
 #endif
 
 // Azimuth and elevation positions.
@@ -183,7 +191,7 @@ const float elevationPosParking = elevationLimitMin;
 // Azimuth and elevation actual value, target value and tolerance.
 float azimuthActual             = 0.0;
 float azimuthTarget             = 0.0;
-const float azimuthTolerance    = 20.0;
+const float azimuthTolerance    = 10.0;
 float elevationActual           = 0.0;
 float elevationTarget           = 0.0;
 const float elevationTolerance  = 10.0;
@@ -283,9 +291,6 @@ void setup() {
 void loop() {
   initHardware();
   while (true) {
-    // Power down the stepper motors to save power and keep them cool.
-    stepperPowerDownAzimuth();
-    stepperPowerDownElevation();
     // Initialize the game.
     initGame();
     // Play the game.
@@ -316,7 +321,9 @@ int initHardware() {
   ret = 0;
   #else
   // Find the zero positions of the stepper motors.
-//  ret = stepperFindZeroPosition();
+  #ifdef FIND_ZERO_POSITIONS
+  ret = stepperFindZeroPosition();
+  #endif
   #endif
   // Error while finding the zero positions.
   // => Halt the execution and display an error message.
@@ -341,6 +348,10 @@ int initHardware() {
       delay(1000);
     }
   }
+
+  // Power down the stepper motors to save power and keep them cool.
+  stepperPowerDownAzimuth();
+  stepperPowerDownElevation();
 
   digitalWrite(PIN_LED_OK, HIGH);
 
@@ -383,7 +394,7 @@ int stepperFindZeroPosition() {
     stepperElevation.step(-1);  // Move one step down.
     steps++;
     // Error: Half a rotation without limit switch getting activated!
-    if (steps > (180 / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_ELEVATION) {
+    if (steps > (180 / ELEVATION_DEGREES_PER_REVOLUTION) * STEPS_ELEVATION) {
       SERIAL_CONSOLE.print("FAILED!");
       lcd.setCursor(0, 1);
       lcd.print("Elevation FAILED");
@@ -468,6 +479,10 @@ int initGame() {
     }
   }
   #endif
+
+  // Power down the stepper motors to save power and keep them cool.
+  stepperPowerDownAzimuth();
+  stepperPowerDownElevation();
 
   // Display message.
   SERIAL_CONSOLE.print("\r\n\r\nMAGIC Game: Push the start button to start a new game.\r\n");
@@ -621,31 +636,33 @@ int playGame() {
     // Show the progress of the physics event (gamma ray -> Cherenkov light).
     timeElapsed = millis() - timeStart;
     #ifdef SIMULATION_MODE
-    timeElapsedScale = 4.0;
+    timeElapsedScale = 1.0;
     #else
-//    timeElapsedScale = 2.0;
-    timeElapsedScale = 4.0;
+//    timeElapsedScale = 1.0;
+    timeElapsedScale = 2.0;
     #endif
     #ifdef ENABLE_CONTROL_MSG
-    if ((timeElapsed > 250  * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + "\r\n"); controlMsgProgress[0] = true; }
-    if ((timeElapsed > 1000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + "\r\n"); controlMsgProgress[1] = true; }
-    if ((timeElapsed > 2000 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + "\r\n"); controlMsgProgress[2] = true; }
-    if ((timeElapsed > 3000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + "\r\n"); controlMsgProgress[3] = true; }
-    if ((timeElapsed > 4000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + "\r\n"); controlMsgProgress[4] = true; }
-    if ((timeElapsed > 5000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + "\r\n"); controlMsgProgress[5] = true; }
+    if ((timeElapsed >   250 * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + "\r\n"); controlMsgProgress[0] = true; }
+    if ((timeElapsed >  3000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + "\r\n"); controlMsgProgress[1] = true; }
+    if ((timeElapsed >  6000 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + "\r\n"); controlMsgProgress[2] = true; }
+    if ((timeElapsed >  9000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + "\r\n"); controlMsgProgress[3] = true; }
+    if ((timeElapsed > 12000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + "\r\n"); controlMsgProgress[4] = true; }
+    if ((timeElapsed > 15000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + "\r\n"); controlMsgProgress[5] = true; }
     #endif
-    if (timeElapsed > 250  * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
-    if (timeElapsed > 1000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
-    if (timeElapsed > 2000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
-    if (timeElapsed > 3000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
-    if (timeElapsed > 4000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
-//    if (timeElapsed > 5000 * timeElapsedScale) {
-//      Power down the stepper motors to save power and keep them cool.
-//      stepperPowerDownAzimuth();
-//      stepperPowerDownElevation();
-//      ret = evalGameResult();
-//      return ret;
-//    }
+    if (timeElapsed >   250 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
+    if (timeElapsed >  3000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
+    if (timeElapsed >  6000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
+    if (timeElapsed >  9000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
+    if (timeElapsed > 12000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
+    #ifndef INFINITE_GAME_LOOP
+    if (timeElapsed > 15000 * timeElapsedScale) {
+      // Power down the stepper motors to save power and keep them cool.
+      stepperPowerDownAzimuth();
+      stepperPowerDownElevation();
+      ret = evalGameResult();
+      return ret;
+    }
+    #endif
 
     // Get the values from the analog joystick.
     stepsAzimuth = analog2steps(analogRead(PIN_JOYSTICK_AZ));
@@ -812,7 +829,7 @@ long elevationAngle2positionSteps(float elevationAngle) {
 
 // Evaluate the result of the game.
 int evalGameResult() {
-  int ret;
+  int ret = 0;
 
   // Display evaluation.
   lcd.clear();
@@ -822,23 +839,42 @@ int evalGameResult() {
     #ifdef ENABLE_CONTROL_MSG
     SERIAL_CONTROL.print(String(CONTROL_MSG_SUCCESS) + "\r\n");
     #endif
+    SERIAL_CONSOLE.print("\r\n");
+    SERIAL_CONSOLE.print("\r\n**************************************");
     SERIAL_CONSOLE.print("\r\nCongratulations! You caught the gamma!");
+    SERIAL_CONSOLE.print("\r\n**************************************");
     lcd.setCursor(0, 0);
     lcd.print("Congratulations!");
     lcd.setCursor(0, 1);
-    lcd.print("Gamma caught!");
+    lcd.print("Gamma caught! :)");
     ret = 0;
   } else {
     #ifdef ENABLE_CONTROL_MSG
     SERIAL_CONTROL.print(String(CONTROL_MSG_FAILURE) + "\r\n");
     #endif
+    SERIAL_CONSOLE.print("\r\n");
+    SERIAL_CONSOLE.print("\r\n****************************");
     SERIAL_CONSOLE.print("\r\nSorry, You missed the gamma!");
+    SERIAL_CONSOLE.print("\r\n****************************");
     lcd.setCursor(0, 0);
     lcd.print("Sorry. :(");
     lcd.setCursor(0, 1);
     lcd.print("Gamma missed.");
     ret = 1;
   }
+  // Print some extra information.
+  azimuthActual = positionSteps2azimuthAngle(positionStepsAzimuth);
+  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print("\r\nGame Details");
+  SERIAL_CONSOLE.print("\r\n============");
+  SERIAL_CONSOLE.print("\r\nActual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH));
+  SERIAL_CONSOLE.print("\r\nTarget azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH));
+  SERIAL_CONSOLE.print("\r\nTolerance for azimuth: +/-" + String(azimuthTolerance, SERIAL_MSG_DECIMALS_AZIMUTH));
+  elevationActual = positionSteps2elevationAngle(positionStepsElevation);
+  SERIAL_CONSOLE.print("\r\nActual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION));
+  SERIAL_CONSOLE.print("\r\nTarget elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION));
+  SERIAL_CONSOLE.print("\r\nTolerance for elevation: +/-" + String(elevationTolerance, SERIAL_MSG_DECIMALS_ELEVATION));
+  SERIAL_CONSOLE.print("\r\n");
 
   // Wait until the start button is pushed.
   waitStart();
