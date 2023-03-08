@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 07 Mar 2023
+// Rev.: 08 Mar 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.7"
-#define FW_RELEASEDATE  "07 Mar 2023"
+#define FW_VERSION      "0.0.8"
+#define FW_RELEASEDATE  "08 Mar 2023"
 
 
 
@@ -44,7 +44,7 @@
 #define SERIAL_CONSOLE                      Serial
 #define SERIAL_CONTROL                      Serial1
 
-// Define control messages for commuincation with the exhibition booth.
+// Define control messages for communication with the exhibition booth.
 #define ENABLE_CONTROL_MSG
 #define CONTROL_MSG_ERROR                   "ERROR"
 #define CONTROL_MSG_BOOT                    "BOOT"
@@ -68,6 +68,14 @@
 // Move the telescope to its parking position before starting the game.
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 
+// Use random seed from an anlogue input to generate fully random numbers for
+// the targets.
+#define USE_RANDOM_SEED_FROM_ANALOG_INPUT
+
+// Use fixed, predefined targets only. Otherwise use random targets.
+// Note: For the operation in the exhibition booth, 3 fixed targets are required.
+#define USE_FIXED_TARGETS
+
 // Do not end the game, but stay in an infinite loop.
 // FOR TESTING ONLY!
 //#define INFINITE_GAME_LOOP
@@ -76,6 +84,8 @@
 // FOR TESTING ONLY!
 //#define IGNORE_SOFT_LIMITS_AZIMUTH
 //#define IGNORE_SOFT_LIMITS_ELEVATION
+
+
 
 // Define pins.
 #define PIN_JOYSTICK_AZ                     A0
@@ -122,11 +132,11 @@
 #ifdef SIMULATION_MODE
 #define STEPS_AZIMUTH                       64      // Steps per revolution.
 #define SPEED_AZIMUTH                       10      // RPM.
-#define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degress of azimuth per stepper motor revolution.
+#define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degrees of azimuth per stepper motor revolution.
 #define AZIMUTH_REVERSE_DIRECTION
 #define STEPS_ELEVATION                     64      // Steps per revolution.
 #define SPEED_ELEVATION                     10      // RPM.
-#define ELEVATION_DEGREES_PER_REVOLUTION    90      // Degress of elevation per stepper motor revolution.
+#define ELEVATION_DEGREES_PER_REVOLUTION    90      // Degrees of elevation per stepper motor revolution.
 #define ELEVATION_REVERSE_DIRECTION
 #else
 // Stepper motor for azimuth:
@@ -134,14 +144,14 @@
 // - Steps per revolution: 2048 (empirically tested)
 #define STEPS_AZIMUTH                       2048    // Steps per revolution.
 #define SPEED_AZIMUTH                       5       // RPM.
-#define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degress of azimuth per stepper motor revolution.
+#define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degrees of azimuth per stepper motor revolution.
 //#define AZIMUTH_REVERSE_DIRECTION
 // Stepper motor for elevation:
 // - Stride angle: 11.25°/16.128
 // - Steps per revolution: 516
 #define STEPS_ELEVATION                     516     // Steps per revolution.
 #define SPEED_ELEVATION                     20      // RPM.
-#define ELEVATION_DEGREES_PER_REVOLUTION    29.0    // Degress of elevation per stepper motor revolution.
+#define ELEVATION_DEGREES_PER_REVOLUTION    29.0    // Degrees of elevation per stepper motor revolution.
 #define ELEVATION_REVERSE_DIRECTION
 #endif // SIMULATION_MODE
 
@@ -195,6 +205,21 @@ const float azimuthTolerance    = 10.0;
 float elevationActual           = 0.0;
 float elevationTarget           = 0.0;
 const float elevationTolerance  = 10.0;
+// Define 3 fixed targets for operation in the exhibition booth.
+#ifdef USE_FIXED_TARGETS
+int targetFixedSel;
+typedef struct {
+  float azimuth;
+  float elevation;
+} target_t;
+const target_t targetFixed[] = {{120.0, 90.0}, {140.0, 80.0}, {160.0, 90.0}};
+#endif
+
+// Define degree symbol.
+// Note: The degree symbol ° is often not displayed correctly in terminal
+//       programs. So it may be better to omit it.
+//const String stringDegree       = "°";
+const String stringDegree       = "";
 
 
 
@@ -280,8 +305,16 @@ void setup() {
   digitalWrite(PIN_LED_OK, LOW);
   digitalWrite(PIN_LED_ERROR, LOW);
 
+  // Set random seed.
+  #ifdef USE_RANDOM_SEED_FROM_ANALOG_INPUT
+  randomSeed(analogRead(PIN_JOYSTICK_AZ));  // Fully random numbers based on analog input.
+  #else
+  randomSeed(0);
+  #endif
+
   // Wait until the start button is pushed.
   SERIAL_CONSOLE.print("\r\nPlease press the start button to continue.");
+  SERIAL_CONSOLE.print("\r\n");
   waitStart();
   delay(1000);
 }
@@ -460,7 +493,7 @@ int initGame() {
   if (ret) {
     digitalWrite(PIN_LED_OK, LOW);
     digitalWrite(PIN_LED_ERROR, HIGH);
-    SERIAL_CONSOLE.print("\r\nERROR: Moving telescope to position " + String(azimuthPosParking, SERIAL_MSG_DECIMALS_AZIMUTH) + ", " + String(elevationPosParking, SERIAL_MSG_DECIMALS_ELEVATION) + " failed! Program stopped!");
+    SERIAL_CONSOLE.print("\r\nERROR: Moving telescope to position " + String(azimuthPosParking, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(elevationPosParking, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed! Program stopped!");
     SERIAL_CONSOLE.print("\r\nPress the reset button to reboot.");
     SERIAL_CONSOLE.print("\r\n");
     lcd.clear();
@@ -504,15 +537,28 @@ int initGame() {
   #endif
 
   // Generate a new gamma position.
+  #ifdef USE_FIXED_TARGETS
+  targetFixedSel = random(sizeof(targetFixed) / sizeof(targetFixed[0]));
+  azimuthTarget = targetFixed[targetFixedSel].azimuth;
+  elevationTarget = targetFixed[targetFixedSel].elevation;
+  #else
   azimuthTarget = random(azimuthLimitMin, azimuthLimitMax);
   elevationTarget = random(elevationLimitMin, elevationLimitMax);
+  #endif
 
   #ifdef ENABLE_CONTROL_MSG
-  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + " " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + "\r\n");
+  #ifdef USE_FIXED_TARGETS
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(targetFixedSel + 1) + "\r\n");
+  #else
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + " " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + "\r\n");
+  #endif
   #endif
 
   // Display the gamma position.
-  SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + ", elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION));
+  SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  #ifdef USE_FIXED_TARGETS
+  SERIAL_CONSOLE.print(" (fixed target " + String(targetFixedSel + 1) + ")");
+  #endif
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Gamma position:");
@@ -529,7 +575,7 @@ int moveTelscope(float azimuthAngle, float elevationAngle) {
   long stepsElevation;
 
   // Display message.
-  SERIAL_CONSOLE.print("\r\nMoving telescope to position: Azimuth: " + String(azimuthAngle, SERIAL_MSG_DECIMALS_AZIMUTH) + ", elevation: " + String(elevationAngle, SERIAL_MSG_DECIMALS_ELEVATION));
+  SERIAL_CONSOLE.print("\r\nMoving telescope to position: Azimuth: " + String(azimuthAngle, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", elevation: " + String(elevationAngle, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Move telescope: ");
@@ -598,7 +644,7 @@ int moveTelscope(float azimuthAngle, float elevationAngle) {
     azimuthActual = positionSteps2azimuthAngle(positionStepsAzimuth);
     elevationActual = positionSteps2elevationAngle(positionStepsElevation);
     #ifdef DEBUG_SERIAL
-    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION));
+    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
@@ -623,7 +669,7 @@ int playGame() {
   float timeElapsedScale;
   #ifdef ENABLE_CONTROL_MSG
   bool controlMsgProgress[6];
-  for (int i = 0; i < sizeof(controlMsgProgress) / sizeof(bool); i++) controlMsgProgress[i] = false;
+  for (int i = 0; i < sizeof(controlMsgProgress) / sizeof(controlMsgProgress[0]); i++) controlMsgProgress[i] = false;
   #endif
 
   #ifdef DEBUG_MODE_SHOW_STEPS
@@ -636,7 +682,8 @@ int playGame() {
     // Show the progress of the physics event (gamma ray -> Cherenkov light).
     timeElapsed = millis() - timeStart;
     #ifdef SIMULATION_MODE
-    timeElapsedScale = 1.0;
+//    timeElapsedScale = 1.0;
+    timeElapsedScale = 2.0;
     #else
 //    timeElapsedScale = 1.0;
     timeElapsedScale = 2.0;
@@ -771,7 +818,7 @@ int playGame() {
     // DEBUG: Show actual azimuth and elevation.
     #ifdef DEBUG_MODE_SHOW_POSITIONS
     #ifdef DEBUG_SERIAL
-    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION));
+    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
@@ -867,13 +914,18 @@ int evalGameResult() {
   SERIAL_CONSOLE.print("\r\n");
   SERIAL_CONSOLE.print("\r\nGame Details");
   SERIAL_CONSOLE.print("\r\n============");
-  SERIAL_CONSOLE.print("\r\nActual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH));
-  SERIAL_CONSOLE.print("\r\nTarget azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH));
-  SERIAL_CONSOLE.print("\r\nTolerance for azimuth: +/-" + String(azimuthTolerance, SERIAL_MSG_DECIMALS_AZIMUTH));
+  #ifdef USE_FIXED_TARGETS
+  SERIAL_CONSOLE.print("\r\nFixed target " + String(targetFixedSel + 1) + ".");
+  #else
+  SERIAL_CONSOLE.print("\r\nRandom target.");
+  #endif
+  SERIAL_CONSOLE.print("\r\nActual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
+  SERIAL_CONSOLE.print("\r\nTarget azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
+  SERIAL_CONSOLE.print("\r\nTolerance for azimuth: +/-" + String(azimuthTolerance, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
   elevationActual = positionSteps2elevationAngle(positionStepsElevation);
-  SERIAL_CONSOLE.print("\r\nActual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION));
-  SERIAL_CONSOLE.print("\r\nTarget elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION));
-  SERIAL_CONSOLE.print("\r\nTolerance for elevation: +/-" + String(elevationTolerance, SERIAL_MSG_DECIMALS_ELEVATION));
+  SERIAL_CONSOLE.print("\r\nActual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  SERIAL_CONSOLE.print("\r\nTarget elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  SERIAL_CONSOLE.print("\r\nTolerance for elevation: +/-" + String(elevationTolerance, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
   SERIAL_CONSOLE.print("\r\n");
 
   // Wait until the start button is pushed.
