@@ -2,14 +2,14 @@
 <export version="E">
   <design>
     <source>P:\Magic\Misc\Magic Game\magic-game\Board\KiCad\JoystickAdapter\JoystickAdapter.kicad_sch</source>
-    <date>09.03.2023 18:00:36</date>
+    <date>09.03.2023 19:35:03</date>
     <tool>Eeschema (7.0.0)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title>MAGIC Game - Joystick Adapter Board</title>
         <company>Max Planck Institute for Physics</company>
-        <rev>1.0</rev>
-        <date>07 Feb 2023</date>
+        <rev>1.1</rev>
+        <date>09 Mar 2023</date>
         <source>JoystickAdapter.kicad_sch</source>
         <comment number="1" value="Author: M. Fras, Electronics Division"/>
         <comment number="2" value=""/>
@@ -146,6 +146,50 @@
       <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c50ae31d-cb92-4bc3-b6f7-e1ceb95e5254</tstamps>
+    </comp>
+    <comp ref="D6">
+      <value>SD0603S040S0R2</value>
+      <footprint>Diode_SMD:D_0603_1608Metric</footprint>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Schottky diode"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3149d5db-69c1-4d05-958c-4e48c63a4189</tstamps>
+    </comp>
+    <comp ref="D7">
+      <value>SD0603S040S0R2</value>
+      <footprint>Diode_SMD:D_0603_1608Metric</footprint>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Schottky diode"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>de8218bd-2c88-43ae-8e0b-1b710650f753</tstamps>
+    </comp>
+    <comp ref="D8">
+      <value>SD0603S040S0R2</value>
+      <footprint>Diode_SMD:D_0603_1608Metric</footprint>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Schottky diode"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>492796d9-0377-4d30-a89b-92723689b560</tstamps>
+    </comp>
+    <comp ref="D9">
+      <value>SD0603S040S0R2</value>
+      <footprint>Diode_SMD:D_0603_1608Metric</footprint>
+      <libsource lib="Device" part="D_Schottky" description="Schottky diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Schottky diode"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cf5fd2b9-2d0c-485b-95c2-0653789f436c</tstamps>
     </comp>
     <comp ref="J1">
       <value>Joystick KY-023</value>
@@ -341,50 +385,6 @@
       <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>140321a3-692b-4b06-9a4a-94d98a4fe3b6</tstamps>
-    </comp>
-    <comp ref="R11">
-      <value>0</value>
-      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
-      <property name="ki_description" value="Resistor"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>a73e6555-20d5-493d-9798-2b82f1292881</tstamps>
-    </comp>
-    <comp ref="R12">
-      <value>0</value>
-      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
-      <property name="ki_description" value="Resistor"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>d83b0bb6-cde1-4f7b-88ad-f809c68bd5f3</tstamps>
-    </comp>
-    <comp ref="R13">
-      <value>0</value>
-      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
-      <property name="ki_description" value="Resistor"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>dd316b81-a259-4a77-9898-a8277d947bf7</tstamps>
-    </comp>
-    <comp ref="R14">
-      <value>0</value>
-      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
-      <property name="ki_description" value="Resistor"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>0534bfdd-a758-4a43-910c-39d1fec5e7f8</tstamps>
     </comp>
     <comp ref="R15">
       <value>1k</value>
@@ -652,6 +652,25 @@
         <pin num="2" name="" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Device" part="D_Schottky">
+      <description>Schottky diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D_Schottky</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Device" part="LED">
       <description>Light emitting diode</description>
       <docs>~</docs>
@@ -762,23 +781,23 @@
       <node ref="R10" pin="1" pintype="passive"/>
     </net>
     <net code="5" name="/JOY_SANWA_X_LEFT">
+      <node ref="D6" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
-      <node ref="R11" pin="1" pintype="passive"/>
       <node ref="R5" pin="1" pintype="passive"/>
     </net>
     <net code="6" name="/JOY_SANWA_X_RIGHT">
+      <node ref="D7" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="J2" pin="3" pinfunction="Pin_3" pintype="passive"/>
-      <node ref="R12" pin="1" pintype="passive"/>
       <node ref="R7" pin="1" pintype="passive"/>
     </net>
     <net code="7" name="/JOY_SANWA_Y_DOWN">
+      <node ref="D8" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="J2" pin="4" pinfunction="Pin_4" pintype="passive"/>
-      <node ref="R13" pin="1" pintype="passive"/>
       <node ref="R8" pin="1" pintype="passive"/>
     </net>
     <net code="8" name="/JOY_SANWA_Y_UP">
+      <node ref="D9" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="J2" pin="5" pinfunction="Pin_5" pintype="passive"/>
-      <node ref="R14" pin="1" pintype="passive"/>
       <node ref="R9" pin="1" pintype="passive"/>
     </net>
     <net code="9" name="GND">
@@ -830,50 +849,50 @@
       <node ref="D5" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R9" pin="2" pintype="passive"/>
     </net>
-    <net code="18" name="Net-(J3-Pin_2)">
+    <net code="18" name="Net-(D6-A)">
+      <node ref="D6" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R15" pin="1" pintype="passive"/>
+      <node ref="R16" pin="2" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="+" pintype="input"/>
+    </net>
+    <net code="19" name="Net-(D7-A)">
+      <node ref="D7" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R19" pin="1" pintype="passive"/>
+      <node ref="R20" pin="2" pintype="passive"/>
+      <node ref="R23" pin="1" pintype="passive"/>
+    </net>
+    <net code="20" name="Net-(D8-A)">
+      <node ref="D8" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R21" pin="1" pintype="passive"/>
+      <node ref="R22" pin="2" pintype="passive"/>
+      <node ref="R24" pin="1" pintype="passive"/>
+    </net>
+    <net code="21" name="Net-(D9-A)">
+      <node ref="D9" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R17" pin="1" pintype="passive"/>
+      <node ref="R18" pin="2" pintype="passive"/>
+      <node ref="U2" pin="3" pinfunction="+" pintype="input"/>
+    </net>
+    <net code="22" name="Net-(J3-Pin_2)">
       <node ref="J3" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R4" pin="1" pintype="passive"/>
       <node ref="R6" pin="1" pintype="passive"/>
       <node ref="SW1" pin="2" pinfunction="2" pintype="passive"/>
     </net>
-    <net code="19" name="Net-(R12-Pad2)">
-      <node ref="R12" pin="2" pintype="passive"/>
-      <node ref="R19" pin="1" pintype="passive"/>
-      <node ref="R20" pin="2" pintype="passive"/>
-      <node ref="R23" pin="1" pintype="passive"/>
-    </net>
-    <net code="20" name="Net-(R13-Pad2)">
-      <node ref="R13" pin="2" pintype="passive"/>
-      <node ref="R21" pin="1" pintype="passive"/>
-      <node ref="R22" pin="2" pintype="passive"/>
-      <node ref="R24" pin="1" pintype="passive"/>
-    </net>
-    <net code="21" name="Net-(R25-Pad2)">
+    <net code="23" name="Net-(R25-Pad2)">
       <node ref="R25" pin="2" pintype="passive"/>
       <node ref="R27" pin="1" pintype="passive"/>
       <node ref="U1" pin="1" pintype="output"/>
     </net>
-    <net code="22" name="Net-(R26-Pad2)">
+    <net code="24" name="Net-(R26-Pad2)">
       <node ref="R26" pin="2" pintype="passive"/>
       <node ref="R28" pin="1" pintype="passive"/>
       <node ref="U2" pin="1" pintype="output"/>
     </net>
-    <net code="23" name="Net-(U1-+)">
-      <node ref="R11" pin="2" pintype="passive"/>
-      <node ref="R15" pin="1" pintype="passive"/>
-      <node ref="R16" pin="2" pintype="passive"/>
-      <node ref="U1" pin="3" pinfunction="+" pintype="input"/>
-    </net>
-    <net code="24" name="Net-(U1--)">
+    <net code="25" name="Net-(U1--)">
       <node ref="R23" pin="2" pintype="passive"/>
       <node ref="R25" pin="1" pintype="passive"/>
       <node ref="U1" pin="4" pinfunction="-" pintype="input"/>
-    </net>
-    <net code="25" name="Net-(U2-+)">
-      <node ref="R14" pin="2" pintype="passive"/>
-      <node ref="R17" pin="1" pintype="passive"/>
-      <node ref="R18" pin="2" pintype="passive"/>
-      <node ref="U2" pin="3" pinfunction="+" pintype="input"/>
     </net>
     <net code="26" name="Net-(U2--)">
       <node ref="R24" pin="2" pintype="passive"/>

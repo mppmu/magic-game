@@ -5,13 +5,13 @@
       "Application": "Pcbnew",
       "Version": "(7.0.0)"
     },
-    "CreationDate": "2023-03-09T18:05:20+01:00"
+    "CreationDate": "2023-03-09T19:39:30+01:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "JoystickAdapter",
       "GUID": "4a6f7973-7469-4636-9b41-646170746572",
-      "Revision": "1.0"
+      "Revision": "1.1"
     },
     "Size": {
       "X": 30.58,
