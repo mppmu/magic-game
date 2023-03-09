@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 08 Mar 2023
+// Rev.: 09 Mar 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.8"
-#define FW_RELEASEDATE  "08 Mar 2023"
+#define FW_VERSION      "0.0.9"
+#define FW_RELEASEDATE  "09 Mar 2023"
 
 
 
@@ -76,6 +76,54 @@
 // Note: For the operation in the exhibition booth, 3 fixed targets are required.
 #define USE_FIXED_TARGETS
 
+// Define phyiscal limits for telescope movement.
+#define PHYSICAL_LIMIT_AZIMUTH_LEFT         0
+#define PHYSICAL_LIMIT_AZIMUTH_RIGHT        285
+#define PHYSICAL_LIMIT_ELEVATION_BOTTOM     35
+#define PHYSICAL_LIMIT_ELEVATION_TOP        145
+
+// Define timeouts (in ms) for automatically proceeding.
+#define TIMEOUT_BOOT_FIND_ZERO_POSITIONS    5000    // Timeout between power up and finding the zero positions.
+#define TIMEOUT_PREPARE_NEW_GAME            10000   // Timeout to prepare a new game at the end of the finished game.
+
+// Swap azimuth and elevation axis of the joystick.
+// Note: This is required for the Sanwa JLF-TP-8YT-K joystick connected via the
+//       Joystick Adapter board V1.0, if the Sanwa JLF-TP-8YT-K joystick is
+//       mounted with its connector on the right side like in the exhibition
+//       booth (top view):
+//
+//                EL UP
+//               +-------+
+//               |       |
+//               |       |
+//       AZ L <- |   o   | -> AZ R
+//               |       ==== connector with cable
+//               |       |
+//               +-------+
+//               EL DOWN
+//
+//       No change is needed if the Sanwa JLF-TP-8YT-K joystick is mounted with
+//       its connector on the top side (top view):
+//
+//                    connector with cable
+//                       ||
+//                 EL UP ||
+//               +-------||--+
+//               |           |
+//       AZ L <- |     o     | -> AZ R
+//               |           |
+//               +-----------+
+//                  EL DOWN
+//
+//#define JOYSTICK_SWAP_AZIMUTH_ELEVATION
+
+// Invert the elevation axis of the joystick.
+// Note: This is also required for the Sanwa JLF-TP-8YT-K joystick connected
+//       via the Joystick Adapter board V1.0, if the Sanwa JLF-TP-8YT-K
+//       joystick is mounted with its connector on the right side like in the
+//       exhibition booth (top view). For details see the explanation above.
+//#define JOYSTICK_INVERT_ELEVATION
+
 // Do not end the game, but stay in an infinite loop.
 // FOR TESTING ONLY!
 //#define INFINITE_GAME_LOOP
@@ -88,8 +136,13 @@
 
 
 // Define pins.
+#ifdef JOYSTICK_SWAP_AZIMUTH_ELEVATION
+#define PIN_JOYSTICK_AZ                     A1
+#define PIN_JOYSTICK_EL                     A0
+#else
 #define PIN_JOYSTICK_AZ                     A0
 #define PIN_JOYSTICK_EL                     A1
+#endif
 #define PIN_JOYSTICK_BUTTON                 A2
 #define PIN_MOTOR_AZIMUTH_A_P               30
 #define PIN_MOTOR_AZIMUTH_A_N               32
@@ -152,7 +205,7 @@
 #define STEPS_ELEVATION                     516     // Steps per revolution.
 #define SPEED_ELEVATION                     20      // RPM.
 #define ELEVATION_DEGREES_PER_REVOLUTION    29.0    // Degrees of elevation per stepper motor revolution.
-#define ELEVATION_REVERSE_DIRECTION
+//#define ELEVATION_REVERSE_DIRECTION
 #endif // SIMULATION_MODE
 
 // Create an instance of the stepper class, specifying
@@ -183,10 +236,10 @@ const float azimuthLimitMax     = 350.0;
 const float elevationLimitMin   = 10.0;
 const float elevationLimitMax   = 80.0;
 #else
-const float azimuthLimitMin     = 10.0;
-const float azimuthLimitMax     = 280.0;
-const float elevationLimitMin   = 10.0;
-const float elevationLimitMax   = 105.0;
+const float azimuthLimitMin     = PHYSICAL_LIMIT_AZIMUTH_LEFT + 10.0;
+const float azimuthLimitMax     = PHYSICAL_LIMIT_AZIMUTH_RIGHT - 10.0;
+const float elevationLimitMin   = PHYSICAL_LIMIT_ELEVATION_BOTTOM + 5.0;
+const float elevationLimitMax   = 90;
 #endif
 
 // Azimuth and elevation positions.
@@ -212,7 +265,7 @@ typedef struct {
   float azimuth;
   float elevation;
 } target_t;
-const target_t targetFixed[] = {{120.0, 90.0}, {140.0, 80.0}, {160.0, 90.0}};
+const target_t targetFixed[] = {{160.0, 70.0}, {180.0, 85.0}, {200.0, 80.0}};
 #endif
 
 // Define degree symbol.
@@ -233,6 +286,7 @@ void setup() {
   SERIAL_CONTROL.print(String(CONTROL_MSG_BOOT) + "\r\n");
   #endif
   // Print a message on the serial console.
+  SERIAL_CONSOLE.print("\r\n");
   SERIAL_CONSOLE.print("\r\n*** Welcome to the MAGIC Game: Catch the Gamma! ***");
   SERIAL_CONSOLE.print("\r\n");
   SERIAL_CONSOLE.print("\r\nFirmware info:");
@@ -312,10 +366,10 @@ void setup() {
   randomSeed(0);
   #endif
 
-  // Wait until the start button is pushed.
-  SERIAL_CONSOLE.print("\r\nPlease press the start button to continue.");
+  // Wait until the start button is pushed. Alternatively use a timeout.
+  SERIAL_CONSOLE.print("\r\nPlease press the start button to continue (timeout in " + String(TIMEOUT_BOOT_FIND_ZERO_POSITIONS / 1000) + " seconds).");
   SERIAL_CONSOLE.print("\r\n");
-  waitStart();
+  waitStart(TIMEOUT_BOOT_FIND_ZERO_POSITIONS);
   delay(1000);
 }
 
@@ -333,9 +387,20 @@ void loop() {
 
 
 
-// Wait until the start button is pushed.
-int waitStart() {
-  while (digitalRead(PIN_BUTTON_START) && digitalRead(PIN_JOYSTICK_BUTTON));
+// Wait until the start button is pushed or a timeout occurs.
+// Note: A timeout value of 0 ms or below means no timeout.
+int waitStart(long timeout_ms) {
+  long timeStart;
+  long timeElapsed;
+
+  timeStart = millis();
+
+  while (digitalRead(PIN_BUTTON_START) && digitalRead(PIN_JOYSTICK_BUTTON)) {
+    if (timeout_ms > 0) {
+      timeElapsed = millis() - timeStart;
+      if (timeElapsed > timeout_ms) return 0;
+    }
+  };
   return 0;
 }
 
@@ -413,7 +478,7 @@ int stepperFindZeroPosition() {
     if (steps > (360 / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_AZIMUTH) {
       SERIAL_CONSOLE.print("FAILED!");
       lcd.setCursor(0, 1);
-      lcd.print("Azimuth FALIED! ");
+      lcd.print("Azimuth FAILED! ");
       return 1;
     }
   }
@@ -435,12 +500,13 @@ int stepperFindZeroPosition() {
     }
   }
   SERIAL_CONSOLE.print("OK.");
+  SERIAL_CONSOLE.print("\r\n");
 
   lcd.setCursor(0, 1);
   lcd.print("OK!             ");
 
-  positionStepsAzimuth = 0;
-  positionStepsElevation = 0;
+  positionStepsAzimuth = azimuthAngle2positionSteps(PHYSICAL_LIMIT_AZIMUTH_LEFT);
+  positionStepsElevation = elevationAngle2positionSteps(PHYSICAL_LIMIT_ELEVATION_BOTTOM);
 
   return 0;
 }
@@ -530,7 +596,7 @@ int initGame() {
   #endif
 
   // Wait until the start button is pushed.
-  waitStart();
+  waitStart(0);     // Always wait for the user to push the start button.
 
   #ifdef ENABLE_CONTROL_MSG
   SERIAL_CONTROL.print(String(CONTROL_MSG_START) + "\r\n");
@@ -563,7 +629,7 @@ int initGame() {
   lcd.setCursor(0, 0);
   lcd.print("Gamma position:");
   lcd.setCursor(0, 1);
-  lcd.print("Az: " + String(int(azimuthTarget)) + " , el: " + String(int(elevationTarget)));
+  lcd.print("Az: " + String(int(azimuthTarget)) + ", el: " + String(int(elevationTarget)));
   return 0;
 }
 
@@ -713,7 +779,11 @@ int playGame() {
 
     // Get the values from the analog joystick.
     stepsAzimuth = analog2steps(analogRead(PIN_JOYSTICK_AZ));
+    #ifdef JOYSTICK_INVERT_ELEVATION
+    stepsElevation = analog2steps(0x3ff - analogRead(PIN_JOYSTICK_EL));
+    #else
     stepsElevation = analog2steps(analogRead(PIN_JOYSTICK_EL));
+    #endif
 
     // DEBUG: Show steps for azimuth and elevation.
     #ifdef DEBUG_MODE_SHOW_STEPS
@@ -928,8 +998,10 @@ int evalGameResult() {
   SERIAL_CONSOLE.print("\r\nTolerance for elevation: +/-" + String(elevationTolerance, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
   SERIAL_CONSOLE.print("\r\n");
 
-  // Wait until the start button is pushed.
-  waitStart();
+  // Wait until the start button is pushed. Alternatively use a timeout.
+  SERIAL_CONSOLE.print("\r\nPlease press the start button to continue (timeout in " + String(TIMEOUT_PREPARE_NEW_GAME / 1000) + " seconds).");
+  SERIAL_CONSOLE.print("\r\n");
+  waitStart(TIMEOUT_PREPARE_NEW_GAME);
   delay(1000);
 
   return ret;
