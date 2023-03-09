@@ -2,8 +2,8 @@
 <export version="E">
   <design>
     <source>P:\Magic\Misc\Magic Game\magic-game\Board\KiCad\JoystickAdapter\JoystickAdapter.kicad_sch</source>
-    <date>07.02.2023 20:48:26</date>
-    <tool>Eeschema (6.0.10)</tool>
+    <date>09.03.2023 18:00:36</date>
+    <tool>Eeschema (7.0.0)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title>MAGIC Game - Joystick Adapter Board</title>
@@ -34,6 +34,8 @@
       <property name="Type" value="LMK212AB7106KG-T "/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>87541c4e-d910-4dbd-b144-3ac85ea6206e</tstamps>
     </comp>
@@ -43,6 +45,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4a1b4b20-4e2c-430d-be41-072b29fa82e4</tstamps>
     </comp>
@@ -52,6 +56,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>293eca81-fee5-4224-a667-abfc74deaf60</tstamps>
     </comp>
@@ -61,6 +67,8 @@
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7879afad-e7c3-4f49-847f-3468c0f1fb3d</tstamps>
     </comp>
@@ -74,6 +82,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>fe478c11-509a-40cd-a617-29a9cfd832e6</tstamps>
     </comp>
@@ -87,6 +97,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>88f1bb1c-8368-4681-9861-c22759eb5679</tstamps>
     </comp>
@@ -100,6 +112,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>f93999e1-20a6-4f5a-89a0-b180ac1c12da</tstamps>
     </comp>
@@ -113,6 +127,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6696e8ca-a524-4205-a3a0-5f9b36ac0ecc</tstamps>
     </comp>
@@ -126,6 +142,8 @@
       <property name="Type" value="LG T67K-H2K1-24-Z"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c50ae31d-cb92-4bc3-b6f7-e1ceb95e5254</tstamps>
     </comp>
@@ -139,6 +157,8 @@
       <property name="Type" value="Joy-IT KY-023 Joystick Module"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ea76e0f4-75f3-46d8-8a4f-3df27ce95d07</tstamps>
     </comp>
@@ -152,6 +172,8 @@
       <property name="Type" value="B5B-XH-A"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0762175c-2d61-48a4-bf6d-a4db94e70bd4</tstamps>
     </comp>
@@ -161,6 +183,8 @@
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="connector"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c3eacb06-69af-4e48-931d-f33bf21d42db</tstamps>
     </comp>
@@ -170,6 +194,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>ac54fc9f-56dc-4878-9177-52cbd151f64e</tstamps>
     </comp>
@@ -179,6 +205,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a361a9a3-6ecb-4569-8e6b-89b9d2ffc436</tstamps>
     </comp>
@@ -188,6 +216,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>402bf65b-e8cb-4599-aaa2-cdb246caeccf</tstamps>
     </comp>
@@ -197,6 +227,8 @@
       <libsource lib="Mechanical" part="MountingHole" description="Mounting Hole without connection"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Mounting Hole without connection"/>
+      <property name="ki_keywords" value="mounting hole"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e1ba48b3-d6c4-4983-b948-226b64d59868</tstamps>
     </comp>
@@ -206,6 +238,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>125aed19-fac4-4f9c-8626-f4a4161c09e3</tstamps>
     </comp>
@@ -215,6 +249,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>1c87d68c-bde9-4d1a-9807-4ba9db5bf066</tstamps>
     </comp>
@@ -224,6 +260,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>bee05f53-4be3-4f6f-a8dc-f73439880154</tstamps>
     </comp>
@@ -233,6 +271,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>17cca221-9d10-4749-b463-4570978d7ee0</tstamps>
     </comp>
@@ -242,6 +282,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c1388042-8450-4ddc-93a3-63a38c18e95c</tstamps>
     </comp>
@@ -251,6 +293,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>282e2919-5dfd-454f-9ab3-ac432f5cf2d6</tstamps>
     </comp>
@@ -260,6 +304,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>b3b50a74-23f7-4c61-8751-074c35f986aa</tstamps>
     </comp>
@@ -269,6 +315,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>e38bd2c6-8d6f-4ca7-8424-c849b6c2d074</tstamps>
     </comp>
@@ -278,6 +326,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>5d6b9fbb-adbd-4d80-9ce1-03849e3de9c2</tstamps>
     </comp>
@@ -287,6 +337,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>140321a3-692b-4b06-9a4a-94d98a4fe3b6</tstamps>
     </comp>
@@ -296,6 +348,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>a73e6555-20d5-493d-9798-2b82f1292881</tstamps>
     </comp>
@@ -305,6 +359,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>d83b0bb6-cde1-4f7b-88ad-f809c68bd5f3</tstamps>
     </comp>
@@ -314,6 +370,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>dd316b81-a259-4a77-9898-a8277d947bf7</tstamps>
     </comp>
@@ -323,6 +381,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0534bfdd-a758-4a43-910c-39d1fec5e7f8</tstamps>
     </comp>
@@ -332,6 +392,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>9b4c5b8a-9851-4599-b4f4-b4458bf40eba</tstamps>
     </comp>
@@ -341,6 +403,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>9f0f91e9-0b23-4bf4-ad7e-28b38e2468fb</tstamps>
     </comp>
@@ -350,6 +414,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>47b31870-e143-4268-b0e1-17bdae586ffa</tstamps>
     </comp>
@@ -359,6 +425,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>de70283b-9f42-4316-a4d6-86e8a6271951</tstamps>
     </comp>
@@ -368,6 +436,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4f3fc1f9-969e-4649-b314-2ebe6d06cbe6</tstamps>
     </comp>
@@ -377,6 +447,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>db765cf6-9eed-45f3-a828-cb05dbd290e3</tstamps>
     </comp>
@@ -386,6 +458,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>585d96a6-637e-46a5-b02b-46dab4cd7ebc</tstamps>
     </comp>
@@ -395,6 +469,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>2ab8effc-d2c0-4c64-aa7d-7de8ebac7458</tstamps>
     </comp>
@@ -404,6 +480,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>140f4034-4c32-49d4-95bf-709e009dc716</tstamps>
     </comp>
@@ -413,6 +491,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>57de562d-295c-4226-a847-e75642d8f14b</tstamps>
     </comp>
@@ -422,6 +502,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>4c39a087-a201-44e0-81d1-e68d4be55efe</tstamps>
     </comp>
@@ -431,6 +513,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>32bc33dd-d970-49a3-8eb0-c786d6772de3</tstamps>
     </comp>
@@ -440,6 +524,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>3920945e-02af-4458-9967-64849ee89ccd</tstamps>
     </comp>
@@ -449,6 +535,8 @@
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>888e56b3-366e-4729-b3da-42ddc5f49f00</tstamps>
     </comp>
@@ -462,6 +550,8 @@
       <property name="Type" value="PTS645SL43SMTR92 LFS"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Push button switch, generic, two pins"/>
+      <property name="ki_keywords" value="switch normally-open pushbutton push-button"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>c9f84cd1-ef59-417b-9ec9-4fcf7da90c04</tstamps>
     </comp>
@@ -472,6 +562,8 @@
       <libsource lib="Amplifier_Operational" part="MCP6L01x-xOT" description="Single, 1 MHz, 85µA, Rail-to-Rail input and output, SOT-23-5"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Single, 1 MHz, 85µA, Rail-to-Rail input and output, SOT-23-5"/>
+      <property name="ki_keywords" value="opamp vfa rtr r2r"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>3b0a961c-111d-46a7-9fc1-c9f1d43541e2</tstamps>
     </comp>
@@ -482,6 +574,8 @@
       <libsource lib="Amplifier_Operational" part="MCP6L01x-xOT" description="Single, 1 MHz, 85µA, Rail-to-Rail input and output, SOT-23-5"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="JoystickAdapter.kicad_sch"/>
+      <property name="ki_description" value="Single, 1 MHz, 85µA, Rail-to-Rail input and output, SOT-23-5"/>
+      <property name="ki_keywords" value="opamp vfa rtr r2r"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>9b87e2c9-16e7-42fd-bc04-bb4a2170c205</tstamps>
     </comp>
@@ -620,19 +714,19 @@
   </libparts>
   <libraries>
     <library logical="Amplifier_Operational">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Amplifier_Operational.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Amplifier_Operational.kicad_sym</uri>
     </library>
     <library logical="Connector_Generic">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Connector_Generic.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Connector_Generic.kicad_sym</uri>
     </library>
     <library logical="Device">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Device.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Device.kicad_sym</uri>
     </library>
     <library logical="Mechanical">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Mechanical.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Mechanical.kicad_sym</uri>
     </library>
     <library logical="Switch">
-      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Switch.kicad_sym</uri>
+      <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Switch.kicad_sym</uri>
     </library>
   </libraries>
   <nets>
@@ -716,75 +810,75 @@
       <node ref="J1" pin="4" pinfunction="Pin_4" pintype="passive"/>
       <node ref="R28" pin="2" pintype="passive"/>
     </net>
-    <net code="13" name="Net-(D1-Pad1)">
+    <net code="13" name="Net-(D1-K)">
       <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R3" pin="2" pintype="passive"/>
     </net>
-    <net code="14" name="Net-(D2-Pad1)">
+    <net code="14" name="Net-(D2-K)">
       <node ref="D2" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R5" pin="2" pintype="passive"/>
     </net>
-    <net code="15" name="Net-(D3-Pad1)">
+    <net code="15" name="Net-(D3-K)">
       <node ref="D3" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R7" pin="2" pintype="passive"/>
     </net>
-    <net code="16" name="Net-(D4-Pad1)">
+    <net code="16" name="Net-(D4-K)">
       <node ref="D4" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R8" pin="2" pintype="passive"/>
     </net>
-    <net code="17" name="Net-(D5-Pad1)">
+    <net code="17" name="Net-(D5-K)">
       <node ref="D5" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="R9" pin="2" pintype="passive"/>
     </net>
-    <net code="18" name="Net-(J3-Pad2)">
+    <net code="18" name="Net-(J3-Pin_2)">
       <node ref="J3" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="R4" pin="1" pintype="passive"/>
       <node ref="R6" pin="1" pintype="passive"/>
       <node ref="SW1" pin="2" pinfunction="2" pintype="passive"/>
     </net>
-    <net code="19" name="Net-(R11-Pad2)">
-      <node ref="R11" pin="2" pintype="passive"/>
-      <node ref="R15" pin="1" pintype="passive"/>
-      <node ref="R16" pin="2" pintype="passive"/>
-      <node ref="U1" pin="3" pinfunction="+" pintype="input"/>
-    </net>
-    <net code="20" name="Net-(R12-Pad2)">
+    <net code="19" name="Net-(R12-Pad2)">
       <node ref="R12" pin="2" pintype="passive"/>
       <node ref="R19" pin="1" pintype="passive"/>
       <node ref="R20" pin="2" pintype="passive"/>
       <node ref="R23" pin="1" pintype="passive"/>
     </net>
-    <net code="21" name="Net-(R13-Pad2)">
+    <net code="20" name="Net-(R13-Pad2)">
       <node ref="R13" pin="2" pintype="passive"/>
       <node ref="R21" pin="1" pintype="passive"/>
       <node ref="R22" pin="2" pintype="passive"/>
       <node ref="R24" pin="1" pintype="passive"/>
     </net>
-    <net code="22" name="Net-(R14-Pad2)">
+    <net code="21" name="Net-(R25-Pad2)">
+      <node ref="R25" pin="2" pintype="passive"/>
+      <node ref="R27" pin="1" pintype="passive"/>
+      <node ref="U1" pin="1" pintype="output"/>
+    </net>
+    <net code="22" name="Net-(R26-Pad2)">
+      <node ref="R26" pin="2" pintype="passive"/>
+      <node ref="R28" pin="1" pintype="passive"/>
+      <node ref="U2" pin="1" pintype="output"/>
+    </net>
+    <net code="23" name="Net-(U1-+)">
+      <node ref="R11" pin="2" pintype="passive"/>
+      <node ref="R15" pin="1" pintype="passive"/>
+      <node ref="R16" pin="2" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="+" pintype="input"/>
+    </net>
+    <net code="24" name="Net-(U1--)">
+      <node ref="R23" pin="2" pintype="passive"/>
+      <node ref="R25" pin="1" pintype="passive"/>
+      <node ref="U1" pin="4" pinfunction="-" pintype="input"/>
+    </net>
+    <net code="25" name="Net-(U2-+)">
       <node ref="R14" pin="2" pintype="passive"/>
       <node ref="R17" pin="1" pintype="passive"/>
       <node ref="R18" pin="2" pintype="passive"/>
       <node ref="U2" pin="3" pinfunction="+" pintype="input"/>
     </net>
-    <net code="23" name="Net-(R23-Pad2)">
-      <node ref="R23" pin="2" pintype="passive"/>
-      <node ref="R25" pin="1" pintype="passive"/>
-      <node ref="U1" pin="4" pinfunction="-" pintype="input"/>
-    </net>
-    <net code="24" name="Net-(R24-Pad2)">
+    <net code="26" name="Net-(U2--)">
       <node ref="R24" pin="2" pintype="passive"/>
       <node ref="R26" pin="1" pintype="passive"/>
       <node ref="U2" pin="4" pinfunction="-" pintype="input"/>
-    </net>
-    <net code="25" name="Net-(R25-Pad2)">
-      <node ref="R25" pin="2" pintype="passive"/>
-      <node ref="R27" pin="1" pintype="passive"/>
-      <node ref="U1" pin="1" pintype="output"/>
-    </net>
-    <net code="26" name="Net-(R26-Pad2)">
-      <node ref="R26" pin="2" pintype="passive"/>
-      <node ref="R28" pin="1" pintype="passive"/>
-      <node ref="U2" pin="1" pintype="output"/>
     </net>
   </nets>
 </export>
