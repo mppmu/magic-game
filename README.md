@@ -29,7 +29,7 @@ and communicates with other components of the showcase.
 
 * [Arduino 1.8.19](https://www.arduino.cc/en/software)
 * [SimulIDE-0.4.15-SR10](https://www.simulide.com/p/home.html)
-* [KiCad 6.10](https://www.kicad.org/)
+* [KiCad 7.0.0](https://www.kicad.org/)
 
 
 
