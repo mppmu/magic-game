@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 09 Mar 2023
+// Rev.: 10 Mar 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,13 +25,26 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.9"
-#define FW_RELEASEDATE  "09 Mar 2023"
+#define FW_VERSION      "0.0.10"
+#define FW_RELEASEDATE  "10 Mar 2023"
 
 
 
-// For simulation in SimulIDE.
+// Pre-defined configurations.
+// CAUTION: ONLY ONE CONFIGURATION MUST BE SELECTED AT A TIME!
+// 1. Simulation with SimulIDE.
+// 2. Bench top operation using the analog Joy-IT KY-023 joystick module.
+// 3. Exhibition booth operation using the Sanwa JLF-TP-8YT-K digital joystick
+//    in connection with the Joystick Adapter board V1.0 or V1.1.
+//#define CONFIGURATION_SIMULATION
+#define CONFIGURATION_BENCH_TOP_OPERATION
+//#define CONFIGURATION_EXHIBITION_BOOTH_OPERATION
+
+// For simulation with SimulIDE.
 //#define SIMULATION_MODE
+#ifdef CONFIGURATION_SIMULATION
+#define SIMULATION_MODE
+#endif
 
 // For debugging.
 //#define DEBUG_MODE_SHOW_STEPS
@@ -55,6 +68,7 @@
 #define CONTROL_MSG_PROGRESS                "PROGRESS"
 #define CONTROL_MSG_SUCCESS                 "SUCCESS"
 #define CONTROL_MSG_FAILURE                 "FAILURE"
+#define CONTROL_CMD_RESET                   "RESET"
 
 // Define number of decimals in serial messages.
 #define SERIAL_MSG_DECIMALS_AZIMUTH         1
@@ -68,7 +82,7 @@
 // Move the telescope to its parking position before starting the game.
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 
-// Use random seed from an anlogue input to generate fully random numbers for
+// Use random seed from an analogue input to generate fully random numbers for
 // the targets.
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 
@@ -88,9 +102,9 @@
 
 // Swap azimuth and elevation axis of the joystick.
 // Note: This is required for the Sanwa JLF-TP-8YT-K joystick connected via the
-//       Joystick Adapter board V1.0, if the Sanwa JLF-TP-8YT-K joystick is
-//       mounted with its connector on the right side like in the exhibition
-//       booth (top view):
+//       Joystick Adapter board V1.0 or V1.1, if the Sanwa JLF-TP-8YT-K
+//       joystick is mounted with its connector on the right side like in the
+//       exhibition booth (top view):
 //
 //                EL UP
 //               +-------+
@@ -116,6 +130,9 @@
 //                  EL DOWN
 //
 //#define JOYSTICK_SWAP_AZIMUTH_ELEVATION
+
+// Invert the azimuth axis of the joystick.
+//#define JOYSTICK_INVERT_AZIMUTH
 
 // Invert the elevation axis of the joystick.
 // Note: This is also required for the Sanwa JLF-TP-8YT-K joystick connected
@@ -226,9 +243,6 @@ const int millisPerStepElevation = (float) 60 / (STEPS_ELEVATION * SPEED_ELEVATI
 long positionStepsAzimuth = 0;
 long positionStepsElevation = 0;
 
-// Create an instance of the LCD.
-LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PIN_LCD_D7);
-
 // Azimuth and elevation software limits.
 #ifdef SIMULATION_MODE
 const float azimuthLimitMin     = 10.0;
@@ -268,11 +282,83 @@ typedef struct {
 const target_t targetFixed[] = {{160.0, 70.0}, {180.0, 85.0}, {200.0, 80.0}};
 #endif
 
+// Create an instance of the LCD.
+LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PIN_LCD_D7);
+
 // Define degree symbol.
 // Note: The degree symbol ° is often not displayed correctly in terminal
 //       programs. So it may be better to omit it.
 //const String stringDegree       = "°";
 const String stringDegree       = "";
+
+
+
+// Settings based on pre-defined configurations.
+#ifdef CONFIGURATION_SIMULATION
+#define SIMULATION_MODE
+#undef DEBUG_MODE_SHOW_STEPS
+#undef DEBUG_MODE_SHOW_POSITIONS
+#undef DEBUG_SERIAL
+#define ENABLE_CONTROL_MSG
+#undef FIND_ZERO_POSITIONS
+#define MOVE_TELESCOPE_TO_PARKING_POSITION
+#define USE_RANDOM_SEED_FROM_ANALOG_INPUT
+#undef USE_FIXED_TARGETS
+#undef JOYSTICK_SWAP_AZIMUTH_ELEVATION
+#undef PIN_JOYSTICK_AZ
+#undef PIN_JOYSTICK_EL
+#define PIN_JOYSTICK_AZ                     A0
+#define PIN_JOYSTICK_EL                     A1
+#undef JOYSTICK_INVERT_AZIMUTH
+#undef JOYSTICK_INVERT_ELEVATION
+#undef INFINITE_GAME_LOOP
+#undef IGNORE_SOFT_LIMITS_AZIMUTH
+#undef IGNORE_SOFT_LIMITS_ELEVATION
+#endif  // CONFIGURATION_SIMULATION
+
+#ifdef CONFIGURATION_BENCH_TOP_OPERATION
+#undef SIMULATION_MODE
+#undef DEBUG_MODE_SHOW_STEPS
+#undef DEBUG_MODE_SHOW_POSITIONS
+#undef DEBUG_SERIAL
+#define ENABLE_CONTROL_MSG
+#define FIND_ZERO_POSITIONS
+#define MOVE_TELESCOPE_TO_PARKING_POSITION
+#define USE_RANDOM_SEED_FROM_ANALOG_INPUT
+#undef USE_FIXED_TARGETS
+#undef JOYSTICK_SWAP_AZIMUTH_ELEVATION
+#undef PIN_JOYSTICK_AZ
+#undef PIN_JOYSTICK_EL
+#define PIN_JOYSTICK_AZ                     A0
+#define PIN_JOYSTICK_EL                     A1
+#undef JOYSTICK_INVERT_AZIMUTH
+#undef JOYSTICK_INVERT_ELEVATION
+#undef INFINITE_GAME_LOOP
+#undef IGNORE_SOFT_LIMITS_AZIMUTH
+#undef IGNORE_SOFT_LIMITS_ELEVATION
+#endif  // CONFIGURATION_BENCH_TOP_OPERATION
+
+#ifdef CONFIGURATION_EXHIBITION_BOOTH_OPERATION
+#undef SIMULATION_MODE
+#undef DEBUG_MODE_SHOW_STEPS
+#undef DEBUG_MODE_SHOW_POSITIONS
+#undef DEBUG_SERIAL
+#define ENABLE_CONTROL_MSG
+#define FIND_ZERO_POSITIONS
+#define MOVE_TELESCOPE_TO_PARKING_POSITION
+#define USE_RANDOM_SEED_FROM_ANALOG_INPUT
+#define USE_FIXED_TARGETS
+#define JOYSTICK_SWAP_AZIMUTH_ELEVATION
+#undef PIN_JOYSTICK_AZ
+#undef PIN_JOYSTICK_EL
+#define PIN_JOYSTICK_AZ                     A1
+#define PIN_JOYSTICK_EL                     A0
+#undef JOYSTICK_INVERT_AZIMUTH
+#define JOYSTICK_INVERT_ELEVATION
+#undef INFINITE_GAME_LOOP
+#undef IGNORE_SOFT_LIMITS_AZIMUTH
+#undef IGNORE_SOFT_LIMITS_ELEVATION
+#endif  // CONFIGURATION_EXHIBITION_BOOTH_OPERATION
 
 
 
@@ -376,6 +462,7 @@ void setup() {
 
 
 void loop() {
+
   initHardware();
   while (true) {
     // Initialize the game.
@@ -383,6 +470,65 @@ void loop() {
     // Play the game.
     playGame();
   }
+}
+
+
+
+// Error handling.
+// => Halt the execution and display an error message.
+int errorHandler(String errorMsgSerial, String errorMsgLcd) {
+  String stringSerial;
+  // Switch off OK LED and turn on error LED.
+  digitalWrite(PIN_LED_OK, LOW);
+  digitalWrite(PIN_LED_ERROR, HIGH);
+  // Power down the stepper motors to save power and keep them cool.
+  stepperPowerDownAzimuth();
+  stepperPowerDownElevation();
+  // Send error message to serial interface and LCD.
+  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(errorMsgSerial);
+  SERIAL_CONSOLE.print("\r\nPress the reset button to reboot.");
+  SERIAL_CONSOLE.print("\r\n");
+  lcd.clear();
+  while (true) {
+    // Send error message to serial control interface.
+    #ifdef ENABLE_CONTROL_MSG
+    SERIAL_CONTROL.print(String(CONTROL_MSG_ERROR) + "\r\n");
+    #endif
+    // Display error message on LCD.
+    lcd.setCursor(0, 0);
+    lcd.print(errorMsgLcd);
+    lcd.setCursor(0, 1);
+    lcd.print("PROGRAM STOPPED!");
+    delay(1000);
+    lcd.setCursor(0, 1);
+    lcd.print("PRESS RESET!    ");
+    delay(1000);
+    // Read from serial console and check if a program reset was requested.
+    stringSerial = SERIAL_CONSOLE.readStringUntil('\n');
+    stringSerial.replace("\r", "");
+    if (stringSerial.equalsIgnoreCase(CONTROL_CMD_RESET)) {
+      reset();
+    }
+    // Read from serial control interface and check if a program reset was requested.
+    #ifdef ENABLE_CONTROL_MSG
+    stringSerial = SERIAL_CONTROL.readStringUntil('\n');
+    stringSerial.replace("\r", "");
+    if (stringSerial.equalsIgnoreCase(CONTROL_CMD_RESET)) {
+      reset();
+    }
+    #endif
+  }
+  return 0;
+}
+
+
+
+// Soft reset function.
+void reset(void) {
+  SERIAL_CONSOLE.print("\r\nResetting the Arduino via software.");
+  delay(500);
+  asm volatile ("jmp 0");
 }
 
 
@@ -421,31 +567,12 @@ int initHardware() {
   // Find the zero positions of the stepper motors.
   #ifdef FIND_ZERO_POSITIONS
   ret = stepperFindZeroPosition();
-  #endif
-  #endif
   // Error while finding the zero positions.
-  // => Halt the execution and display an error message.
   if (ret) {
-    digitalWrite(PIN_LED_OK, LOW);
-    digitalWrite(PIN_LED_ERROR, HIGH);
-    SERIAL_CONSOLE.print("\r\nERROR: Zero position of stepper motors not found! Program stopped!");
-    SERIAL_CONSOLE.print("\r\nPress the reset button to reboot.");
-    SERIAL_CONSOLE.print("\r\n");
-    lcd.clear();
-    while (true) {
-      #ifdef ENABLE_CONTROL_MSG
-      SERIAL_CONTROL.print(String(CONTROL_MSG_ERROR) + "\r\n");
-      #endif
-      lcd.setCursor(0, 0);
-      lcd.print("ERROR: Zero pos.");
-      lcd.setCursor(0, 1);
-      lcd.print("PROGRAM STOPPED!");
-      delay(1000);
-      lcd.setCursor(0, 1);
-      lcd.print("PRESS RESET!    ");
-      delay(1000);
-    }
+    errorHandler("\r\nERROR: Zero position of stepper motors not found! Program stopped!", "ERROR: Zero pos.");
   }
+  #endif
+  #endif
 
   // Power down the stepper motors to save power and keep them cool.
   stepperPowerDownAzimuth();
@@ -557,25 +684,7 @@ int initGame() {
   #ifdef MOVE_TELESCOPE_TO_PARKING_POSITION
   ret = moveTelscope(azimuthPosParking, elevationPosParking);
   if (ret) {
-    digitalWrite(PIN_LED_OK, LOW);
-    digitalWrite(PIN_LED_ERROR, HIGH);
-    SERIAL_CONSOLE.print("\r\nERROR: Moving telescope to position " + String(azimuthPosParking, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(elevationPosParking, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed! Program stopped!");
-    SERIAL_CONSOLE.print("\r\nPress the reset button to reboot.");
-    SERIAL_CONSOLE.print("\r\n");
-    lcd.clear();
-    while (true) {
-      #ifdef ENABLE_CONTROL_MSG
-      SERIAL_CONTROL.print(String(CONTROL_MSG_ERROR) + "\r\n");
-      #endif
-      lcd.setCursor(0, 0);
-      lcd.print("ERROR: Move tel.");
-      lcd.setCursor(0, 1);
-      lcd.print("PROGRAM STOPPED!");
-      delay(1000);
-      lcd.setCursor(0, 1);
-      lcd.print("PRESS RESET!    ");
-      delay(1000);
-    }
+    errorHandler("\r\nERROR: Moving telescope to position " + String(azimuthPosParking, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(elevationPosParking, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed because a limit switch was hit! Program stopped!", "ERROR: Move tel.");
   }
   #endif
 
@@ -778,7 +887,11 @@ int playGame() {
     #endif
 
     // Get the values from the analog joystick.
+    #ifdef JOYSTICK_INVERT_AZIMUTH
+    stepsAzimuth = analog2steps(0x3ff - analogRead(PIN_JOYSTICK_AZ));
+    #else
     stepsAzimuth = analog2steps(analogRead(PIN_JOYSTICK_AZ));
+    #endif
     #ifdef JOYSTICK_INVERT_ELEVATION
     stepsElevation = analog2steps(0x3ff - analogRead(PIN_JOYSTICK_EL));
     #else
@@ -795,6 +908,13 @@ int playGame() {
     lcd.setCursor(0, 1);
     lcd.print("DBG stp. el: " + String(stepsElevation) + "  ");
     #endif
+
+    // Check if any limit switch got activated.
+    if (!digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT) || !digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) ||
+        !digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM) || !digitalRead(PIN_SW_LIMIT_ELEVATION_TOP)
+    ) {
+      errorHandler("\r\nERROR: Limit switch hit while moving the telescope during the game! Program stopped!", "ERROR: Limit sw.");
+    }
 
     // Move the stepper motors.
     // Move both motors in parallel step by step.
