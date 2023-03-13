@@ -544,7 +544,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "MagicGame.step",
       "vrml": ""
     },
     "page_layout_descr_file": "MagicGame.kicad_wks"
