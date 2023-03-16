@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 10 Mar 2023
+// Rev.: 16 Mar 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.10"
-#define FW_RELEASEDATE  "10 Mar 2023"
+#define FW_VERSION      "0.0.11"
+#define FW_RELEASEDATE  "16 Mar 2023"
 
 
 
@@ -37,8 +37,8 @@
 // 3. Exhibition booth operation using the Sanwa JLF-TP-8YT-K digital joystick
 //    in connection with the Joystick Adapter board V1.0 or V1.1.
 //#define CONFIGURATION_SIMULATION
-#define CONFIGURATION_BENCH_TOP_OPERATION
-//#define CONFIGURATION_EXHIBITION_BOOTH_OPERATION
+//#define CONFIGURATION_BENCH_TOP_OPERATION
+#define CONFIGURATION_EXHIBITION_BOOTH_OPERATION
 
 // For simulation with SimulIDE.
 //#define SIMULATION_MODE
@@ -92,7 +92,8 @@
 
 // Define phyiscal limits for telescope movement.
 #define PHYSICAL_LIMIT_AZIMUTH_LEFT         0
-#define PHYSICAL_LIMIT_AZIMUTH_RIGHT        285
+//#define PHYSICAL_LIMIT_AZIMUTH_RIGHT        285     // Maximum range between the limit switches.
+#define PHYSICAL_LIMIT_AZIMUTH_RIGHT        220     // Maximum physical range supported by the telescope.
 #define PHYSICAL_LIMIT_ELEVATION_BOTTOM     35
 #define PHYSICAL_LIMIT_ELEVATION_TOP        145
 
@@ -215,7 +216,7 @@
 #define STEPS_AZIMUTH                       2048    // Steps per revolution.
 #define SPEED_AZIMUTH                       5       // RPM.
 #define AZIMUTH_DEGREES_PER_REVOLUTION      360     // Degrees of azimuth per stepper motor revolution.
-//#define AZIMUTH_REVERSE_DIRECTION
+#define AZIMUTH_REVERSE_DIRECTION
 // Stepper motor for elevation:
 // - Stride angle: 11.25°/16.128
 // - Steps per revolution: 516
