@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 16 Mar 2023
+// Rev.: 30 Mar 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.11"
-#define FW_RELEASEDATE  "16 Mar 2023"
+#define FW_VERSION      "0.0.12"
+#define FW_RELEASEDATE  "30 Mar 2023"
 
 
 
@@ -73,6 +73,18 @@
 // Define number of decimals in serial messages.
 #define SERIAL_MSG_DECIMALS_AZIMUTH         1
 #define SERIAL_MSG_DECIMALS_ELEVATION       1
+
+// Define degree symbol.
+// Note: The degree symbol ° is often not displayed correctly in terminal
+//       programs. So it may be better to omit it.
+//const String stringDegree = "°";
+const String stringDegree = "";
+
+// Custom type for telescope coordinates.
+typedef struct {
+  float azimuth;
+  float elevation;
+} coordinate_t;
 
 // Find zero positions for azimuth and elevation using the limit switches.
 // This is required to calibrate the absolute position of the telescope.
@@ -275,22 +287,28 @@ float elevationTarget           = 0.0;
 const float elevationTolerance  = 10.0;
 // Define 3 fixed targets for operation in the exhibition booth.
 #ifdef USE_FIXED_TARGETS
-int targetFixedSel;
-typedef struct {
-  float azimuth;
-  float elevation;
-} target_t;
-const target_t targetFixed[] = {{160.0, 70.0}, {180.0, 85.0}, {200.0, 80.0}};
+int fixedTargetSel;
+const coordinate_t fixedTargets[] = {
+  {160.0, 70.0},
+  {180.0, 85.0},
+  {200.0, 80.0}
+};
 #endif
+
+// Automatically move the telescope between given coordinates for testing.
+// FOR TESTING ONLY!
+//#define AUTO_MOVE_LOOP
+#ifdef AUTO_MOVE_LOOP
+const coordinate_t autoMoveCoordinates[] = {
+  {azimuthLimitMin, elevationLimitMin},         // Lower left position.
+  {azimuthLimitMax, elevationLimitMax}          // Upper right position.
+};
+#endif
+
+
 
 // Create an instance of the LCD.
 LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PIN_LCD_D7);
-
-// Define degree symbol.
-// Note: The degree symbol ° is often not displayed correctly in terminal
-//       programs. So it may be better to omit it.
-//const String stringDegree       = "°";
-const String stringDegree       = "";
 
 
 
@@ -465,6 +483,12 @@ void setup() {
 void loop() {
 
   initHardware();
+
+  // Automatically move the telescope between given coordinates for testing.
+  #ifdef AUTO_MOVE_LOOP
+  autoMoveLoop();
+  #endif
+
   while (true) {
     // Initialize the game.
     initGame();
@@ -663,6 +687,27 @@ int stepperPowerDownElevation() {
 
 
 
+// Automatically move the telescope between given coordinates for testing.
+int autoMoveLoop() {
+  int ret = 0;
+
+  #ifdef AUTO_MOVE_LOOP
+  int autoMoveCoordinatesNum = sizeof(autoMoveCoordinates) / sizeof(autoMoveCoordinates[0]);
+  while (true) {
+    for (int i = 0; i < autoMoveCoordinatesNum; i++) {
+      ret = moveTelscope(autoMoveCoordinates[i].azimuth, autoMoveCoordinates[i].elevation);
+      if (ret) {
+        errorHandler("\r\nERROR: Moving telescope to position " + String(autoMoveCoordinates[i].azimuth, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(autoMoveCoordinates[i].elevation, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed because a limit switch was hit! Program stopped!", "ERROR: Move tel.");
+      }
+    }
+  }
+  #endif
+
+  return 0;
+};
+
+
+
 // Initialize the game.
 int initGame() {
   int ret;
@@ -714,9 +759,9 @@ int initGame() {
 
   // Generate a new gamma position.
   #ifdef USE_FIXED_TARGETS
-  targetFixedSel = random(sizeof(targetFixed) / sizeof(targetFixed[0]));
-  azimuthTarget = targetFixed[targetFixedSel].azimuth;
-  elevationTarget = targetFixed[targetFixedSel].elevation;
+  fixedTargetSel = random(sizeof(fixedTargets) / sizeof(fixedTargets[0]));
+  azimuthTarget = fixedTargets[fixedTargetSel].azimuth;
+  elevationTarget = fixedTargets[fixedTargetSel].elevation;
   #else
   azimuthTarget = random(azimuthLimitMin, azimuthLimitMax);
   elevationTarget = random(elevationLimitMin, elevationLimitMax);
@@ -724,7 +769,7 @@ int initGame() {
 
   #ifdef ENABLE_CONTROL_MSG
   #ifdef USE_FIXED_TARGETS
-  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(targetFixedSel + 1) + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(fixedTargetSel + 1) + "\r\n");
   #else
   SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + " " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + "\r\n");
   #endif
@@ -733,7 +778,7 @@ int initGame() {
   // Display the gamma position.
   SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
   #ifdef USE_FIXED_TARGETS
-  SERIAL_CONSOLE.print(" (fixed target " + String(targetFixedSel + 1) + ")");
+  SERIAL_CONSOLE.print(" (fixed target " + String(fixedTargetSel + 1) + ")");
   #endif
   lcd.clear();
   lcd.setCursor(0, 0);
@@ -1106,7 +1151,7 @@ int evalGameResult() {
   SERIAL_CONSOLE.print("\r\nGame Details");
   SERIAL_CONSOLE.print("\r\n============");
   #ifdef USE_FIXED_TARGETS
-  SERIAL_CONSOLE.print("\r\nFixed target " + String(targetFixedSel + 1) + ".");
+  SERIAL_CONSOLE.print("\r\nFixed target " + String(fixedTargetSel + 1) + ".");
   #else
   SERIAL_CONSOLE.print("\r\nRandom target.");
   #endif
