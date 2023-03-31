@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 30 Mar 2023
+// Rev.: 31 Mar 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.12"
-#define FW_RELEASEDATE  "30 Mar 2023"
+#define FW_VERSION      "0.0.13"
+#define FW_RELEASEDATE  "31 Mar 2023"
 
 
 
@@ -57,8 +57,12 @@
 #define SERIAL_CONSOLE                      Serial
 #define SERIAL_CONTROL                      Serial1
 
+// Define the line ending string for console interface.
+#define CONSOLE_MSG_EOL                     "\r\n"
+
 // Define control messages for communication with the exhibition booth.
 #define ENABLE_CONTROL_MSG
+#define CONTROL_MSG_EOL                     "\r\n"
 #define CONTROL_MSG_ERROR                   "ERROR"
 #define CONTROL_MSG_BOOT                    "BOOT"
 #define CONTROL_MSG_INIT                    "INIT"
@@ -93,6 +97,9 @@ typedef struct {
 
 // Move the telescope to its parking position before starting the game.
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
+
+// Show the stepper motor steps when moving the telescope to a given position.
+#define MOVE_TELESCOPE_SHOW_MOTOR_STEPS
 
 // Use random seed from an analogue input to generate fully random numbers for
 // the targets.
@@ -387,21 +394,21 @@ void setup() {
   SERIAL_CONTROL.begin(9600);       // Control interface for communication with exhibition booth.
   // Send control message.
   #ifdef ENABLE_CONTROL_MSG
-  SERIAL_CONTROL.print("\r\n");
-  SERIAL_CONTROL.print(String(CONTROL_MSG_BOOT) + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_EOL));
+  SERIAL_CONTROL.print(String(CONTROL_MSG_BOOT) + String(CONTROL_MSG_EOL));
   #endif
   // Print a message on the serial console.
-  SERIAL_CONSOLE.print("\r\n");
-  SERIAL_CONSOLE.print("\r\n*** Welcome to the MAGIC Game: Catch the Gamma! ***");
-  SERIAL_CONSOLE.print("\r\n");
-  SERIAL_CONSOLE.print("\r\nFirmware info:");
-  SERIAL_CONSOLE.print("\r\n- Name: ");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "*** Welcome to the MAGIC Game: Catch the Gamma! ***");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Firmware info:");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "- Name: ");
   SERIAL_CONSOLE.print(FW_NAME);
-  SERIAL_CONSOLE.print("\r\n- Ver.: ");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "- Ver.: ");
   SERIAL_CONSOLE.print(FW_VERSION);
-  SERIAL_CONSOLE.print("\r\n- Date: ");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "- Date: ");
   SERIAL_CONSOLE.print(FW_RELEASEDATE);
-  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
 
   // Set the speed of the stepper motors.
   stepperAzimuth.setSpeed(SPEED_AZIMUTH);
@@ -472,8 +479,8 @@ void setup() {
   #endif
 
   // Wait until the start button is pushed. Alternatively use a timeout.
-  SERIAL_CONSOLE.print("\r\nPlease press the start button to continue (timeout in " + String(TIMEOUT_BOOT_FIND_ZERO_POSITIONS / 1000) + " seconds).");
-  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Please press the start button to continue (timeout in " + String(TIMEOUT_BOOT_FIND_ZERO_POSITIONS / 1000) + " seconds).");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
   waitStart(TIMEOUT_BOOT_FIND_ZERO_POSITIONS);
   delay(1000);
 }
@@ -510,15 +517,15 @@ int errorHandler(String errorMsgSerial, String errorMsgLcd) {
   stepperPowerDownAzimuth();
   stepperPowerDownElevation();
   // Send error message to serial interface and LCD.
-  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
   SERIAL_CONSOLE.print(errorMsgSerial);
-  SERIAL_CONSOLE.print("\r\nPress the reset button to reboot.");
-  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Press the reset button to reboot.");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
   lcd.clear();
   while (true) {
     // Send error message to serial control interface.
     #ifdef ENABLE_CONTROL_MSG
-    SERIAL_CONTROL.print(String(CONTROL_MSG_ERROR) + "\r\n");
+    SERIAL_CONTROL.print(String(CONTROL_MSG_ERROR) + String(CONTROL_MSG_EOL));
     #endif
     // Display error message on LCD.
     lcd.setCursor(0, 0);
@@ -551,7 +558,7 @@ int errorHandler(String errorMsgSerial, String errorMsgLcd) {
 
 // Soft reset function.
 void reset(void) {
-  SERIAL_CONSOLE.print("\r\nResetting the Arduino via software.");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Resetting the Arduino via software.");
   delay(500);
   asm volatile ("jmp 0");
 }
@@ -582,7 +589,7 @@ int initHardware() {
   int ret = 0;
 
   #ifdef ENABLE_CONTROL_MSG
-  SERIAL_CONTROL.print(String(CONTROL_MSG_INIT) + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_INIT) + String(CONTROL_MSG_EOL));
   #endif
 
   #ifdef SIMULATION_MODE
@@ -594,7 +601,7 @@ int initHardware() {
   ret = stepperFindZeroPosition();
   // Error while finding the zero positions.
   if (ret) {
-    errorHandler("\r\nERROR: Zero position of stepper motors not found! Program stopped!", "ERROR: Zero pos.");
+    errorHandler(String(CONSOLE_MSG_EOL) + "ERROR: Zero position of stepper motors not found! Program stopped!", "ERROR: Zero pos.");
   }
   #endif
   #endif
@@ -614,12 +621,12 @@ int initHardware() {
 int stepperFindZeroPosition() {
   long steps;
   // Display message.
-  SERIAL_CONSOLE.print("\r\nFinding the zero positions of the stepper motors.");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Finding the zero positions of the stepper motors.");
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Find zero pos.: ");
   // Azimuth: Move to left until limit switch gets activated.
-  SERIAL_CONSOLE.print("\r\n- Azimuth... ");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "- Azimuth... ");
   lcd.setCursor(0, 1);
   lcd.print("Azimuth...      ");
   steps = 0;
@@ -636,7 +643,7 @@ int stepperFindZeroPosition() {
   }
   SERIAL_CONSOLE.print("OK.");
   // Elevation: Move down until limit switch gets activated.
-  SERIAL_CONSOLE.print("\r\n- Elevation... ");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "- Elevation... ");
   lcd.setCursor(0, 1);
   lcd.print("Elevation...    ");
   steps = 0;
@@ -652,7 +659,7 @@ int stepperFindZeroPosition() {
     }
   }
   SERIAL_CONSOLE.print("OK.");
-  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
 
   lcd.setCursor(0, 1);
   lcd.print("OK!             ");
@@ -697,7 +704,7 @@ int autoMoveLoop() {
     for (int i = 0; i < autoMoveCoordinatesNum; i++) {
       ret = moveTelscope(autoMoveCoordinates[i].azimuth, autoMoveCoordinates[i].elevation);
       if (ret) {
-        errorHandler("\r\nERROR: Moving telescope to position " + String(autoMoveCoordinates[i].azimuth, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(autoMoveCoordinates[i].elevation, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed because a limit switch was hit! Program stopped!", "ERROR: Move tel.");
+        errorHandler(String(CONSOLE_MSG_EOL) + "ERROR: Moving telescope to position " + String(autoMoveCoordinates[i].azimuth, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(autoMoveCoordinates[i].elevation, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed because a limit switch was hit! Program stopped!", "ERROR: Move tel.");
       }
     }
   }
@@ -730,7 +737,7 @@ int initGame() {
   #ifdef MOVE_TELESCOPE_TO_PARKING_POSITION
   ret = moveTelscope(azimuthPosParking, elevationPosParking);
   if (ret) {
-    errorHandler("\r\nERROR: Moving telescope to position " + String(azimuthPosParking, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(elevationPosParking, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed because a limit switch was hit! Program stopped!", "ERROR: Move tel.");
+    errorHandler(String(CONSOLE_MSG_EOL) + "ERROR: Moving telescope to position " + String(azimuthPosParking, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", " + String(elevationPosParking, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + " failed because a limit switch was hit! Program stopped!", "ERROR: Move tel.");
   }
   #endif
 
@@ -739,7 +746,10 @@ int initGame() {
   stepperPowerDownElevation();
 
   // Display message.
-  SERIAL_CONSOLE.print("\r\n\r\nMAGIC Game: Push the start button to start a new game.\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
+  SERIAL_CONSOLE.print("MAGIC Game: Push the start button to start a new game.");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("-= MAGIC Game =-");
@@ -747,14 +757,14 @@ int initGame() {
   lcd.print("* Push button! *");
 
   #ifdef ENABLE_CONTROL_MSG
-  SERIAL_CONTROL.print(String(CONTROL_MSG_IDLE) + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_IDLE) + String(CONTROL_MSG_EOL));
   #endif
 
   // Wait until the start button is pushed.
   waitStart(0);     // Always wait for the user to push the start button.
 
   #ifdef ENABLE_CONTROL_MSG
-  SERIAL_CONTROL.print(String(CONTROL_MSG_START) + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_START) + String(CONTROL_MSG_EOL));
   #endif
 
   // Generate a new gamma position.
@@ -769,14 +779,14 @@ int initGame() {
 
   #ifdef ENABLE_CONTROL_MSG
   #ifdef USE_FIXED_TARGETS
-  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(fixedTargetSel + 1) + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(fixedTargetSel + 1) + String(CONTROL_MSG_EOL));
   #else
-  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + " " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + "\r\n");
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET) + " " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + " " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree + String(CONTROL_MSG_EOL));
   #endif
   #endif
 
   // Display the gamma position.
-  SERIAL_CONSOLE.print("\r\nNew gamma position: Azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "New gamma position: Azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
   #ifdef USE_FIXED_TARGETS
   SERIAL_CONSOLE.print(" (fixed target " + String(fixedTargetSel + 1) + ")");
   #endif
@@ -796,7 +806,7 @@ int moveTelscope(float azimuthAngle, float elevationAngle) {
   long stepsElevation;
 
   // Display message.
-  SERIAL_CONSOLE.print("\r\nMoving telescope to position: Azimuth: " + String(azimuthAngle, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", elevation: " + String(elevationAngle, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Moving telescope to position: Azimuth: " + String(azimuthAngle, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", elevation: " + String(elevationAngle, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Move telescope: ");
@@ -810,6 +820,10 @@ int moveTelscope(float azimuthAngle, float elevationAngle) {
   // Calculate the stepper motor steps to reach the target position.
   stepsAzimuth = azimuthAngle2positionSteps(azimuthAngle - azimuthActual);
   stepsElevation = elevationAngle2positionSteps(elevationAngle - elevationActual);
+
+  #ifdef MOVE_TELESCOPE_SHOW_MOTOR_STEPS
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "    Motor steps to reach the position: Azimuth: " + String(stepsAzimuth) + ", elevation: " + String(stepsElevation));
+  #endif
 
   // Move the telescope until the target position is reached.
   while ((stepsAzimuth != 0) || (stepsElevation != 0)) {
@@ -865,7 +879,7 @@ int moveTelscope(float azimuthAngle, float elevationAngle) {
     azimuthActual = positionSteps2azimuthAngle(positionStepsAzimuth);
     elevationActual = positionSteps2elevationAngle(positionStepsElevation);
     #ifdef DEBUG_SERIAL
-    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "DEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
@@ -910,12 +924,12 @@ int playGame() {
     timeElapsedScale = 2.0;
     #endif
     #ifdef ENABLE_CONTROL_MSG
-    if ((timeElapsed >   250 * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + "\r\n"); controlMsgProgress[0] = true; }
-    if ((timeElapsed >  3000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + "\r\n"); controlMsgProgress[1] = true; }
-    if ((timeElapsed >  6000 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + "\r\n"); controlMsgProgress[2] = true; }
-    if ((timeElapsed >  9000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + "\r\n"); controlMsgProgress[3] = true; }
-    if ((timeElapsed > 12000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + "\r\n"); controlMsgProgress[4] = true; }
-    if ((timeElapsed > 15000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + "\r\n"); controlMsgProgress[5] = true; }
+    if ((timeElapsed >   250 * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + String(CONTROL_MSG_EOL)); controlMsgProgress[0] = true; }
+    if ((timeElapsed >  3000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + String(CONTROL_MSG_EOL)); controlMsgProgress[1] = true; }
+    if ((timeElapsed >  6000 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + String(CONTROL_MSG_EOL)); controlMsgProgress[2] = true; }
+    if ((timeElapsed >  9000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + String(CONTROL_MSG_EOL)); controlMsgProgress[3] = true; }
+    if ((timeElapsed > 12000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + String(CONTROL_MSG_EOL)); controlMsgProgress[4] = true; }
+    if ((timeElapsed > 15000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + String(CONTROL_MSG_EOL)); controlMsgProgress[5] = true; }
     #endif
     if (timeElapsed >   250 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
     if (timeElapsed >  3000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
@@ -947,7 +961,7 @@ int playGame() {
     // DEBUG: Show steps for azimuth and elevation.
     #ifdef DEBUG_MODE_SHOW_STEPS
     #ifdef DEBUG_SERIAL
-    SERIAL_CONSOLE.print("\r\nDEBUG: Steps azimuth: " + String(stepsAzimuth) + ", steps elevation: " + String(stepsElevation));
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "DEBUG: Steps azimuth: " + String(stepsAzimuth) + ", steps elevation: " + String(stepsElevation));
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG stp. az: " + String(stepsAzimuth) + "  ");
@@ -959,7 +973,7 @@ int playGame() {
     if (!digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT) || !digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) ||
         !digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM) || !digitalRead(PIN_SW_LIMIT_ELEVATION_TOP)
     ) {
-      errorHandler("\r\nERROR: Limit switch hit while moving the telescope during the game! Program stopped!", "ERROR: Limit sw.");
+      errorHandler(String(CONSOLE_MSG_EOL) + "ERROR: Limit switch hit while moving the telescope during the game! Program stopped!", "ERROR: Limit sw.");
     }
 
     // Move the stepper motors.
@@ -1054,7 +1068,7 @@ int playGame() {
     // DEBUG: Show actual azimuth and elevation.
     #ifdef DEBUG_MODE_SHOW_POSITIONS
     #ifdef DEBUG_SERIAL
-    SERIAL_CONSOLE.print("\r\nDEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "DEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
     #endif
     lcd.setCursor(0, 0);
     lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
@@ -1120,12 +1134,12 @@ int evalGameResult() {
       (elevationActual > elevationTarget - elevationTolerance) && (elevationActual < elevationTarget + elevationTolerance)
   ) {
     #ifdef ENABLE_CONTROL_MSG
-    SERIAL_CONTROL.print(String(CONTROL_MSG_SUCCESS) + "\r\n");
+    SERIAL_CONTROL.print(String(CONTROL_MSG_SUCCESS) + String(CONTROL_MSG_EOL));
     #endif
-    SERIAL_CONSOLE.print("\r\n");
-    SERIAL_CONSOLE.print("\r\n**************************************");
-    SERIAL_CONSOLE.print("\r\nCongratulations! You caught the gamma!");
-    SERIAL_CONSOLE.print("\r\n**************************************");
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "**************************************");
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Congratulations! You caught the gamma!");
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "**************************************");
     lcd.setCursor(0, 0);
     lcd.print("Congratulations!");
     lcd.setCursor(0, 1);
@@ -1133,12 +1147,12 @@ int evalGameResult() {
     ret = 0;
   } else {
     #ifdef ENABLE_CONTROL_MSG
-    SERIAL_CONTROL.print(String(CONTROL_MSG_FAILURE) + "\r\n");
+    SERIAL_CONTROL.print(String(CONTROL_MSG_FAILURE) + String(CONTROL_MSG_EOL));
     #endif
-    SERIAL_CONSOLE.print("\r\n");
-    SERIAL_CONSOLE.print("\r\n****************************");
-    SERIAL_CONSOLE.print("\r\nSorry, You missed the gamma!");
-    SERIAL_CONSOLE.print("\r\n****************************");
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "****************************");
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Sorry, You missed the gamma!");
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "****************************");
     lcd.setCursor(0, 0);
     lcd.print("Sorry. :(");
     lcd.setCursor(0, 1);
@@ -1147,26 +1161,26 @@ int evalGameResult() {
   }
   // Print some extra information.
   azimuthActual = positionSteps2azimuthAngle(positionStepsAzimuth);
-  SERIAL_CONSOLE.print("\r\n");
-  SERIAL_CONSOLE.print("\r\nGame Details");
-  SERIAL_CONSOLE.print("\r\n============");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Game Details");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "============");
   #ifdef USE_FIXED_TARGETS
-  SERIAL_CONSOLE.print("\r\nFixed target " + String(fixedTargetSel + 1) + ".");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Fixed target " + String(fixedTargetSel + 1) + ".");
   #else
-  SERIAL_CONSOLE.print("\r\nRandom target.");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Random target.");
   #endif
-  SERIAL_CONSOLE.print("\r\nActual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
-  SERIAL_CONSOLE.print("\r\nTarget azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
-  SERIAL_CONSOLE.print("\r\nTolerance for azimuth: +/-" + String(azimuthTolerance, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Target azimuth: " + String(azimuthTarget, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Tolerance for azimuth: +/-" + String(azimuthTolerance, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree);
   elevationActual = positionSteps2elevationAngle(positionStepsElevation);
-  SERIAL_CONSOLE.print("\r\nActual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
-  SERIAL_CONSOLE.print("\r\nTarget elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
-  SERIAL_CONSOLE.print("\r\nTolerance for elevation: +/-" + String(elevationTolerance, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
-  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Target elevation: " + String(elevationTarget, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Tolerance for elevation: +/-" + String(elevationTolerance, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
 
   // Wait until the start button is pushed. Alternatively use a timeout.
-  SERIAL_CONSOLE.print("\r\nPlease press the start button to continue (timeout in " + String(TIMEOUT_PREPARE_NEW_GAME / 1000) + " seconds).");
-  SERIAL_CONSOLE.print("\r\n");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "Please press the start button to continue (timeout in " + String(TIMEOUT_PREPARE_NEW_GAME / 1000) + " seconds).");
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
   waitStart(TIMEOUT_PREPARE_NEW_GAME);
   delay(1000);
 
