@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 31 Mar 2023
+// Rev.: 14 Apr 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.13"
-#define FW_RELEASEDATE  "31 Mar 2023"
+#define FW_VERSION      "0.0.14"
+#define FW_RELEASEDATE  "14 Apr 2023"
 
 
 
@@ -90,10 +90,18 @@ typedef struct {
   float elevation;
 } coordinate_t;
 
-// Find zero positions for azimuth and elevation using the limit switches.
+// Find the zero positions for azimuth and elevation using the limit switches.
 // This is required to calibrate the absolute position of the telescope.
 // THIS MUST BE ENABLED FOR NORMAL USE!
 #define FIND_ZERO_POSITIONS
+
+// Check if a wrong limit switch gets activated while finding the zero positions.
+// This should be activated for normal use.
+#define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+
+// Find the zero positions for azimuth and elevation using the limit switches before every game.
+// This should be activated for normal use to avoid a potential accumulation of lost steps.
+#define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
 
 // Move the telescope to its parking position before starting the game.
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
@@ -327,6 +335,8 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
 #undef FIND_ZERO_POSITIONS
+#undef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+#undef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #undef USE_FIXED_TARGETS
@@ -349,6 +359,8 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
 #define FIND_ZERO_POSITIONS
+#define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+#define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #undef USE_FIXED_TARGETS
@@ -371,6 +383,8 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
 #define FIND_ZERO_POSITIONS
+#define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+#define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #define USE_FIXED_TARGETS
@@ -630,6 +644,12 @@ int stepperFindZeroPosition() {
   lcd.setCursor(0, 1);
   lcd.print("Azimuth...      ");
   steps = 0;
+  #ifdef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+  // Move 5 degrees left to avoid a false error if the telescope is at the azimuth right limit position.
+  stepperAzimuth.step((-5 / AZIMUTH_DEGREES_PER_REVOLUTION) * STEPS_AZIMUTH);
+  // Move 5 degrees down to avoid a false error if the telescope is at the elevation to limit position.
+  stepperElevation.step((-5 / ELEVATION_DEGREES_PER_REVOLUTION) * STEPS_ELEVATION);
+  #endif
   while (digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT)) {
     stepperAzimuth.step(-1);    // Move one step left.
     steps++;
@@ -640,6 +660,19 @@ int stepperFindZeroPosition() {
       lcd.print("Azimuth FAILED! ");
       return 1;
     }
+    // Error: The wrong limit switch got activated.
+    #ifdef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+    //if (not (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) && digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM) && digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+    // Don't check the limit switch for the elevation bottom to avoid a
+    // potential false error when the telescope is in the elevation zero
+    // position.
+    if (not (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) && digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+      SERIAL_CONSOLE.print("FAILED!");
+      lcd.setCursor(0, 1);
+      lcd.print("Azimuth FAILED! ");
+      return 2;
+    }
+    #endif
   }
   SERIAL_CONSOLE.print("OK.");
   // Elevation: Move down until limit switch gets activated.
@@ -655,8 +688,18 @@ int stepperFindZeroPosition() {
       SERIAL_CONSOLE.print("FAILED!");
       lcd.setCursor(0, 1);
       lcd.print("Elevation FAILED");
-      return 2;
+      return 3;
     }
+    // Error: The wrong limit switch got activated.
+    #ifdef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+    // Caution! Then limit switch for azimuth left position stays activated! So we cannot check for it here.
+    if (not (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) && digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+      SERIAL_CONSOLE.print("FAILED!");
+      lcd.setCursor(0, 1);
+      lcd.print("Elevation FAILED");
+      return 4;
+    }
+    #endif
   }
   SERIAL_CONSOLE.print("OK.");
   SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
@@ -732,6 +775,15 @@ int initGame() {
   digitalWrite(PIN_LED_ELEVATION_CENTER, LOW);
   digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
   digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
+
+  // Find the zero positions of the stepper motors before every game.
+  #ifdef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
+  ret = stepperFindZeroPosition();
+  // Error while finding the zero positions.
+  if (ret) {
+    errorHandler(String(CONSOLE_MSG_EOL) + "ERROR: Zero position of stepper motors not found! Program stopped!", "ERROR: Zero pos.");
+  }
+  #endif
 
   // Move the telescope to its parking position.
   #ifdef MOVE_TELESCOPE_TO_PARKING_POSITION
