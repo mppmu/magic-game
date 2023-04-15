@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 14 Apr 2023
+// Rev.: 15 Apr 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.14"
-#define FW_RELEASEDATE  "14 Apr 2023"
+#define FW_VERSION      "0.0.15"
+#define FW_RELEASEDATE  "15 Apr 2023"
 
 
 
@@ -662,11 +662,11 @@ int stepperFindZeroPosition() {
     }
     // Error: The wrong limit switch got activated.
     #ifdef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
-    //if (not (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) && digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM) && digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+    //if (!digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) || !digitalRead(PIN_SW_LIMIT_ELEVATION_BOTTOM) || !digitalRead(PIN_SW_LIMIT_ELEVATION_TOP)) {
     // Don't check the limit switch for the elevation bottom to avoid a
     // potential false error when the telescope is in the elevation zero
     // position.
-    if (not (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) && digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+    if (!digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) || !digitalRead(PIN_SW_LIMIT_ELEVATION_TOP)) {
       SERIAL_CONSOLE.print("FAILED!");
       lcd.setCursor(0, 1);
       lcd.print("Azimuth FAILED! ");
@@ -693,7 +693,7 @@ int stepperFindZeroPosition() {
     // Error: The wrong limit switch got activated.
     #ifdef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
     // Caution! Then limit switch for azimuth left position stays activated! So we cannot check for it here.
-    if (not (digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) && digitalRead(PIN_SW_LIMIT_ELEVATION_TOP))) {
+    if (!digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) || !digitalRead(PIN_SW_LIMIT_ELEVATION_TOP)) {
       SERIAL_CONSOLE.print("FAILED!");
       lcd.setCursor(0, 1);
       lcd.print("Elevation FAILED");
@@ -778,6 +778,9 @@ int initGame() {
 
   // Find the zero positions of the stepper motors before every game.
   #ifdef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
+  // First move the telescope close to its physical minimum position.
+  ret = moveTelscope(PHYSICAL_LIMIT_AZIMUTH_LEFT + 5, PHYSICAL_LIMIT_ELEVATION_BOTTOM + 5);     // 5 degrees before physical limits.
+  // Then find the zero position.
   ret = stepperFindZeroPosition();
   // Error while finding the zero positions.
   if (ret) {
