@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 15 Apr 2023
+// Rev.: 20 Apr 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.15"
-#define FW_RELEASEDATE  "15 Apr 2023"
+#define FW_VERSION      "0.0.16"
+#define FW_RELEASEDATE  "20 Apr 2023"
 
 
 
@@ -62,6 +62,8 @@
 
 // Define control messages for communication with the exhibition booth.
 #define ENABLE_CONTROL_MSG
+#define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #define CONTROL_MSG_EOL                     "\r\n"
 #define CONTROL_MSG_ERROR                   "ERROR"
 #define CONTROL_MSG_BOOT                    "BOOT"
@@ -69,7 +71,10 @@
 #define CONTROL_MSG_IDLE                    "IDLE"
 #define CONTROL_MSG_START                   "START"
 #define CONTROL_MSG_TARGET                  "TARGET"
+#define CONTROL_MSG_TARGET_MATCH            "O"
+#define CONTROL_MSG_TARGET_MISS             "X"
 #define CONTROL_MSG_PROGRESS                "PROGRESS"
+#define CONTROL_MSG_COUNTDOWN               "COUNTDOWN"
 #define CONTROL_MSG_SUCCESS                 "SUCCESS"
 #define CONTROL_MSG_FAILURE                 "FAILURE"
 #define CONTROL_CMD_RESET                   "RESET"
@@ -334,6 +339,8 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_MODE_SHOW_POSITIONS
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
+#define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #undef FIND_ZERO_POSITIONS
 #undef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
 #undef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
@@ -358,6 +365,8 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_MODE_SHOW_POSITIONS
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
+#define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #define FIND_ZERO_POSITIONS
 #define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
 #define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
@@ -369,7 +378,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef PIN_JOYSTICK_EL
 #define PIN_JOYSTICK_AZ                     A0
 #define PIN_JOYSTICK_EL                     A1
-#undef JOYSTICK_INVERT_AZIMUTH
+#define JOYSTICK_INVERT_AZIMUTH
 #undef JOYSTICK_INVERT_ELEVATION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
@@ -382,6 +391,8 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_MODE_SHOW_POSITIONS
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
+#define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #define FIND_ZERO_POSITIONS
 #define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
 #define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
@@ -393,7 +404,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef PIN_JOYSTICK_EL
 #define PIN_JOYSTICK_AZ                     A1
 #define PIN_JOYSTICK_EL                     A0
-#undef JOYSTICK_INVERT_AZIMUTH
+#define JOYSTICK_INVERT_AZIMUTH
 #define JOYSTICK_INVERT_ELEVATION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
@@ -960,6 +971,13 @@ int playGame() {
   #ifdef ENABLE_CONTROL_MSG
   bool controlMsgProgress[6];
   for (int i = 0; i < sizeof(controlMsgProgress) / sizeof(controlMsgProgress[0]); i++) controlMsgProgress[i] = false;
+  #ifdef ENABLE_CONTROL_MSG_COUNTDOWN
+  int controlMsgCountdown = 10;     // Countdown in seconds.
+  #endif
+  #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
+  bool targetMatchAzimuth;
+  bool targetMatchElevation;
+  #endif
   #endif
 
   #ifdef DEBUG_MODE_SHOW_STEPS
@@ -968,23 +986,29 @@ int playGame() {
 
   timeStart = millis();
 
+  #ifdef SIMULATION_MODE
+//  timeElapsedScale = 1.0;
+  timeElapsedScale = 2.0;
+  #else
+//  timeElapsedScale = 1.0;
+  timeElapsedScale = 2.0;
+  #endif
+
   while (true) {
     // Show the progress of the physics event (gamma ray -> Cherenkov light).
     timeElapsed = millis() - timeStart;
-    #ifdef SIMULATION_MODE
-//    timeElapsedScale = 1.0;
-    timeElapsedScale = 2.0;
-    #else
-//    timeElapsedScale = 1.0;
-    timeElapsedScale = 2.0;
-    #endif
     #ifdef ENABLE_CONTROL_MSG
+    // Send progress command.
     if ((timeElapsed >   250 * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + String(CONTROL_MSG_EOL)); controlMsgProgress[0] = true; }
     if ((timeElapsed >  3000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + String(CONTROL_MSG_EOL)); controlMsgProgress[1] = true; }
     if ((timeElapsed >  6000 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + String(CONTROL_MSG_EOL)); controlMsgProgress[2] = true; }
     if ((timeElapsed >  9000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + String(CONTROL_MSG_EOL)); controlMsgProgress[3] = true; }
     if ((timeElapsed > 12000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + String(CONTROL_MSG_EOL)); controlMsgProgress[4] = true; }
     if ((timeElapsed > 15000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + String(CONTROL_MSG_EOL)); controlMsgProgress[5] = true; }
+    #ifdef ENABLE_CONTROL_MSG_COUNTDOWN
+    // Send countdown command.
+    if (timeElapsed > (15000 * timeElapsedScale) - (controlMsgCountdown * 1000)) { SERIAL_CONTROL.print(String(CONTROL_MSG_COUNTDOWN) + " " + String(controlMsgCountdown) + String(CONTROL_MSG_EOL)); controlMsgCountdown -= 1; }
+    #endif
     #endif
     if (timeElapsed >   250 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
     if (timeElapsed >  3000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
@@ -1087,7 +1111,12 @@ int playGame() {
     }
 
     // Set the LEDs for the azimuth and elevation according to the current position.
+    // If enabled, also send the command for matching or missing the target.
     // Azimuth position too far left -> move right!
+    #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
+    targetMatchAzimuth = false;
+    targetMatchElevation = false;
+    #endif
     if (azimuthActual < azimuthTarget - azimuthTolerance) {
       digitalWrite(PIN_LED_AZIMUTH_LEFT, LOW);
       digitalWrite(PIN_LED_AZIMUTH_CENTER, LOW);
@@ -1102,6 +1131,9 @@ int playGame() {
       digitalWrite(PIN_LED_AZIMUTH_LEFT, LOW);
       digitalWrite(PIN_LED_AZIMUTH_CENTER, HIGH);
       digitalWrite(PIN_LED_AZIMUTH_RIGHT, LOW);
+      #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
+      targetMatchAzimuth = true;
+      #endif
     }
     // Elevation too low -> move up!
     if (elevationActual < elevationTarget - elevationTolerance) {
@@ -1118,7 +1150,15 @@ int playGame() {
       digitalWrite(PIN_LED_ELEVATION_BOTTOM, LOW);
       digitalWrite(PIN_LED_ELEVATION_CENTER, HIGH);
       digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
+      #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
+      targetMatchElevation = true;
+      #endif
     }
+
+    #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
+    if (targetMatchAzimuth && targetMatchElevation) SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
+    else SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
+    #endif
 
     // DEBUG: Show actual azimuth and elevation.
     #ifdef DEBUG_MODE_SHOW_POSITIONS
