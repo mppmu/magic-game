@@ -1113,9 +1113,11 @@ int playGame() {
     // Set the LEDs for the azimuth and elevation according to the current position.
     // If enabled, also send the command for matching or missing the target.
     // Azimuth position too far left -> move right!
+    #ifdef ENABLE_CONTROL_MSG
     #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
     targetMatchAzimuth = false;
     targetMatchElevation = false;
+    #endif
     #endif
     if (azimuthActual < azimuthTarget - azimuthTolerance) {
       digitalWrite(PIN_LED_AZIMUTH_LEFT, LOW);
@@ -1131,8 +1133,10 @@ int playGame() {
       digitalWrite(PIN_LED_AZIMUTH_LEFT, LOW);
       digitalWrite(PIN_LED_AZIMUTH_CENTER, HIGH);
       digitalWrite(PIN_LED_AZIMUTH_RIGHT, LOW);
+      #ifdef ENABLE_CONTROL_MSG
       #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
       targetMatchAzimuth = true;
+      #endif
       #endif
     }
     // Elevation too low -> move up!
@@ -1150,14 +1154,18 @@ int playGame() {
       digitalWrite(PIN_LED_ELEVATION_BOTTOM, LOW);
       digitalWrite(PIN_LED_ELEVATION_CENTER, HIGH);
       digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
+      #ifdef ENABLE_CONTROL_MSG
       #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
       targetMatchElevation = true;
       #endif
+      #endif
     }
 
+    #ifdef ENABLE_CONTROL_MSG
     #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
     if (targetMatchAzimuth && targetMatchElevation) SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
     else SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
+    #endif
     #endif
 
     // DEBUG: Show actual azimuth and elevation.
