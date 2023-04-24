@@ -25,7 +25,7 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.17"
+#define FW_VERSION      "0.0.18"
 #define FW_RELEASEDATE  "24 Apr 2023"
 
 
@@ -62,8 +62,10 @@
 
 // Define control messages for communication with the exhibition booth.
 #define ENABLE_CONTROL_MSG
+#define ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define CONTROL_MSG_EOL                     "\r\n"
 #define CONTROL_MSG_ERROR                   "ERROR"
 #define CONTROL_MSG_BOOT                    "BOOT"
@@ -339,8 +341,10 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_MODE_SHOW_POSITIONS
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
+#define ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #undef FIND_ZERO_POSITIONS
 #undef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
 #undef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
@@ -365,8 +369,10 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_MODE_SHOW_POSITIONS
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
+#define ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define FIND_ZERO_POSITIONS
 #define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
 #define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
@@ -391,8 +397,10 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef DEBUG_MODE_SHOW_POSITIONS
 #undef DEBUG_SERIAL
 #define ENABLE_CONTROL_MSG
+#undef ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define FIND_ZERO_POSITIONS
 #define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
 #define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
@@ -971,6 +979,12 @@ int playGame() {
   int controlMsgCountdown = 10;     // Countdown in seconds.
   #endif
   #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
+  #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
+  bool targetMatch = false;
+  // Send message for target miss at game start for differential only mode to
+  // provide the first feedback.
+  SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
+  #endif
   bool targetMatchAzimuth;
   bool targetMatchElevation;
   #endif
@@ -994,6 +1008,7 @@ int playGame() {
     // Show the progress of the physics event (gamma ray -> Cherenkov light).
     timeElapsed = millis() - timeStart;
     #ifdef ENABLE_CONTROL_MSG
+    #ifdef ENABLE_CONTROL_MSG_PROGRESS
     // Send progress command.
     if ((timeElapsed >   250 * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + String(CONTROL_MSG_EOL)); controlMsgProgress[0] = true; }
     if ((timeElapsed >  3000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + String(CONTROL_MSG_EOL)); controlMsgProgress[1] = true; }
@@ -1001,6 +1016,7 @@ int playGame() {
     if ((timeElapsed >  9000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + String(CONTROL_MSG_EOL)); controlMsgProgress[3] = true; }
     if ((timeElapsed > 12000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + String(CONTROL_MSG_EOL)); controlMsgProgress[4] = true; }
     if ((timeElapsed > 15000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + String(CONTROL_MSG_EOL)); controlMsgProgress[5] = true; }
+    #endif
     #ifdef ENABLE_CONTROL_MSG_COUNTDOWN
     // Send countdown command.
     if (timeElapsed > (15000 * timeElapsedScale) - (controlMsgCountdown * 1000)) { SERIAL_CONTROL.print(String(CONTROL_MSG_COUNTDOWN) + " " + String(controlMsgCountdown) + String(CONTROL_MSG_EOL)); controlMsgCountdown -= 1; }
@@ -1159,8 +1175,22 @@ int playGame() {
 
     #ifdef ENABLE_CONTROL_MSG
     #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
+    #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
+      if (targetMatchAzimuth && targetMatchElevation) {
+        if (targetMatch == false) {
+          SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
+          targetMatch = true;
+        }
+      } else {
+        if (targetMatch == true) {
+          SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
+          targetMatch = false;
+        }
+      }
+    #else
     if (targetMatchAzimuth && targetMatchElevation) SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
     else SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
+    #endif
     #endif
     #endif
 
