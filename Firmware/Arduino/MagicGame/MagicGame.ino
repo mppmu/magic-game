@@ -25,7 +25,7 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.18"
+#define FW_VERSION      "0.0.19"
 #define FW_RELEASEDATE  "24 Apr 2023"
 
 
@@ -311,9 +311,12 @@ const float elevationTolerance  = 10.0;
 #ifdef USE_FIXED_TARGETS
 int fixedTargetSel;
 const coordinate_t fixedTargets[] = {
-  {160.0, 70.0},
-  {180.0, 85.0},
-  {200.0, 80.0}
+//  {160.0, 70.0},
+//  {180.0, 85.0},
+//  {200.0, 80.0}
+  {107.9, 52.0},
+  {149.2, 58.9},
+  {201.5, 59.9}
 };
 #endif
 
