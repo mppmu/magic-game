@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 20 Apr 2023
+// Rev.: 24 Apr 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.16"
-#define FW_RELEASEDATE  "20 Apr 2023"
+#define FW_VERSION      "0.0.17"
+#define FW_RELEASEDATE  "24 Apr 2023"
 
 
 
@@ -791,12 +791,8 @@ int initGame() {
   #ifdef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
   // First move the telescope close to its physical minimum position.
   ret = moveTelscope(PHYSICAL_LIMIT_AZIMUTH_LEFT + 5, PHYSICAL_LIMIT_ELEVATION_BOTTOM + 5);     // 5 degrees before physical limits.
-  // Then find the zero position.
-  ret = stepperFindZeroPosition();
-  // Error while finding the zero positions.
-  if (ret) {
-    errorHandler(String(CONSOLE_MSG_EOL) + "ERROR: Zero position of stepper motors not found! Program stopped!", "ERROR: Zero pos.");
-  }
+  // Initialize the hardware.
+  ret = initHardware();
   #endif
 
   // Move the telescope to its parking position.
