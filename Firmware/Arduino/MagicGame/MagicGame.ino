@@ -25,7 +25,7 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.19"
+#define FW_VERSION      "0.0.20"
 #define FW_RELEASEDATE  "24 Apr 2023"
 
 
@@ -176,6 +176,9 @@ typedef struct {
 //       exhibition booth (top view). For details see the explanation above.
 //#define JOYSTICK_INVERT_ELEVATION
 
+// End the game as soon as the target position is reached.
+//#define END_GAME_AT_TARGET_POSITION
+
 // Do not end the game, but stay in an infinite loop.
 // FOR TESTING ONLY!
 //#define INFINITE_GAME_LOOP
@@ -303,10 +306,10 @@ const float elevationPosParking = elevationLimitMin;
 // Azimuth and elevation actual value, target value and tolerance.
 float azimuthActual             = 0.0;
 float azimuthTarget             = 0.0;
-const float azimuthTolerance    = 10.0;
+const float azimuthTolerance    = 5.0;
 float elevationActual           = 0.0;
 float elevationTarget           = 0.0;
-const float elevationTolerance  = 10.0;
+const float elevationTolerance  = 5.0;
 // Define 3 fixed targets for operation in the exhibition booth.
 #ifdef USE_FIXED_TARGETS
 int fixedTargetSel;
@@ -361,6 +364,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define PIN_JOYSTICK_EL                     A1
 #undef JOYSTICK_INVERT_AZIMUTH
 #undef JOYSTICK_INVERT_ELEVATION
+#undef END_GAME_AT_TARGET_POSITION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
 #undef IGNORE_SOFT_LIMITS_ELEVATION
@@ -389,6 +393,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define PIN_JOYSTICK_EL                     A1
 #define JOYSTICK_INVERT_AZIMUTH
 #undef JOYSTICK_INVERT_ELEVATION
+#undef END_GAME_AT_TARGET_POSITION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
 #undef IGNORE_SOFT_LIMITS_ELEVATION
@@ -417,6 +422,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define PIN_JOYSTICK_EL                     A0
 #define JOYSTICK_INVERT_AZIMUTH
 #define JOYSTICK_INVERT_ELEVATION
+#define END_GAME_AT_TARGET_POSITION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
 #undef IGNORE_SOFT_LIMITS_ELEVATION
@@ -1183,6 +1189,13 @@ int playGame() {
         if (targetMatch == false) {
           SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
           targetMatch = true;
+          #ifdef END_GAME_AT_TARGET_POSITION
+          // Power down the stepper motors to save power and keep them cool.
+          stepperPowerDownAzimuth();
+          stepperPowerDownElevation();
+          ret = evalGameResult();
+          return ret;
+          #endif
         }
       } else {
         if (targetMatch == true) {
@@ -1191,8 +1204,18 @@ int playGame() {
         }
       }
     #else
-    if (targetMatchAzimuth && targetMatchElevation) SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
-    else SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
+    if (targetMatchAzimuth && targetMatchElevation) {
+      SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
+      #ifdef END_GAME_AT_TARGET_POSITION
+      // Power down the stepper motors to save power and keep them cool.
+      stepperPowerDownAzimuth();
+      stepperPowerDownElevation();
+      ret = evalGameResult();
+      return ret;
+      #endif
+    } else {
+      SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
+    }
     #endif
     #endif
     #endif
