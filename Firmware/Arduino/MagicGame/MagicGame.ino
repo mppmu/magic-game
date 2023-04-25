@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 24 Apr 2023
+// Rev.: 25 Apr 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.20"
-#define FW_RELEASEDATE  "24 Apr 2023"
+#define FW_VERSION      "0.0.21"
+#define FW_RELEASEDATE  "25 Apr 2023"
 
 
 
@@ -176,9 +176,6 @@ typedef struct {
 //       exhibition booth (top view). For details see the explanation above.
 //#define JOYSTICK_INVERT_ELEVATION
 
-// End the game as soon as the target position is reached.
-//#define END_GAME_AT_TARGET_POSITION
-
 // Do not end the game, but stay in an infinite loop.
 // FOR TESTING ONLY!
 //#define INFINITE_GAME_LOOP
@@ -317,11 +314,15 @@ const coordinate_t fixedTargets[] = {
 //  {160.0, 70.0},
 //  {180.0, 85.0},
 //  {200.0, 80.0}
+  // Mean value of the positions empirically determined by five persons.
   {107.9, 52.0},
   {149.2, 58.9},
   {201.5, 59.9}
 };
 #endif
+
+// End the game as soon as the target position is reached.
+//#define END_GAME_AT_TARGET_POSITION
 
 // Automatically move the telescope between given coordinates for testing.
 // FOR TESTING ONLY!
@@ -357,6 +358,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #undef USE_FIXED_TARGETS
+#undef END_GAME_AT_TARGET_POSITION
 #undef JOYSTICK_SWAP_AZIMUTH_ELEVATION
 #undef PIN_JOYSTICK_AZ
 #undef PIN_JOYSTICK_EL
@@ -364,7 +366,6 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define PIN_JOYSTICK_EL                     A1
 #undef JOYSTICK_INVERT_AZIMUTH
 #undef JOYSTICK_INVERT_ELEVATION
-#undef END_GAME_AT_TARGET_POSITION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
 #undef IGNORE_SOFT_LIMITS_ELEVATION
@@ -386,6 +387,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #undef USE_FIXED_TARGETS
+#undef END_GAME_AT_TARGET_POSITION
 #undef JOYSTICK_SWAP_AZIMUTH_ELEVATION
 #undef PIN_JOYSTICK_AZ
 #undef PIN_JOYSTICK_EL
@@ -393,7 +395,6 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define PIN_JOYSTICK_EL                     A1
 #define JOYSTICK_INVERT_AZIMUTH
 #undef JOYSTICK_INVERT_ELEVATION
-#undef END_GAME_AT_TARGET_POSITION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
 #undef IGNORE_SOFT_LIMITS_ELEVATION
@@ -415,6 +416,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #define USE_FIXED_TARGETS
+#define END_GAME_AT_TARGET_POSITION
 #define JOYSTICK_SWAP_AZIMUTH_ELEVATION
 #undef PIN_JOYSTICK_AZ
 #undef PIN_JOYSTICK_EL
@@ -422,7 +424,6 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define PIN_JOYSTICK_EL                     A0
 #define JOYSTICK_INVERT_AZIMUTH
 #define JOYSTICK_INVERT_ELEVATION
-#define END_GAME_AT_TARGET_POSITION
 #undef INFINITE_GAME_LOOP
 #undef IGNORE_SOFT_LIMITS_AZIMUTH
 #undef IGNORE_SOFT_LIMITS_ELEVATION
@@ -1038,10 +1039,8 @@ int playGame() {
     if (timeElapsed > 12000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
     #ifndef INFINITE_GAME_LOOP
     if (timeElapsed > 15000 * timeElapsedScale) {
-      // Power down the stepper motors to save power and keep them cool.
-      stepperPowerDownAzimuth();
-      stepperPowerDownElevation();
-      ret = evalGameResult();
+      // End the game.
+      ret = endGame();
       return ret;
     }
     #endif
@@ -1182,6 +1181,17 @@ int playGame() {
       #endif
     }
 
+    // DEBUG: Show actual azimuth and elevation.
+    #ifdef DEBUG_MODE_SHOW_POSITIONS
+    #ifdef DEBUG_SERIAL
+    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "DEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
+    #endif
+    lcd.setCursor(0, 0);
+    lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
+    lcd.setCursor(0, 1);
+    lcd.print("DBG act. el: " + String(int(elevationActual)) + "  ");
+    #endif
+
     #ifdef ENABLE_CONTROL_MSG
     #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
     #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
@@ -1190,10 +1200,8 @@ int playGame() {
           SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
           targetMatch = true;
           #ifdef END_GAME_AT_TARGET_POSITION
-          // Power down the stepper motors to save power and keep them cool.
-          stepperPowerDownAzimuth();
-          stepperPowerDownElevation();
-          ret = evalGameResult();
+          // End the game.
+          ret = endGame();
           return ret;
           #endif
         }
@@ -1207,10 +1215,8 @@ int playGame() {
     if (targetMatchAzimuth && targetMatchElevation) {
       SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
       #ifdef END_GAME_AT_TARGET_POSITION
-      // Power down the stepper motors to save power and keep them cool.
-      stepperPowerDownAzimuth();
-      stepperPowerDownElevation();
-      ret = evalGameResult();
+      // End the game.
+      ret = endGame();
       return ret;
       #endif
     } else {
@@ -1220,18 +1226,33 @@ int playGame() {
     #endif
     #endif
 
-    // DEBUG: Show actual azimuth and elevation.
-    #ifdef DEBUG_MODE_SHOW_POSITIONS
-    #ifdef DEBUG_SERIAL
-    SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "DEBUG: Actual azimuth: " + String(azimuthActual, SERIAL_MSG_DECIMALS_AZIMUTH) + stringDegree + ", actual elevation: " + String(elevationActual, SERIAL_MSG_DECIMALS_ELEVATION) + stringDegree);
-    #endif
-    lcd.setCursor(0, 0);
-    lcd.print("DBG act. az: " + String(int(azimuthActual)) + "  ");
-    lcd.setCursor(0, 1);
-    lcd.print("DBG act. el: " + String(int(elevationActual)) + "  ");
+    #ifdef END_GAME_AT_TARGET_POSITION
+    if ((azimuthActual > azimuthTarget - azimuthTolerance) && (azimuthActual < azimuthTarget + azimuthTolerance) &&
+        (elevationActual > elevationTarget - elevationTolerance) && (elevationActual < elevationTarget + elevationTolerance))
+    {
+      // End the game.
+      ret = endGame();
+      return ret;
+    }
     #endif
   }
   return 0;
+}
+
+
+
+// End the game.
+int endGame() {
+  int ret;
+
+  // Power down the stepper motors to save power and keep them cool.
+  stepperPowerDownAzimuth();
+  stepperPowerDownElevation();
+
+  // Evaluate the game result.
+  ret = evalGameResult();
+
+  return ret;
 }
 
 
