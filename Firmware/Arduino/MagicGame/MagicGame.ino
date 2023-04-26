@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 25 Apr 2023
+// Rev.: 26 Apr 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.21"
-#define FW_RELEASEDATE  "25 Apr 2023"
+#define FW_VERSION      "0.0.22"
+#define FW_RELEASEDATE  "26 Apr 2023"
 
 
 
@@ -106,9 +106,9 @@ typedef struct {
 // This should be activated for normal use.
 #define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
 
-// Find the zero positions for azimuth and elevation using the limit switches before every game.
+// Initialize the hardware before every game. This includes finding the zero positions for azimuth and elevation using the limit switches.
 // This should be activated for normal use to avoid a potential accumulation of lost steps.
-#define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
+#define INIT_HARDWARE_BEFORE_EVERY_GAME
 
 // Move the telescope to its parking position before starting the game.
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
@@ -301,12 +301,21 @@ const float elevationPosParking = elevationLimitMin;
 #endif
 
 // Azimuth and elevation actual value, target value and tolerance.
+#ifdef SIMULATION_MODE
+float azimuthActual             = 0.0;
+float azimuthTarget             = 0.0;
+const float azimuthTolerance    = 10.0;
+float elevationActual           = 0.0;
+float elevationTarget           = 0.0;
+const float elevationTolerance  = 10.0;
+#else
 float azimuthActual             = 0.0;
 float azimuthTarget             = 0.0;
 const float azimuthTolerance    = 5.0;
 float elevationActual           = 0.0;
 float elevationTarget           = 0.0;
 const float elevationTolerance  = 5.0;
+#endif
 // Define 3 fixed targets for operation in the exhibition booth.
 #ifdef USE_FIXED_TARGETS
 int fixedTargetSel;
@@ -354,7 +363,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #undef FIND_ZERO_POSITIONS
 #undef FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
-#undef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
+#undef INIT_HARDWARE_BEFORE_EVERY_GAME
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #undef USE_FIXED_TARGETS
@@ -383,7 +392,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define FIND_ZERO_POSITIONS
 #define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
-#define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
+#define INIT_HARDWARE_BEFORE_EVERY_GAME
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #undef USE_FIXED_TARGETS
@@ -412,7 +421,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define FIND_ZERO_POSITIONS
 #define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
-#define FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
+#define INIT_HARDWARE_BEFORE_EVERY_GAME
 #define MOVE_TELESCOPE_TO_PARKING_POSITION
 #define USE_RANDOM_SEED_FROM_ANALOG_INPUT
 #define USE_FIXED_TARGETS
@@ -532,6 +541,7 @@ void setup() {
 
 void loop() {
 
+  // Initialize the hardware.
   initHardware();
 
   // Automatically move the telescope between given coordinates for testing.
@@ -635,12 +645,10 @@ int initHardware() {
   SERIAL_CONTROL.print(String(CONTROL_MSG_INIT) + String(CONTROL_MSG_EOL));
   #endif
 
-  #ifdef SIMULATION_MODE
-  // Do not try to find the zero positions of the stepper motors in simulation mode.
-  ret = 0;
-  #else
   // Find the zero positions of the stepper motors.
   #ifdef FIND_ZERO_POSITIONS
+  // Do not try to find the zero positions of the stepper motors in simulation mode.
+  #ifndef SIMULATION_MODE
   ret = stepperFindZeroPosition();
   // Error while finding the zero positions.
   if (ret) {
@@ -805,12 +813,20 @@ int initGame() {
   digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
   digitalWrite(PIN_LED_ELEVATION_TOP, LOW);
 
-  // Find the zero positions of the stepper motors before every game.
-  #ifdef FIND_ZERO_POS_CHECK_BEFORE_EVERY_GAME
-  // First move the telescope close to its physical minimum position.
-  ret = moveTelscope(PHYSICAL_LIMIT_AZIMUTH_LEFT + 5, PHYSICAL_LIMIT_ELEVATION_BOTTOM + 5);     // 5 degrees before physical limits.
-  // Initialize the hardware.
-  ret = initHardware();
+  // Initialize the hardware before every game.
+  #ifdef INIT_HARDWARE_BEFORE_EVERY_GAME
+  // Do not initialize the hardware twice at power up or after a reset, i.e. during the first run of the initGame function.
+  static bool firstRun = true;
+  if (! firstRun) {
+    // First move the telescope close to its physical minimum position to minimize the way for finding the zero positions.
+    // Don't do this in simulation mode.
+    #ifndef SIMULATION_MODE
+    ret = moveTelscope(PHYSICAL_LIMIT_AZIMUTH_LEFT + 5, PHYSICAL_LIMIT_ELEVATION_BOTTOM + 5);   // 5 degrees before physical limits.
+    #endif
+    // Initialize the hardware.
+    ret = initHardware();
+  }
+  firstRun = false;
   #endif
 
   // Move the telescope to its parking position.
