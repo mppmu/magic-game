@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 26 Apr 2023
+// Rev.: 27 Apr 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -25,8 +25,8 @@
 
 
 #define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.22"
-#define FW_RELEASEDATE  "26 Apr 2023"
+#define FW_VERSION      "0.0.23"
+#define FW_RELEASEDATE  "27 Apr 2023"
 
 
 
@@ -64,6 +64,7 @@
 #define ENABLE_CONTROL_MSG
 #define ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define CONTROL_MSG_EOL                     "\r\n"
@@ -352,6 +353,9 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 
 // Settings based on pre-defined configurations.
 #ifdef CONFIGURATION_SIMULATION
+#if defined(CONFIGURATION_BENCH_TOP_OPERATION) || defined(CONFIGURATION_EXHIBITION_BOOTH_OPERATION)
+#error "Only one configuration can be active at a time!"
+#endif
 #define SIMULATION_MODE
 #undef DEBUG_MODE_SHOW_STEPS
 #undef DEBUG_MODE_SHOW_POSITIONS
@@ -359,6 +363,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define ENABLE_CONTROL_MSG
 #define ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #undef FIND_ZERO_POSITIONS
@@ -381,6 +386,9 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #endif  // CONFIGURATION_SIMULATION
 
 #ifdef CONFIGURATION_BENCH_TOP_OPERATION
+#if defined(CONFIGURATION_SIMULATION) || defined(CONFIGURATION_EXHIBITION_BOOTH_OPERATION)
+#error "Only one configuration can be active at a time!"
+#endif
 #undef SIMULATION_MODE
 #undef DEBUG_MODE_SHOW_STEPS
 #undef DEBUG_MODE_SHOW_POSITIONS
@@ -388,6 +396,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define ENABLE_CONTROL_MSG
 #define ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define FIND_ZERO_POSITIONS
@@ -410,6 +419,9 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #endif  // CONFIGURATION_BENCH_TOP_OPERATION
 
 #ifdef CONFIGURATION_EXHIBITION_BOOTH_OPERATION
+#if defined(CONFIGURATION_SIMULATION) || defined(CONFIGURATION_BENCH_TOP_OPERATION)
+#error "Only one configuration can be active at a time!"
+#endif
 #undef SIMULATION_MODE
 #undef DEBUG_MODE_SHOW_STEPS
 #undef DEBUG_MODE_SHOW_POSITIONS
@@ -417,6 +429,7 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #define ENABLE_CONTROL_MSG
 #undef ENABLE_CONTROL_MSG_PROGRESS
 #define ENABLE_CONTROL_MSG_COUNTDOWN
+#define ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL
 #define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
 #define FIND_ZERO_POSITIONS
@@ -997,24 +1010,28 @@ int playGame() {
   long stepsMax;
   long timeStart;
   long timeElapsed;
-  float timeElapsedScale;
   #ifdef ENABLE_CONTROL_MSG
   bool controlMsgProgress[6];
   for (int i = 0; i < sizeof(controlMsgProgress) / sizeof(controlMsgProgress[0]); i++) controlMsgProgress[i] = false;
   #ifdef ENABLE_CONTROL_MSG_COUNTDOWN
-  int controlMsgCountdown = 10;     // Countdown in seconds.
-  #endif
+  const int controlMsgCountdownStart = 10;      // Countdown in seconds.
+  int controlMsgCountdown = controlMsgCountdownStart;
+  #ifdef ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
+  const int controlMsgCountdownPreWarn = 20;    // Pre-warning in seconds before the end of the game.
+  controlMsgCountdown = controlMsgCountdownPreWarn;
+  #endif    // ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
+  #endif    // ENABLE_CONTROL_MSG_COUNTDOWN
   #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL
   #ifdef ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
   bool targetMatch = false;
   // Send message for target miss at game start for differential only mode to
   // provide the first feedback.
   SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
-  #endif
+  #endif    // ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
   bool targetMatchAzimuth;
   bool targetMatchElevation;
-  #endif
-  #endif
+  #endif    // ENABLE_CONTROL_MSG_IN_GAME_EVAL
+  #endif    // ENABLE_CONTROL_MSG
 
   #ifdef DEBUG_MODE_SHOW_STEPS
   lcd.clear();
@@ -1023,12 +1040,26 @@ int playGame() {
   timeStart = millis();
 
   #ifdef SIMULATION_MODE
-//  timeElapsedScale = 1.0;
-  timeElapsedScale = 2.0;
+  // Time steps to indicate the game progress.
+  const long timeProgress1 =   500;
+  const long timeProgress2 =  6000;
+  const long timeProgress3 = 12000;
+  const long timeProgress4 = 18000;
+  const long timeProgress5 = 24000;
+  const long timeProgress6 = 30000;
+  // Scaling factor for the time progress.
+  const float timeElapsedScale = 1.0;
   #else
-//  timeElapsedScale = 1.0;
-  timeElapsedScale = 2.0;
-  #endif
+  // Time steps to indicate the game progress.
+  const long timeProgress1 =   500;
+  const long timeProgress2 =  6000;
+  const long timeProgress3 = 12000;
+  const long timeProgress4 = 18000;
+  const long timeProgress5 = 24000;
+  const long timeProgress6 = 30000;
+  // Scaling factor for the time progress.
+  const float timeElapsedScale = 1.0;
+  #endif    // SIMULATION_MODE
 
   while (true) {
     // Show the progress of the physics event (gamma ray -> Cherenkov light).
@@ -1036,25 +1067,31 @@ int playGame() {
     #ifdef ENABLE_CONTROL_MSG
     #ifdef ENABLE_CONTROL_MSG_PROGRESS
     // Send progress command.
-    if ((timeElapsed >   250 * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + String(CONTROL_MSG_EOL)); controlMsgProgress[0] = true; }
-    if ((timeElapsed >  3000 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + String(CONTROL_MSG_EOL)); controlMsgProgress[1] = true; }
-    if ((timeElapsed >  6000 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + String(CONTROL_MSG_EOL)); controlMsgProgress[2] = true; }
-    if ((timeElapsed >  9000 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + String(CONTROL_MSG_EOL)); controlMsgProgress[3] = true; }
-    if ((timeElapsed > 12000 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + String(CONTROL_MSG_EOL)); controlMsgProgress[4] = true; }
-    if ((timeElapsed > 15000 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + String(CONTROL_MSG_EOL)); controlMsgProgress[5] = true; }
-    #endif
+    if ((timeElapsed > timeProgress1 * timeElapsedScale) && (controlMsgProgress[0] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 1" + String(CONTROL_MSG_EOL)); controlMsgProgress[0] = true; }
+    if ((timeElapsed > timeProgress2 * timeElapsedScale) && (controlMsgProgress[1] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 2" + String(CONTROL_MSG_EOL)); controlMsgProgress[1] = true; }
+    if ((timeElapsed > timeProgress3 * timeElapsedScale) && (controlMsgProgress[2] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 3" + String(CONTROL_MSG_EOL)); controlMsgProgress[2] = true; }
+    if ((timeElapsed > timeProgress4 * timeElapsedScale) && (controlMsgProgress[3] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 4" + String(CONTROL_MSG_EOL)); controlMsgProgress[3] = true; }
+    if ((timeElapsed > timeProgress5 * timeElapsedScale) && (controlMsgProgress[4] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 5" + String(CONTROL_MSG_EOL)); controlMsgProgress[4] = true; }
+    if ((timeElapsed > timeProgress6 * timeElapsedScale) && (controlMsgProgress[5] == false)) { SERIAL_CONTROL.print(String(CONTROL_MSG_PROGRESS) + " 6" + String(CONTROL_MSG_EOL)); controlMsgProgress[5] = true; }
+    #endif  // ENABLE_CONTROL_MSG_PROGRESS
     #ifdef ENABLE_CONTROL_MSG_COUNTDOWN
     // Send countdown command.
-    if (timeElapsed > (15000 * timeElapsedScale) - (controlMsgCountdown * 1000)) { SERIAL_CONTROL.print(String(CONTROL_MSG_COUNTDOWN) + " " + String(controlMsgCountdown) + String(CONTROL_MSG_EOL)); controlMsgCountdown -= 1; }
-    #endif
-    #endif
-    if (timeElapsed >   250 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
-    if (timeElapsed >  3000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
-    if (timeElapsed >  6000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
-    if (timeElapsed >  9000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
-    if (timeElapsed > 12000 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
+    if (timeElapsed > (timeProgress6 * timeElapsedScale) - (controlMsgCountdown * 1000)) {
+      SERIAL_CONTROL.print(String(CONTROL_MSG_COUNTDOWN) + " " + String(controlMsgCountdown) + String(CONTROL_MSG_EOL));
+      #ifdef ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
+      if (controlMsgCountdown == controlMsgCountdownPreWarn) controlMsgCountdown = controlMsgCountdownStart;
+      #endif
+      controlMsgCountdown -= 1;
+    }
+    #endif  // ENABLE_CONTROL_MSG_COUNTDOWN
+    #endif  // ENABLE_CONTROL_MSG
+    if (timeElapsed > timeProgress1 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_1, HIGH);
+    if (timeElapsed > timeProgress2 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_2, HIGH);
+    if (timeElapsed > timeProgress3 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_3, HIGH);
+    if (timeElapsed > timeProgress4 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_4, HIGH);
+    if (timeElapsed > timeProgress5 * timeElapsedScale) digitalWrite(PIN_LED_PROGRESS_5, HIGH);
     #ifndef INFINITE_GAME_LOOP
-    if (timeElapsed > 15000 * timeElapsedScale) {
+    if (timeElapsed > timeProgress6 * timeElapsedScale) {
       // End the game.
       ret = endGame();
       return ret;
@@ -1082,7 +1119,7 @@ int playGame() {
     lcd.print("DBG stp. az: " + String(stepsAzimuth) + "  ");
     lcd.setCursor(0, 1);
     lcd.print("DBG stp. el: " + String(stepsElevation) + "  ");
-    #endif
+    #endif  // DEBUG_MODE_SHOW_STEPS
 
     // Check if any limit switch got activated.
     if (!digitalRead(PIN_SW_LIMIT_AZIMUTH_LEFT) || !digitalRead(PIN_SW_LIMIT_AZIMUTH_RIGHT) ||
@@ -1227,7 +1264,7 @@ int playGame() {
           targetMatch = false;
         }
       }
-    #else
+    #else   // ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
     if (targetMatchAzimuth && targetMatchElevation) {
       SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MATCH) + String(CONTROL_MSG_EOL));
       #ifdef END_GAME_AT_TARGET_POSITION
@@ -1238,9 +1275,9 @@ int playGame() {
     } else {
       SERIAL_CONTROL.print(String(CONTROL_MSG_TARGET_MISS) + String(CONTROL_MSG_EOL));
     }
-    #endif
-    #endif
-    #endif
+    #endif  // ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
+    #endif  // ENABLE_CONTROL_MSG_IN_GAME_EVAL
+    #endif  // ENABLE_CONTROL_MSG
 
     #ifdef END_GAME_AT_TARGET_POSITION
     if ((azimuthActual > azimuthTarget - azimuthTolerance) && (azimuthActual < azimuthTarget + azimuthTolerance) &&
