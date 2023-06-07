@@ -2,7 +2,7 @@
 // Auth: M. Fras, Electronics Division, MPI for Physics, Munich
 // Mod.: M. Fras, Electronics Division, MPI for Physics, Munich
 // Date: 25 Nov 2022
-// Rev.: 27 Apr 2023
+// Rev.: 07 Jun 2023
 //
 // Firmware for the Arduino Mega 2560 Rev 3 to control the telescope model of
 // the MAGIC Game via the MAGIC Game board.
@@ -24,9 +24,10 @@
 
 
 
-#define FW_NAME         "MagicGame"
-#define FW_VERSION      "0.0.23"
-#define FW_RELEASEDATE  "27 Apr 2023"
+#define FW_NAME             "MagicGame"
+#define FW_VERSION          "0.0.24"
+#define FW_RELEASEDATE      "07 Jun 2023"
+#define FW_CONFIGURATION    "Custom"
 
 
 
@@ -36,9 +37,11 @@
 // 2. Bench top operation using the analog Joy-IT KY-023 joystick module.
 // 3. Exhibition booth operation using the Sanwa JLF-TP-8YT-K digital joystick
 //    in connection with the Joystick Adapter board V1.0 or V1.1.
+// 4. Free movement of the telescope. Ignore timeout and target position.
 //#define CONFIGURATION_SIMULATION
 //#define CONFIGURATION_BENCH_TOP_OPERATION
 #define CONFIGURATION_EXHIBITION_BOOTH_OPERATION
+//#define CONFIGURATION_FREE_MOVEMENT
 
 // For simulation with SimulIDE.
 //#define SIMULATION_MODE
@@ -353,9 +356,11 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 
 // Settings based on pre-defined configurations.
 #ifdef CONFIGURATION_SIMULATION
-#if defined(CONFIGURATION_BENCH_TOP_OPERATION) || defined(CONFIGURATION_EXHIBITION_BOOTH_OPERATION)
+#if defined(CONFIGURATION_BENCH_TOP_OPERATION) || defined(CONFIGURATION_EXHIBITION_BOOTH_OPERATION) || defined(CONFIGURATION_FREE_MOVEMENT)
 #error "Only one configuration can be active at a time!"
 #endif
+#undef FW_CONFIGURATION
+#define FW_CONFIGURATION "Simulation"
 #define SIMULATION_MODE
 #undef DEBUG_MODE_SHOW_STEPS
 #undef DEBUG_MODE_SHOW_POSITIONS
@@ -386,9 +391,11 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #endif  // CONFIGURATION_SIMULATION
 
 #ifdef CONFIGURATION_BENCH_TOP_OPERATION
-#if defined(CONFIGURATION_SIMULATION) || defined(CONFIGURATION_EXHIBITION_BOOTH_OPERATION)
+#if defined(CONFIGURATION_SIMULATION) || defined(CONFIGURATION_EXHIBITION_BOOTH_OPERATION) || defined(CONFIGURATION_FREE_MOVEMENT
 #error "Only one configuration can be active at a time!"
 #endif
+#undef FW_CONFIGURATION
+#define FW_CONFIGURATION "Bench top operation"
 #undef SIMULATION_MODE
 #undef DEBUG_MODE_SHOW_STEPS
 #undef DEBUG_MODE_SHOW_POSITIONS
@@ -419,9 +426,11 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #endif  // CONFIGURATION_BENCH_TOP_OPERATION
 
 #ifdef CONFIGURATION_EXHIBITION_BOOTH_OPERATION
-#if defined(CONFIGURATION_SIMULATION) || defined(CONFIGURATION_BENCH_TOP_OPERATION)
+#if defined(CONFIGURATION_SIMULATION) || defined(CONFIGURATION_BENCH_TOP_OPERATION) || defined(CONFIGURATION_FREE_MOVEMENT)
 #error "Only one configuration can be active at a time!"
 #endif
+#undef FW_CONFIGURATION
+#define FW_CONFIGURATION "Exhibition booth operation"
 #undef SIMULATION_MODE
 #undef DEBUG_MODE_SHOW_STEPS
 #undef DEBUG_MODE_SHOW_POSITIONS
@@ -451,6 +460,41 @@ LiquidCrystal lcd(PIN_LCD_RS, PIN_LCD_EN, PIN_LCD_D4, PIN_LCD_D5, PIN_LCD_D6, PI
 #undef IGNORE_SOFT_LIMITS_ELEVATION
 #endif  // CONFIGURATION_EXHIBITION_BOOTH_OPERATION
 
+#ifdef CONFIGURATION_FREE_MOVEMENT
+#if defined(CONFIGURATION_SIMULATION) || defined(CONFIGURATION_BENCH_TOP_OPERATION) || defined(CONFIGURATION_BENCH_TOP_OPERATION)
+#error "Only one configuration can be active at a time!"
+#endif
+#undef FW_CONFIGURATION
+#define FW_CONFIGURATION "Free movement"
+#undef SIMULATION_MODE
+#undef DEBUG_MODE_SHOW_STEPS
+#undef DEBUG_MODE_SHOW_POSITIONS
+#undef DEBUG_SERIAL
+#define ENABLE_CONTROL_MSG
+#undef ENABLE_CONTROL_MSG_PROGRESS
+#undef ENABLE_CONTROL_MSG_COUNTDOWN
+#undef ENABLE_CONTROL_MSG_COUNTDOWN_PRE_WARN
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL
+#define ENABLE_CONTROL_MSG_IN_GAME_EVAL_DIFF_ONLY
+#define FIND_ZERO_POSITIONS
+#define FIND_ZERO_POS_CHECK_WRONG_LIMIT_SW
+#define INIT_HARDWARE_BEFORE_EVERY_GAME
+#define MOVE_TELESCOPE_TO_PARKING_POSITION
+#define USE_RANDOM_SEED_FROM_ANALOG_INPUT
+#undef USE_FIXED_TARGETS
+#undef END_GAME_AT_TARGET_POSITION
+#define JOYSTICK_SWAP_AZIMUTH_ELEVATION
+#undef PIN_JOYSTICK_AZ
+#undef PIN_JOYSTICK_EL
+#define PIN_JOYSTICK_AZ                     A1
+#define PIN_JOYSTICK_EL                     A0
+#define JOYSTICK_INVERT_AZIMUTH
+#define JOYSTICK_INVERT_ELEVATION
+#define INFINITE_GAME_LOOP
+#undef IGNORE_SOFT_LIMITS_AZIMUTH
+#undef IGNORE_SOFT_LIMITS_ELEVATION
+#endif  // CONFIGURATION_FREE_MOVEMENT
+
 
 
 void setup() {
@@ -473,6 +517,8 @@ void setup() {
   SERIAL_CONSOLE.print(FW_VERSION);
   SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "- Date: ");
   SERIAL_CONSOLE.print(FW_RELEASEDATE);
+  SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL) + "- Mode: ");
+  SERIAL_CONSOLE.print(FW_CONFIGURATION);
   SERIAL_CONSOLE.print(String(CONSOLE_MSG_EOL));
 
   // Set the speed of the stepper motors.
